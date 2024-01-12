@@ -1,0 +1,20 @@
+[13-Mar-2023 11:29:12 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function GetFarmerCode() in /home/xus69az964su/public_html/products/lims/Suppliers.php:182
+Stack trace:
+#0 {main}
+  thrown in /home/xus69az964su/public_html/products/lims/Suppliers.php on line 182
+[13-Mar-2023 11:29:16 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function GetFarmerCode() in /home/xus69az964su/public_html/products/lims/Suppliers.php:182
+Stack trace:
+#0 {main}
+  thrown in /home/xus69az964su/public_html/products/lims/Suppliers.php on line 182
+[13-Mar-2023 11:29:33 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function GetFarmerCode() in /home/xus69az964su/public_html/products/lims/Suppliers.php:182
+Stack trace:
+#0 {main}
+  thrown in /home/xus69az964su/public_html/products/lims/Suppliers.php on line 182
+[13-Mar-2023 11:29:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function GetFarmerCode() in /home/xus69az964su/public_html/products/lims/Suppliers.php:182
+Stack trace:
+#0 {main}
+  thrown in /home/xus69az964su/public_html/products/lims/Suppliers.php on line 182
+[13-Mar-2023 11:30:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined function GetFarmerCode() in /home/xus69az964su/public_html/products/lims/Suppliers.php:182
+Stack trace:
+#0 {main}
+  thrown in /home/xus69az964su/public_html/products/lims/Suppliers.php on line 182
