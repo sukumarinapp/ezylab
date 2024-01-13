@@ -78,10 +78,10 @@ if (isset($_POST['add_patient'])) {
     }
 
     .row-padded {
-        background-color: #F7F7F7;
+        background-color: #0b5ed7;
         padding: 1px;
         margin: 4px;
-        border: 1px solid #DDD;
+        border: 1px black;
     }
 </style> <?php include ("headercss.php"); ?>
 <title>Dashtrans</title>
@@ -237,7 +237,7 @@ if (isset($_POST['add_patient'])) {
                                 </div>
                                 <div class="col-md-3 pull-right">
                                     <input style="text-align: right" type="text" name="home_visit" id="home_visit"
-                                    class="form-control" onkeypress="return isNumberDecimalKey(event)"
+                                    class="form-control" onkeypress="return isNumberKey(event)"
                                     onkeyup="calculate_net_amount()">
                                 </div>
                                 <div class="col-md-2">&nbsp;</div>
@@ -346,8 +346,6 @@ if (isset($_POST['add_patient'])) {
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
 <div class="modal fade" id="add_patient" tabindex="-1" role="dialog" aria-labelledby="myModalLabelLarge"
@@ -679,8 +677,8 @@ aria-hidden="true">
         tokenarr.splice(idxObj, 1);
         $("#"+test_id).prop("checked",false);
         $("#profile_"+test_id).prop("checked",false);
-        $("#dept_"+test_id).css("background-color","#F7F7F7");
-        $("#dept_profile"+test_id).css("background-color","#F7F7F7");
+        $("#dept_"+test_id).css("background-color","#0b5ed7");
+        $("#dept_profile"+test_id).css("background-color","#0b5ed7");
     });
 
      $('.poptest').click(function() {
@@ -705,8 +703,8 @@ aria-hidden="true">
               return object.value === test_id;
             });
             tokenarr.splice(idxObj, 1);
-            $("#dept_"+test_id).css("background-color","#F7F7F7");
-            $("#dept_profile"+test_id).css("background-color","#F7F7F7");
+            $("#dept_"+test_id).css("background-color","#0b5ed7");
+            $("#dept_profile"+test_id).css("background-color","#0b5ed7");
             mytagsinput.tagsinput('remove', { id: test_id, text: test_name});
         }
     });
@@ -1003,9 +1001,12 @@ $(document).ready(function() {
         var ref_prefix = $('#ref_prefix').val();
         var reference = $('#reference').val();
         var total_amount = DecimalPoint($('#total_amount').val());
-        var cgst_tax = DecimalPoint($('#cgst').val());
-        var sgst_tax = DecimalPoint($('#sgst').val());
-        var home_visit = DecimalPoint($('#home_visit').val());
+        var cgst_tax = 0;
+        var sgst_tax = 0;
+        var home_visit = 0;
+        if($('#home_visit').val() != ""){
+             home_visit = parseInt($('#home_visit').val());
+        }
         var payment_method = $('#payment_method').val();
         var reference_no = $('#reference_no').val();
         var pay_amount = $('#pay_amount').val();

@@ -56,7 +56,7 @@
    }
 
    ?>
-<?php include ("css.php"); ?>
+<?php include ("headercss.php"); ?>
 <title>Dashtrans</title>
 </head>
 <body class="bg-theme bg-theme2">

@@ -39,7 +39,7 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     $result_5 = $things[14];
     $result_6 = $things[15];
     $date = $things[16];
-    $time = $things[17];
+    $time = date("H:i:s");
 
     //    $image = $_FILES[$photo]['name'];
 

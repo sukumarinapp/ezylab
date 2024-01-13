@@ -523,19 +523,8 @@ $TestResult = GetAllRows($TestQuery);
             },
             success: function (entry_id) {
                 $("#save_button").prop("disabled", false);
-
-                swal({
-                        title: "Success",
-                        text: "Test Details Added Successfully!",
-                        type: "success",
-                        showCancelButton: true,
-                        confirmButtonClass: "btn-success",
-                        confirmButtonText: "OK",
-                        closeOnConfirm: false
-                    },
-                    function () {
-                        location.href = "TestEntry";
-                    });
+                swal("Success!", "Test Details Added Successfully!", "success");
+                window.location.href = "TestEntry";
             }
         });
     }
