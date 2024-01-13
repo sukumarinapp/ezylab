@@ -109,18 +109,18 @@ DROP TABLE IF EXISTS `macho_bill_items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `macho_bill_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bill_id` int(11) NOT NULL,
-  `item_id` varchar(100) NOT NULL,
-  `item_type` varchar(20) NOT NULL,
-  `item_name` varchar(100) NOT NULL,
-  `test_category` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `uom` varchar(30) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
-  `gst` decimal(10,2) NOT NULL,
-  `amount` decimal(10,2) NOT NULL,
+  `bill_id` int(11) DEFAULT 0,
+  `item_id` varchar(100) DEFAULT NULL,
+  `item_type` varchar(20) DEFAULT NULL,
+  `item_name` varchar(100) DEFAULT NULL,
+  `test_category` int(11) DEFAULT 0,
+  `quantity` int(11) DEFAULT 0,
+  `uom` varchar(30) DEFAULT NULL,
+  `unit_price` decimal(10,2) DEFAULT 0,
+  `gst` decimal(10,2) DEFAULT 0,
+  `amount` decimal(10,2) DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,24 +142,24 @@ DROP TABLE IF EXISTS `macho_billing`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `macho_billing` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `billnum` varchar(20) NOT NULL,
+  `billnum` varchar(20) DEFAULT NULL,
   `bill_date` date NOT NULL,
-  `bill_description` varchar(100) NOT NULL,
-  `patient_name` varchar(100) NOT NULL,
-  `patient_id` varchar(20) NOT NULL,
-  `ref_prefix` varchar(20) NOT NULL,
-  `reference` varchar(100) NOT NULL,
-  `total` decimal(10,2) NOT NULL,
-  `net_amount` decimal(10,2) NOT NULL,
-  `cgst` decimal(10,2) NOT NULL,
-  `sgst` decimal(10,2) NOT NULL,
-  `home_visit` decimal(10,2) NOT NULL,
-  `payment_method` varchar(100) NOT NULL,
-  `reference_no` varchar(100) NOT NULL,
-  `bill_status` tinyint(11) NOT NULL DEFAULT 0,
+  `bill_description` varchar(100) DEFAULT NULL,
+  `patient_name` varchar(100) DEFAULT NULL,
+  `patient_id` varchar(20) DEFAULT NULL,
+  `ref_prefix` varchar(20) DEFAULT NULL,
+  `reference` varchar(100) DEFAULT NULL,
+  `total` decimal(10,2) DEFAULT 0,
+  `net_amount` decimal(10,2) DEFAULT 0,
+  `cgst` decimal(10,2) DEFAULT 0,
+  `sgst` decimal(10,2) DEFAULT 0,
+  `home_visit` decimal(10,2) DEFAULT 0,
+  `payment_method` varchar(100) DEFAULT NULL,
+  `reference_no` varchar(100) DEFAULT NULL,
+  `bill_status` tinyint(11) DEFAULT 0,
   `created_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
