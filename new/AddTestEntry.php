@@ -26,7 +26,7 @@ $TestQuery = "SELECT a.*,b.test_code,b.remarks,b.test_category FROM macho_bill_i
 $TestResult = GetAllRows($TestQuery);
 ?>
 
-<?php include ("css.php"); ?>
+<?php include ("headercss.php"); ?>
 <title><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?></title>
 </head>
 <body class="bg-theme bg-theme2">
