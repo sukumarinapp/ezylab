@@ -490,7 +490,7 @@ $PageAccessible = IsPageAccessible($user_id, 'GroupProfile');
             }
 
             var sales_data = JSON.stringify(sales);
-
+             console.log(sales_data);
             $.ajax({
                 type: 'POST',
                 url: 'SaveProfileEntry.php',

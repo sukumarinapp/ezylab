@@ -1047,7 +1047,7 @@ $(document).ready(function() {
         }
 
         var sales_data = JSON.stringify(sales);
-        console.log(sales_data);
+       
 
         $.ajax({
             type: 'POST',
