@@ -46,7 +46,7 @@ for ($i = 0; $i < $sales_array_count; $i++) {
             'profile_id' => Filter($profile_id),
             'item_id' => Filter($item_id),
             'item_name' => $item_name,
-            'test_category' => Filter($item_category),
+            'test_category' => $profile_id,
             'amount' => Filter($item_amount),
         )
     );
