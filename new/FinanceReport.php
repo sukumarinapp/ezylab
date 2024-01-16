@@ -13,12 +13,12 @@ ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $PageAccessible = IsPageAccessible($user_id, $page);
-$start_date = date("01-m-Y");
-$end_date = date("d-m-Y");
+$start_date = date("Y-m-01");
+$end_date = date("Y-m-d");
 
 if (isset($_POST['add_submit'])) {
-    $start_date = date("d-m-Y", strtotime($_POST['startdate']));
-    $end_date = date("d-m-Y", strtotime($_POST['enddate']));
+    $start_date = date("Y-m-d", strtotime($_POST['startdate']));
+    $end_date = date("Y-m-d", strtotime($_POST['enddate']));
 }
 ?>
 
@@ -70,12 +70,12 @@ if (isset($_POST['add_submit'])) {
                             <form action="" method="post" class="search-form">
                                 <div class="btn-toolbar">
                                     <div class="form-group">
-                                        <input type="text" name="startdate" id="startdate"
+                                        <input type="date" name="startdate" id="startdate"
                                                class="form-control" data-date-format="dd-mm-yyyy"
                                                value="<?php echo $start_date; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="enddate" id="enddate"
+                                        <input type="date" name="enddate" id="enddate"
                                                class="form-control" data-date-format="dd-mm-yyyy"
                                                value="<?php echo $end_date; ?>">
                                     </div>

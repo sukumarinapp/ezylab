@@ -34,7 +34,7 @@ foreach ($ProfileResult as $ProfileData) {
             <?= $TestTypeData['price']; ?>
         </td>
         <td width='50px' style='text-align: center' valign='middle'>
-            <button class='btn btn-danger' onclick="delete_row(<?= $i; ?>)"><em class="fa fa-trash"></em></button>
+            <a class='btn btn-info btn-danger' onclick="delete_row(<?= $i; ?>)"><em class="fa fa-trash"></em></a>
         </td>
     </tr>
     <?php

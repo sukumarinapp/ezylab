@@ -444,10 +444,10 @@ $PageAccessible = IsPageAccessible($user_id, 'GroupProfile');
 
     function submit_data() {
         var net_amount = parseFloat($('#total_amount').val());
-        if (isNaN(net_amount) || net_amount < 0) {
-            swal("Total should be greater than zero");
-            return;
-        } else {
+        //if (isNaN(net_amount) || net_amount < 0) {
+            //swal("Total should be greater than zero");
+            //return;
+        //} else {
             var profile_name = $('#profile_name').val();
             if(profile_name == ""){
                 swal("Please enter Profile Name");
@@ -473,7 +473,7 @@ $PageAccessible = IsPageAccessible($user_id, 'GroupProfile');
 
             for (var j = 0; j < item_id_length; j++) {
                 var item_amount2 = item_amount.eq(j).val();
-                if (item_amount2 != 0) {
+                //if (item_amount2 != 0) {
 
                     var record = {
                         'item_id': item_id.eq(j).val(),
@@ -486,7 +486,7 @@ $PageAccessible = IsPageAccessible($user_id, 'GroupProfile');
                         'item_amount': item_amount2
                     };
                     sales.push(record);
-                }
+                //}
             }
 
             var sales_data = JSON.stringify(sales);
@@ -509,7 +509,7 @@ $PageAccessible = IsPageAccessible($user_id, 'GroupProfile');
                     location.href = "GroupProfile";
                 }
             });
-        }
+        //}
     }
 </script>
 </body>

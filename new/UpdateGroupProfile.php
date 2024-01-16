@@ -369,7 +369,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                 + "<input value='" + amount + "' name='item_amount[]' type='hidden'>"
                 + item_name + "</td>"
                 + "<td style='text-align: right'>" + amount + "</td>"
-                + "<td width='50px' style='text-align: center' valign='middle'><button class='btn btn-danger' onclick='delete_row(" + i + ")'><em class='fa fa-trash'></em></button></td>");
+                + "<td width='50px' style='text-align: center' valign='middle'><a class='btn btn-danger' onclick='delete_row(" + i + ")'><em class='fa fa-trash'></em></a></td>");
             $('#tab_logic').append('<tr class="row_class" id="addr' + (i + 1) + '"></tr>');
             i++;
             set_fix();
@@ -440,10 +440,10 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
 
     function submit_data() {
         var net_amount = parseFloat($('#total_amount').val());
-        if (isNaN(net_amount) || net_amount < 0) {
-            swal("Total should be greater than zero");
-            return;
-        } else {
+        //if (isNaN(net_amount) || net_amount < 0) {
+            //swal("Total should be greater than zero");
+            //return;
+        //} else {
             var profile_id = $('#profile_id').val();
             var profile_name = $('#profile_name').val();
             if(profile_name == ""){
@@ -470,7 +470,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
 
             for (var j = 0; j < item_id_length; j++) {
                 var item_amount2 = item_amount.eq(j).val();
-                if (item_amount2 != 0) {
+                //if (item_amount2 != 0) {
 
                     var record = {
                         'item_id': item_id.eq(j).val(),
@@ -483,7 +483,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                         'item_amount': item_amount2
                     };
                     sales.push(record);
-                }
+                //}
             }
 
             var sales_data = JSON.stringify(sales);
@@ -508,7 +508,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                     location.href = "GroupProfile";
                 }
             });
-        }
+        //}
     }
 </script>
 </body>
