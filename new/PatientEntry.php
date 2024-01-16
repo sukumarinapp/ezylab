@@ -990,10 +990,10 @@ $(document).ready(function() {
         return;
     }
     var net_amount = parseFloat($('#net_amount').val());
-    if (isNaN(net_amount) || net_amount <= 0) {
-        swal("Net Total should be greater than zero");
-        return;
-    } else {
+    //if (isNaN(net_amount) || net_amount <= 0) {
+        //swal("Net Total should be greater than zero");
+        //return;
+    //} else {
         var bill_num = $('#bill_num').val();
         var bill_date = $('#bill_date').val();
         var entry_time = $('#entry_time').val();
@@ -1087,7 +1087,7 @@ $(document).ready(function() {
                 $('#modal_view').modal('show');
             }
         });
-    }
+    //}
 }
 
 function PrintBill(id) {

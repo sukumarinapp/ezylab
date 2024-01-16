@@ -503,16 +503,8 @@ aria-hidden="true">
 
 <script>
 
-    $(function () {
+     $( document ).ready(function() {
         //Date picker
-        $('#start_date').datepicker({
-            autoclose: true
-        });
-
-        $('#end_date').datepicker({
-            autoclose: true
-        });
-
 
         $('#type_test').change(function () {
             var type_test = $(this).val();

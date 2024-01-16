@@ -3,6 +3,7 @@ include_once 'booster/bridge.php';
 IsAjaxRequest();
 $id = Filter($_POST['id']);
 $TestTypeData = SelectParticularRow('macho_test_type', 'id', $id);
+//print_r($TestTypeData);die;
 $today = date("Y-m-d");
 ?>
 
@@ -102,13 +103,13 @@ $today = date("Y-m-d");
             </select>
         </div>
         
-            <!-- <div id='table_tab2'>
+             <div id='table_tab2'>
                 <div class="form-group">
                     <label class="col-form-label">Table Input </label>
                     <textarea class="form-control" name="table_input" id="table_input" maxlength="500" rows="5"
-                        tabindex="9"><?php //$TestTypeData['table_input']; ?></textarea>
+                        tabindex="9"><?php echo $TestTypeData['table_input']; ?></textarea>
                 </div>
-            </div> -->
+            </div> 
        
             <div id='others_tab2'>
                 <div class="form-group">
@@ -155,7 +156,7 @@ $today = date("Y-m-d");
 </div>
 
 <script>
-    $(function () {
+     $( document ).ready(function() {
         var type_test = $('#type_test2').val();
         if (type_test == 'Table') {
             $('#table_tab2').show();
@@ -164,7 +165,7 @@ $today = date("Y-m-d");
             $('#others_tab2').show();
             $('#table_tab2').hide();
         }
-    });
+    
 
     $('#type_test2').change(function () {
             var type_test = $(this).val();
@@ -176,4 +177,5 @@ $today = date("Y-m-d");
                 $('#table_tab2').hide();
             }
         });
+    });
 </script>

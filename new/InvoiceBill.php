@@ -13,12 +13,12 @@ ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $PageAccessible = IsPageAccessible($user_id, $page);
-$start_date = date("01-m-Y");
-$end_date = date("d-m-Y");
+$start_date = date("Y-m-01");
+$end_date = date("Y-m-d");
 
 if (isset($_POST['search'])) {
-    $start_date = date("d-m-Y", strtotime($_POST['startdate']));
-    $end_date = date("d-m-Y", strtotime($_POST['enddate']));
+    $start_date = date("Y-m-d", strtotime($_POST['startdate']));
+    $end_date = date("Y-m-d", strtotime($_POST['enddate']));
 }
 ?>
 
@@ -72,7 +72,7 @@ if (isset($_POST['search'])) {
                 <div class="card-header">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <?php if ($PageAccessible['is_write'] == 1) { ?>
                                     <button type="button" class="btn btn-sm btn-white" title="New Entry"
                                         onClick="location.href='AddBill';"><i class="fa fa-plus"></i>
@@ -80,18 +80,19 @@ if (isset($_POST['search'])) {
                                     </button>
                                 <?php } ?>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <?php if ($PageAccessible['is_read'] == 1) { ?>
                                     <form class="form mt-4 mt-lg-0" method="post" action="">
                                         <table class="table table-borderless">
 
                                             <thead>
                                                 <tr>
-                                                    <th><input type="text" class="form-control" id="startdate"
+                                                    <th>From Date</th>
+                                                    <th><input type="date" class="form-control" id="startdate"
                                                             name="startdate" value="<?= $start_date; ?>"></th>
-                                                    <th>to</th>
-                                                    <th><input type="text" class="form-control" id="enddate" name="enddate"
-                                                            max="<?= date("d-m-Y"); ?>" value="<?= $end_date; ?>">
+                                                    <th>To Date</th>
+                                                    <th><input type="date" class="form-control" id="enddate" name="enddate"
+                                                            max="<?= date("Y-m-d"); ?>" value="<?= $end_date; ?>">
                                                     </th>
                                                     <th>
                                                         <button type="submit" name="search" class="btn btn-primary"><em
