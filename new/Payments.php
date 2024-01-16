@@ -15,6 +15,10 @@ $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $PageAccessible = IsPageAccessible($user_id, $page);
 ?>
+<!doctype html>
+<html lang="en">
+
+<head>
 <?php include ("headercss.php"); ?>
 <title>Payments</title>
 </head>

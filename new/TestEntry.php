@@ -41,7 +41,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
    <!--start page wrapper -->
    <div class="page-wrapper">
       <div class="page-content">
-        <<h6>Reports</h6></div>
+        <h6>Reports</h6></div>
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation">
@@ -409,7 +409,6 @@ $PageAccessible = IsPageAccessible($user_id, $page);
         </div>
     </div>
 </div>
-	  <?php include_once 'footer.php'; ?>
 </div>
 
    <?php include ("js.php"); ?>
