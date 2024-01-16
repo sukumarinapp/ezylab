@@ -41,19 +41,11 @@ $html = '
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 <style>
 body {
-    margin-top: 20px;
     margin-left: 20px !important;
 }
 </style>
 </head>
 <body>
-<div class="row" align="center">
-<div class="col-xs-12 col-sm-12 col-md-12" style="border: none!important;">
-<div class="container" align="center">
-<div class="row" align="center">
-<div class="col-xs-12 col-sm-12 col-md-12">
-<div class="row" align="center">
-<div class="col-xs-12 col-sm-12 col-md-12">
 <table border="0" width="100%" align="center" class="table">
 <tr align="center">
 <td colspan="2" style="text-align:center">';
@@ -322,13 +314,6 @@ $html .= '</tbody>
 <td colspan="7" border="0"><strong>&nbsp;&nbsp;</strong></td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-</div>
-<br>
-</div>
-</div>
 </body>
 </html>';
 
