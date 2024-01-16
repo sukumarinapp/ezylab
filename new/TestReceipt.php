@@ -38,12 +38,7 @@ $html = '
 <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="shortcut icon" href="' . LOGO . '"/>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<style>
-body {
-    margin-left: 20px !important;
-}
-</style>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"><s/script>
 </head>
 <body>
 <table border="0" width="100%" align="center" class="table">
