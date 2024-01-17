@@ -13,7 +13,12 @@
    $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $PageAccessible = IsPageAccessible($user_id, 'Payments');
-?><?php include ("css.php"); ?>
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
 <title>Users Log</title>
 </head>
 <body class="bg-theme bg-theme2">
@@ -97,7 +102,7 @@ $PageAccessible = IsPageAccessible($user_id, 'Payments');
             </div>
         </div>
     </div>
-</section>	  <?php include_once 'footer.php'; ?>
+</section>	
 </div>
 
    <?php include ("js.php"); ?>

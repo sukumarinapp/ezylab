@@ -14,6 +14,17 @@
 
 $created = date("Y-m-d H:i:s");
 $modified = date("Y-m-d H:i:s");
+
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Add New User Details</title>
+</head>
+<body class="bg-theme bg-theme2">
+    <?php 
 if (isset($_POST['submit'])) {
 
     $photo = $_FILES['photo']['name'];
@@ -71,11 +82,7 @@ if (isset($_POST['submit'])) {
         echo '<span  id="insert_failure"></span>';
     }
 }
-?>
-<?php include ("css.php"); ?>
-<title>Add New User Details</title>
-</head>
-<body class="bg-theme bg-theme2">
+    ?>
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->
@@ -324,7 +331,6 @@ if (isset($_POST['submit'])) {
     </div>
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
    <?php include ("js.php"); ?>

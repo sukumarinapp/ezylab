@@ -13,7 +13,12 @@
    $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $PageAccessible = IsPageAccessible($user_id, 'Payments');
-?><?php include ("css.php"); ?>
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
 <title>Users</title>
 </head>
 <body class="bg-theme bg-theme2">
@@ -33,7 +38,7 @@ $PageAccessible = IsPageAccessible($user_id, 'Payments');
             <?php if ($PageAccessible['is_write'] == 1) { ?>
                 <div class="card-header">
                     <div class="card-title pull-right">
-                        <button class="btn btn-labeled btn-secondary" type="button"
+                        <button class="btn btn-labeled btn-secondary float-end" type="button"
                                 onclick="location.href='AddUser';">
                             Add New User
                             <span class="btn-label btn-label-right"><i class="fa fa-arrow-right"></i>
@@ -103,12 +108,12 @@ $PageAccessible = IsPageAccessible($user_id, 'Payments');
                                     if ($PageAccessible['is_modify'] == 1) { ?>
                                         <button class="btn btn-sm btn-info" type="button" title="Update Details"
                                                 onclick="location.href='UserEdit?uId=<?php echo EncodeVariable($UserData['id']); ?>';">
-                                            <i class="fa fa-edit"></i>
+                                            <em class="fa fa-edit"></em>
                                         </button>
                                         <button type="button" class="btn btn-sm btn-warning"
                                                 title="Update Access Details"
                                                 onClick="document.location.href='EditAccess?uID=<?php echo EncodeVariable($UserData['id']); ?>'">
-                                            <i class="icon-support"></i></button>
+                                            <i class="fas fa-wrench"></i></button>
                                     <?php } ?>
                                 </td>
                             </tr>
@@ -120,7 +125,7 @@ $PageAccessible = IsPageAccessible($user_id, 'Payments');
             </div>
         </div>
     </div>
-</section>	  <?php include_once 'footer.php'; ?>
+</section>
 </div>
 
    <?php include ("js.php"); ?>

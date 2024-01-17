@@ -13,7 +13,19 @@
    $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $PageAccessible = IsPageAccessible($user_id, 'Payments');
-if (isset($_POST['update'])) {
+
+
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <?php include ("headercss.php"); ?>
+<title>Users</title>
+</head>
+<body class="bg-theme bg-theme2">
+    <?php
+    if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $mobile = $_POST['mobile'];
     $new_pass = EncodePass($_POST['new_pass']);
@@ -29,18 +41,14 @@ if (isset($_POST['update'])) {
 
         $email = GetUserEmail($id);
         $message = "Your Password has been Reset.Your New Password  : $password -" . OrgInfo()['name'];
-        SendSMS($mobile,$message);
+        //SendSMS($mobile,$message);
         SendEmail($email,  'Password Reset',$message);
         echo '<span id="update_success"></span>';
     } else {
         echo '<span  id="update_failure"></span>';
     }
-}
-
-?><?php include ("css.php"); ?>
-<title>Users</title>
-</head>
-<body class="bg-theme bg-theme2">
+} 
+    ?>
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->
@@ -113,7 +121,6 @@ if (isset($_POST['update'])) {
     </div>
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php' ?>
 </div>
 <div class="modal fade" id="password_reset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -121,7 +128,7 @@ if (isset($_POST['update'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Password Reset</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -130,7 +137,6 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </div>
-	  <?php include_once 'footer.php'; ?>
 </div>
 
    <?php include ("js.php"); ?>

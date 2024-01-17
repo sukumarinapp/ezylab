@@ -87,7 +87,7 @@ if (isset($_POST['login'])) {
 
                         <div class="card shadow-none bg-transparent shadow-none rounded-0 mb-0">
 							<div class="card-body">
-                                 <img src="assets/images/login-images/loginpage.jpeg" class="img-fluid auth-img-cover-login" width="650" alt=""/>
+                                 <img src="assets/images/login-images/loginpage.png" class="img-fluid auth-img-cover-login" width="650" alt=""/>
 							</div>
 						</div>
 						

@@ -1,8 +1,19 @@
 <?php
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include "header.php";
-include_once "Menu.php";
 $PageAccessible = IsPageAccessible($user_id, 'Payments');
+
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <?php include ("headercss.php"); ?>
+    <title>Department</title>
+</head>
+
+<body class="bg-theme bg-theme2">
+  <?php 
 
 $OrgInfo = OrgInfo();
 
@@ -110,9 +121,15 @@ if (isset($_POST['update'])) {
         echo '<span  id="update_failure"></span>';
     }
 }
-?>
+  ?>
+    <div class="wrapper">
+        <!--sidebar wrapper -->
+        <?php include ("Menu.php"); ?>
+        <!--end sidebar wrapper -->
+        <!--start header -->
 
-<!-- Main section-->
+        <?php include ("header.php"); ?>
+
 <section class="section-container">
     <!-- Page content-->
     <div class="content-wrapper">
@@ -355,31 +372,9 @@ if (isset($_POST['update'])) {
     </div>
 </section>
 <!-- Page footer-->
-<?php include_once "footer.php"; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+<?php include ("js.php"); ?>
+
 <script>
     $(document).ready(function () {
         $("#logo").on('change', function () {

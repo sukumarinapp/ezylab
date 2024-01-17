@@ -14,7 +14,12 @@
 
 $UserID = DecodeVariable($_GET['uId']);
 $UserData = UserInfo($UserID);
-?><?php include ("css.php"); ?>
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
 <title><?php echo $UserData['prefix'] . $UserData['name']; ?></title>
 </head>
 <body class="bg-theme bg-theme2">
@@ -163,7 +168,7 @@ $UserData = UserInfo($UserID);
             </div>
         </div>
     </div>
-</section>	  <?php include_once 'footer.php'; ?>
+</section>	  
 </div>
 
    <?php include ("js.php"); ?>
