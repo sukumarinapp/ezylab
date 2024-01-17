@@ -14,7 +14,18 @@
 
 $PageAccessible = IsPageAccessible($user_id, 'Payments');
 
-$OrgInfo = OrgInfo();
+
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Info</title>
+</head>
+<body class="bg-theme bg-theme2">
+    <?php 
+    $OrgInfo = OrgInfo();
 
 if (isset($_POST['update'])) {
     $macho_id = '1';
@@ -120,12 +131,7 @@ if (isset($_POST['update'])) {
         echo '<span  id="update_failure"></span>';
     }
 }
-?>
-
-<?php include ("css.php"); ?>
-<title>Dashtrans</title>
-</head>
-<body class="bg-theme bg-theme2">
+    ?>
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->
@@ -374,7 +380,7 @@ if (isset($_POST['update'])) {
             </div>
         </div>
     </div>
-</section>	  <?php include_once 'footer.php'; ?>
+</section>	 
 </div>
 
    <?php include ("js.php"); ?>

@@ -15,7 +15,12 @@
 $id = DecodeVariable($_GET['uId']);
 $created = base64_decode($_GET['created']);
 $UserData = UserInfo($id);
-?><?php include ("css.php"); ?>
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
 <title>Log Details</title>
 </head>
 <body class="bg-theme bg-theme2">
@@ -31,16 +36,18 @@ $UserData = UserInfo($id);
    <div class="page-wrapper">
       <div class="page-content">
         <div class="content-heading">Log Details</div>
+        <div class="card">
+        <div class="card-body">
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#log_history"
                                                             aria-controls="edit"
                                                             role="tab"
-                                                            data-toggle="tab">Log History</a>
+                                                            data-bs-toggle="tab">Log History</a>
                 </li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="#user_view" aria-controls="seo"
                                                             role="tab"
-                                                            data-toggle="tab">User Details</a>
+                                                            data-bs-toggle="tab">User Details</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -181,7 +188,9 @@ $UserData = UserInfo($id);
             </div>
         </div>
     </div>
-</section>	  <?php include_once 'footer.php'; ?>
+</div>
+    </div>
+</section>
 </div>
 
    <?php include ("js.php"); ?>

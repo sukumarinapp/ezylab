@@ -101,18 +101,18 @@
 						<div class="menu-title">Settings</div>
 					</a>
 					<ul>
-						<li> <a href="ecommerce-products.html"><i class='bx bx-radio-circle'></i>Products</a>
+						<li> <a href="OrgInfo"><i class='bx bx-radio-circle'></i>Organisation</a>
 						</li>
 						
 						<li> <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Access Control</a>
 							<ul>
-							   <li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>Role</a>
+							   <li> <a href="Role"><i class='bx bx-radio-circle'></i>Role</a>
 							    </li>
-								<li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>Users</a>
+								<li> <a href="Users"><i class='bx bx-radio-circle'></i>Users</a>
 							    </li>
-								<li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>Change Password</a>
+								<li> <a href="UserChangePassword"><i class='bx bx-radio-circle'></i>Change Password</a>
 							    </li>
-								<li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>User Log</a>
+								<li> <a href="UserLog"><i class='bx bx-radio-circle'></i>User Log</a>
 							    </li>
 							</ul>
 						</li>

@@ -16,7 +16,13 @@ $UserID = DecodeVariable($_GET['uId']);
 $UserData = UserInfo($UserID);
 $modified = date("Y-m-d H:i:s");
 
-if (isset($_POST['update'])) {
+
+?><?php include ("headercss.php"); ?>
+<title>User Information</title>
+</head>
+<body class="bg-theme bg-theme2">
+    <?php
+    if (isset($_POST['update'])) {
 
     $ExistRole = GetRoleOfUser($UserID);
     if ($ExistRole != Filter($_POST['role_id'])) {
@@ -28,7 +34,6 @@ if (isset($_POST['update'])) {
 
     $update = Update('macho_users', 'id', $UserID, array(
         'username' => Filter($_POST['username']),
-        'password' => EncodePass($_POST['password']),
         'prefix' => ($_POST['prefix']),
         'name' => Filter($_POST['name']),
         'gender' => Filter($_POST['gender']),
@@ -84,10 +89,7 @@ if (isset($_POST['update'])) {
         echo '<span  id="update_failure"></span>';
     }
 }
-?><?php include ("css.php"); ?>
-<title>User Information</title>
-</head>
-<body class="bg-theme bg-theme2">
+?>
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->
@@ -349,7 +351,7 @@ if (isset($_POST['update'])) {
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="password"
                                                        name="password" value="<?php echo $UserData['password']; ?>"
-                                                       maxlength="100" tabindex="18" required>
+                                                       maxlength="100" tabindex="18">
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="button"
@@ -425,7 +427,7 @@ if (isset($_POST['update'])) {
             </div>
         </div>
     </div>
-</section>	  <?php include_once 'footer.php'; ?>
+</section>
 </div>
 
    <?php include ("js.php"); ?>
