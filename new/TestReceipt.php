@@ -47,7 +47,7 @@ $html = '
 ?>
 <?php
 if($header == 1){
-    $html = $html . '<img src="logo/header1.jpg" />';
+    $html = $html . '<img src="logo/header1.jpeg" />';
 }
 ?>
 <?php
@@ -114,7 +114,7 @@ $html =$html .'<tr>
 <th style="background-color:#ccc;" colspan="2">Test Name</th>
 <th style="background-color:#ccc;text-align:center" colspan="2">Result</th>
 <th style="background-color:#ccc;text-align:right">Units</th>
-<th style="background-color:#ccc;text-align:right" colspan="2">Normal Range</th>
+<th style="background-color:#ccc;text-align:center" colspan="2">Normal Range</th>
 </tr>
 </thead>
 
@@ -163,7 +163,7 @@ foreach ($TestEntryResult as $TestEntryData) {
                 <td style="text-align:left;border: none;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
                 <td style="text-align:center;border: none;height: 25px;" colspan="2">' . $TestEntryData3['test_result'] . '</td>
                 <td style="text-align:right;border: none;height: 25px;" >' . $TestTypeData['units'] . '</td>
-                <td colspan="2" style="text-align:right;border: none;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' '. $TestTypeData['units'] .'</td>
+                <td colspan="2" style="text-align:center;border: none;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' '. $TestTypeData['units'] .'</td>
                 </tr>';
 
                 if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
@@ -183,7 +183,7 @@ foreach ($TestEntryResult as $TestEntryData) {
                 <td style="text-align:left;border: none;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
                 <td style="text-align:center;border: none;height: 25px;" colspan="2">' . $TestEntryData3['sub_head'] . '</td>
                 <td style="text-align:right;border: none;height: 25px;" >' . $TestTypeData['units'] . '</td>
-                <td colspan="2" style="text-align:right;border: none;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' '. $TestTypeData['units'] .'</td>
+                <td colspan="2" style="text-align:center;border: none;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' '. $TestTypeData['units'] .'</td>
                 </tr>';
                
                 if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
