@@ -117,11 +117,7 @@
 							</ul>
 						</li>
 					</ul>
-				</li>
-				
-		
-		
+				</li>	
 			</ul>
-			<!--end navigation-->
 		</div>
  

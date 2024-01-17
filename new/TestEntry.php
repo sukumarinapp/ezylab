@@ -42,6 +42,9 @@ $PageAccessible = IsPageAccessible($user_id, $page);
    <div class="page-wrapper">
       <div class="page-content">
         <h6>Reports</h6></div>
+<div class="card">
+                    <div class="card-body">
+
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation">
