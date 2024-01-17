@@ -94,7 +94,34 @@
                     endforeach;
                 endif;
                 ?>
-
+                  <li>
+					<a class="has-arrow" href="javascript:;">
+						<div class="parent-icon"><i class="lni lni-cog"></i>
+						</div>
+						<div class="menu-title">Settings</div>
+					</a>
+					<ul>
+						<li> <a href="ecommerce-products.html"><i class='bx bx-radio-circle'></i>Products</a>
+						</li>
+						
+						<li> <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Access Control</a>
+							<ul>
+							   <li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>Role</a>
+							    </li>
+								<li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>Users</a>
+							    </li>
+								<li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>Change Password</a>
+							    </li>
+								<li> <a href="javascript:;"><i class='bx bx-radio-circle'></i>User Log</a>
+							    </li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				
+		
+		
 			</ul>
 			<!--end navigation-->
 		</div>
+ 
