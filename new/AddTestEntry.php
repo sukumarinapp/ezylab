@@ -22,7 +22,7 @@ $patient_id = $EntryData['patient_id'];
 
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
 
-$TestQuery = "SELECT a.*,b.test_code,b.remarks,b.test_category FROM macho_bill_items a,macho_test_type b WHERE a.item_id=b.id and bill_id='$EntryId' ORDER BY b.test_category,b.sub_head,b.id";
+$TestQuery = "SELECT a.*,b.test_code,b.remarks,b.test_category FROM macho_bill_items a,macho_test_type b WHERE a.item_id=b.id and bill_id='$EntryId' ORDER BY b.test_category,b.sub_head,a.id";
 $TestResult = GetAllRows($TestQuery);
 ?>
 

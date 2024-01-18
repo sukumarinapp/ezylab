@@ -16,17 +16,13 @@ $today = date("Y-m-d");
 $created = date("Y-m-d H:i:s");
 $modified = date("Y-m-d H:i:s");
 
-
 ?>
-
 <!doctype html>
 <html lang="en">
-
 <head>
     <?php include ("headercss.php"); ?>
-    <title>Department</title>
+    <title>Profile</title>
 </head>
-
 <body class="bg-theme bg-theme2">
     <?php 
     if (isset($_POST['submit'])) {

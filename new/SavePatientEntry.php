@@ -83,7 +83,7 @@ for ($i = 0; $i < $sales_array_count; $i++) {
     $item_amount = $sales_array[$i]->item_amount;
 
     if ($item_type == 'group') {
-        $ProfileQuery = "SELECT * FROM macho_profile_tests WHERE profile_id='$item_category'";
+        $ProfileQuery = "SELECT * FROM macho_profile_tests WHERE profile_id='$item_category' order by id";
         $ProfileResult = GetAllRows($ProfileQuery);
         foreach ($ProfileResult as $ProfileData) {
             $item_id = $ProfileData['item_id'];

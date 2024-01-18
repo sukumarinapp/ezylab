@@ -56,8 +56,11 @@
    }
 
    ?>
+<!doctype html>
+<html lang="en">
+<head>
 <?php include ("headercss.php"); ?>
-<title>Dashtrans</title>
+<title>Dashboard</title>
 </head>
 <body class="bg-theme bg-theme2">
    <!--wrapper-->
