@@ -118,6 +118,9 @@
 						</li>
 					</ul>
 				</li>	
+				<li>
+					<a href="backup" target="_blank" ><i class='fa fa-hdd-o'></i>&nbsp;Backup</a>
+				</li>
 			</ul>
 		</div>
  

@@ -155,8 +155,7 @@ $TestResult = GetAllRows($TestQuery);
                                                     <td colspan="3"><input type="text" class="form-control"
                                                                            name="test_result[]"
                                                                            id="test_result<?= $TestID; ?>"
-                                                                           value=""
-                                                                           readonly>
+                                                                           value="" >
                                                     </td>
                                                     <td><?= $TestTypeData['units']; ?></td>
                                                     <td colspan="2"><select class="form-control" name="table_input" id="table_input<?= $TestID; ?>" onchange="feed_data(<?= $TestID; ?>);">
