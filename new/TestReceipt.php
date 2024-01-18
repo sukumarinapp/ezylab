@@ -47,15 +47,15 @@ $html = '
 ?>
 <?php
 if($header == 1){
-    $html = $html . '<img src="logo/header1.jpeg" />';
+    $html = $html . '<img src="logo/header1.jpg" />';
 }
 ?>
 <?php
 if($header == 0){
     $html = $html . '<h2 style="color:black;font-weight: bold;text-align:left">' . $OrgInfo['name'] . '</h2>
-    ' . WordReplace($OrgInfo['address']) . '<br>
-    Email:' . $OrgInfo['state'] . '<br>
-    Contact:' . $OrgInfo['land_line'] . ',' . $OrgInfo['mobile'] . '<br>';
+    ' . WordReplace($OrgInfo['address']) . '<br>';
+    if(trim($OrgInfo['email'])!="") $html = $html . 'Email:' . $OrgInfo['email'] . '<br>';
+    if(trim($OrgInfo['mobile'])!="") $html = $html . 'Contact:' . $OrgInfo['mobile'] . '<br>';
 }
 ?>
 <?php

@@ -155,6 +155,11 @@
                </div>
             </div>
          </div>
+         <div class="row">
+            <div class="col-md-4">
+                <a href="backup" target="_blank" class="btn btn-danger">Backup</a>
+            </div>
+        </div>
       </div>
    </div>
    <?php include ("js.php"); ?>
