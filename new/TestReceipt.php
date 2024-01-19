@@ -140,7 +140,7 @@ foreach ($TestEntryResult as $TestEntryData) {
             </tr>';
         }
 
-        $TestEntryQuery3 = "SELECT * FROM test_entry WHERE entry_id='$id' AND dept_id='$dept_id' AND test_category='$test_category'  ORDER BY sub_heading,id";
+        $TestEntryQuery3 = "SELECT * FROM test_entry WHERE entry_id='$id' AND dept_id='$dept_id' AND test_category='$test_category'  ORDER BY id";
         $TestEntryResult3 = GetAllRows($TestEntryQuery3);
         
         $sub_heading = "";
