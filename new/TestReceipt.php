@@ -111,10 +111,10 @@ $html =$html .'<tr>
 <thead>
 <tr><th style="text-align:center" colspan="7"><h4>Laboratory Report</h4></th></tr>
 <tr>
-<th style="background-color:#ccc;" colspan="2">Test Name</th>
-<th style="background-color:#ccc;text-align:center" colspan="2">Result</th>
-<th style="background-color:#ccc;text-align:right">Units</th>
-<th style="background-color:#ccc;text-align:center" colspan="2">Normal Range</th>
+<th style="background-color:#F5F5F5;font-size:15px;" colspan="2">INVESTIGATION</th>
+<th style="background-color:#F5F5F5;text-align:left;font-size:15px" colspan="2">RESULT</th>
+<th style="background-color:#F5F5F5;text-align:left;font-size:15px">UNITS</th>
+<th style="background-color:#F5F5F5;text-align:left;font-size:15px" colspan="2">NORMAL RANGE</th>
 </tr>
 </thead>
 
@@ -136,7 +136,7 @@ foreach ($TestEntryResult as $TestEntryData) {
 
         if(trim(TestCategoryName($test_category))!=""){
             $html .= '<tr>
-            <td colspan="7" style="text-align: center;font-size: bold;border: none;"><strong>'. TestCategoryName($test_category) . '</strong></td>
+            <td colspan="7" style="text-align: left;font-size: bold;"><strong>'. TestCategoryName($test_category) . '</strong></td>
             </tr>';
         }
 
@@ -153,122 +153,133 @@ foreach ($TestEntryResult as $TestEntryData) {
 
             if($sub_heading != $TestEntryData3['sub_heading'] && trim($TestEntryData3['sub_heading']) != ""){
                 $html .= '<tr>
-                <td style="font-weight:bold;text-decoration: underline;text-align:left;border: none;height: 25px;" colspan="7">' . $TestEntryData3['sub_heading'] . '</td>
+                <td style="font-weight:bold;text-align:left;height: 25px;" colspan="7">' . $TestEntryData3['sub_heading'] . '</td>
                 </tr>';
             }
 
             if ($type_test == 'Normal') {
 
-                $html .= '<tr>
-                <td style="text-align:left;border: none;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
-                <td style="text-align:center;border: none;height: 25px;" colspan="2">' . $TestEntryData3['test_result'] . '</td>
-                <td style="text-align:right;border: none;height: 25px;" >' . $TestTypeData['units'] . '</td>
-                <td colspan="2" style="text-align:center;border: none;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' '. $TestTypeData['units'] .'</td>
-                </tr>';
-
-                if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
-                    $html .= '<tr><td colspan="5"></td><td width="20%" colspan="2" style="font-weight:bold">Reference Value</td></tr>';
-                    $html .= '<tr><td colspan="5"></td><td width="20%" colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
-                }
-                if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
-                    $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
-                    $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
-                }
-
-
-            } elseif ($type_test == 'Sub Heading') {
-                
 
                 $html .= '<tr>
-                <td style="text-align:left;border: none;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
-                <td style="text-align:center;border: none;height: 25px;" colspan="2">' . $TestEntryData3['sub_head'] . '</td>
-                <td style="text-align:right;border: none;height: 25px;" >' . $TestTypeData['units'] . '</td>
-                <td colspan="2" style="text-align:center;border: none;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' '. $TestTypeData['units'] .'</td>
-                </tr>';
-               
-                if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
-                    $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
-                    $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
-                }
-                if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
-                    $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
-                    $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
-                }
+                <td style="text-align:left;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>';
 
-                $sub_heading = $TestEntryData3['sub_heading'];
+                  $html .= '<td colspan="2" style="';
+                   if(($TestEntryData3['test_result'] < $TestTypeData['lower_limit'])  || ($TestEntryData3['test_result'] > $TestTypeData['upper_limit'])){
+                     $html .= 'background-color:#F0FFF0;';
+                  }
+                 $html .=  'text-align:left;height: 25px;" >' . $TestEntryData3['test_result'] . '</td>
 
-            } elseif ($type_test == 'Table') {
+                <td style="text-align:left;height: 25px;" >' . $TestTypeData['units'] . '</td>
 
-                $html .= '<tr>
-                <td style="text-align:left;border: none;height: 25px;" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
-                <td style="text-align:center;border: none;height: 25px;" colspan="2">' . str_replace("^","",$TestEntryData3['test_result']) . '</td>
-                <td style="text-align:right;border: none;height: 25px;" >&nbsp;' . $TestTypeData['units'] . '&nbsp;</td>
-                <td style="text-align:right;border: none;height: 25px;" colspan="2">&nbsp;&nbsp;</td>
-                </tr>';
+               <td colspan="2" style="text-align:left;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . '</td>
+               </tr>';
 
-                if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
-                    $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
-                    $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
-                }
-                if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
-                    $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
-                    $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
-                }
-            } elseif ($type_test == 'Date') {
-
-                $html .= '<tr>
-                <td style="text-align:left;border: none;height: 25px;" colspan="2">&nbsp;' . str_replace("^","",$TestTypeData['test_name']) . '&nbsp;</td>
-                <td style="text-align:left;border: none;height: 25px;" colspan="5">&nbsp;' . from_sql_date($TestEntryData3['date']) . '&nbsp;</td>
-                </tr>';
-
-                if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
-                    $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
-                    $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
-                }
-                if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
-                    $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
-                    $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
-                }
-            } elseif ($type_test == 'Time') {
-
-                $html .= '<tr>
-                <td style="text-align:left;border: none;height: 25px;" colspan="2">&nbsp;' . $TestTypeData['test_name'] . '&nbsp;</td>
-                <td style="text-align:left;border: none;height: 25px;" colspan="5">&nbsp;' . $TestEntryData3['time'] . '&nbsp;</td>
-                </tr>';
-                if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
-                    $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
-                    $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
-                }
-                if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
-                    $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
-                    $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
-                }
-            } elseif ($type_test == 'Image') {
-
-                $html .= '<tr>
-                <td style="text-align:left;border: none;height: 25px;" colspan="7">&nbsp;' . $TestTypeData['test_name'] . '&nbsp;</td>
-                </tr>';
-
-                $TestDocQuery = "SELECT * FROM test_documents WHERE entry_id='$id' AND test_id='$TestID' ORDER BY document_id  DESC";
-                $TestDocResult = GetAllRows($TestDocQuery);
-                foreach ($TestDocResult as $TestDocData) {
-
-                    $html .= '<tr>
-                    <td colspan="7" style="border: none;"><img src="' . $TestDocData['file_url'] . '"  width="250px" height="100px"/></td>
-                    </tr>';
-                }
-
+               if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
+                $html .= '<tr><td colspan="5"></td><td width="20%" colspan="2" style="font-weight:bold">Reference Value</td></tr>';
+                $html .= '<tr><td colspan="5"></td><td width="20%" colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
             }
-        $sub_heading = $TestEntryData3['sub_heading'];
+            if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
+                $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
+                $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+            }
+
+
+        } elseif ($type_test == 'Sub Heading') {
+
+
+            $html .= '<tr>
+            <td style="text-align:left;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
+            <td style="text-align:left;height: 25px;" colspan="2">' . $TestEntryData3['sub_head'] . '</td>
+            <td style="text-align:left;height: 25px;" >' . $TestTypeData['units'] . '</td>
+            <td colspan="2" style="text-align:left;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . ' </td>
+            </tr>';
+
+            if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
+                $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
+                $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
+            }
+            if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
+                $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
+                $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+            }
+
+            $sub_heading = $TestEntryData3['sub_heading'];
+
+        } elseif ($type_test == 'Table') {
+
+            $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
+            <td style="text-align:left;height: 25px;" colspan="2">' . str_replace("^","",$TestEntryData3['test_result']) . '</td>
+            <td style="text-align:left;height: 25px;" >&nbsp;' . $TestTypeData['units'] . '&nbsp;</td>
+            <td style="text-align:left;height: 25px;" colspan="2">&nbsp;&nbsp;</td>
+            </tr>';
+
+            if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
+                $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
+                $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
+            }
+            if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
+                $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
+                $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+            }
+        } elseif ($type_test == 'Date') {
+
+            $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="2">&nbsp;' . str_replace("^","",$TestTypeData['test_name']) . '&nbsp;</td>
+            <td style="text-align:left;height: 25px;" colspan="5">&nbsp;' . from_sql_date($TestEntryData3['date']) . '&nbsp;</td>
+            </tr>';
+
+            if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
+                $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
+                $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
+            }
+            if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
+                $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
+                $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+            }
+        } elseif ($type_test == 'Time') {
+
+            $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="2">&nbsp;' . $TestTypeData['test_name'] . '&nbsp;</td>
+            <td style="text-align:left;height: 25px;" colspan="5">&nbsp;' . $TestEntryData3['time'] . '&nbsp;</td>
+            </tr>';
+            if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
+                $html .= '<tr><td colspan="5"></td><td colspan="2" style="font-weight:bold">Reference Value</td></tr>';
+                $html .= '<tr><td colspan="5"></td><td colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
+            }
+            if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
+                $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
+                $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+            }
+        } elseif ($type_test == 'Image') {
+
+            $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="7">&nbsp;' . $TestTypeData['test_name'] . '&nbsp;</td>
+            </tr>';
+
+            $TestDocQuery = "SELECT * FROM test_documents WHERE entry_id='$id' AND test_id='$TestID' ORDER BY document_id  DESC";
+            $TestDocResult = GetAllRows($TestDocQuery);
+            foreach ($TestDocResult as $TestDocData) {
+
+                $html .= '<tr>
+                <td colspan="7" style=""><img src="' . $TestDocData['file_url'] . '"  width="250px" height="100px"/></td>
+                </tr>';
+            }
 
         }
+        $sub_heading = $TestEntryData3['sub_heading'];
+
     }
+}
 }
 $html .= '</tbody>
 </table>
 <table border="0" class="table" width="100%" align="center">
 <tr>
 <td colspan="7" style="text-align: center;">&nbsp;&nbsp;</td>
+</tr>
+<tr>
+<td colspan="7" border="0" style="text-align: right;"><strong>&nbsp;Authorized Signatory&nbsp;</strong></td>
 </tr>
 <tr>
 <td colspan="7" style="text-align: center;">End Of Report</td>
@@ -287,6 +298,7 @@ $html .= '</tbody>
 </tr>
 </table>
 
+
 <table class="table table-striped table-bordered" width="100%" align="center">
 <tr>
 <td colspan="7" border="0" style="border:none;text-align: center;">Wish you a Speedy Recovery, Thank You !</td>
@@ -295,20 +307,7 @@ $html .= '</tbody>
 <td colspan="7" border="0" style="border:none;text-align: center;">Home Collection Available</td>
 </tr>
 </table>
-<table border="0" class="table" width="100%" align="center">
-<tr>
-<td colspan="7" border="0"><strong>&nbsp;&nbsp;</strong></td>
-</tr>
-<tr>
-<td colspan="7" border="0"><strong>&nbsp;&nbsp;</strong></td>
-</tr>
-<tr>
-<td colspan="7" border="0" style="text-align: right;"><strong>&nbsp;Authorized Signatory&nbsp;</strong></td>
-</tr>
-<tr>
-<td colspan="7" border="0"><strong>&nbsp;&nbsp;</strong></td>
-</tr>
-</table>
+
 </body>
 </html>';
 

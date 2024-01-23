@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set("Asia/Kolkata");
-//ini_set('display_errors', 1);
-//ini_set('display_startup_errors', 1);
-//error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 if ($_SERVER['HTTP_HOST'] == "localhost") {
     define('DBHOST', 'localhost');
     define('DBNAME', 'dream_lims');
