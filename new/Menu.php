@@ -119,7 +119,7 @@
 					</ul>
 				</li>	
 				<li>
-					<a href="backup" target="_blank" ><i class='fa fa-hdd-o'></i>&nbsp;Backup</a>
+					<a href="backup" target="_blank" ><i style="font-size:22px;" class='fab fa-google-drive'></i>&nbsp;Backup</a>
 				</li>
 			</ul>
 		</div>
