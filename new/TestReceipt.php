@@ -21,8 +21,9 @@ if ($BillData['ref_prefix'] == 'Dr.') {
 }
 
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
-$birthData = GetAge($PatientInfo['dob']);
-$age = $birthData['age'];
+//$birthData = GetAge($PatientInfo['dob']);
+//$age = $birthData['age'];
+$age = $PatientInfo['age'];
 $age_type = $birthData['age_type'];
 
 
@@ -91,7 +92,7 @@ $modified = $BillData['modified'];
 $modified = explode(" ",$modified);
 $html =$html .'<tr>
 <td align="left">Age/Sex</td>
-<td align="left">' . $age . $age_type . '/' . $PatientInfo['gender'] . '</td>
+<td align="left">' . $age . $age_type . ' ' . $PatientInfo['gender'] . '</td>
 <td align="left">Report Released On</td>
 <td align="left">' . date("d-m-Y",strtotime($modified[0])) .'&nbsp;'. date("h:i:A",strtotime($modified[1])) . '</td>
 </tr>
