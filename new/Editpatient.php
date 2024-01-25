@@ -44,7 +44,7 @@ $patientData = SelectParticularRow('macho_patient', 'id', $patient_id);
                             </div>
                             <div class="form-group">
                                                 <label>Data of Birth</label>
-                                                <input type="text"
+                                                <input type="date"
                                                        class="form-control"
                                                        name="dob"
                                                        id="dob"  value="<?= from_sql_date($patientData['dob']); ?>" autocomplete="off"

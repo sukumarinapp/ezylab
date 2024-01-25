@@ -300,7 +300,7 @@ if (isset($_POST['update'])) {
                                             </div>
                                             <div class="form-group">
                                                 <label>Date of Birth</label>
-                                                <input type="text"
+                                                <input type="date"
                                                        class="form-control"
                                                        name="dob"
                                                        id="dob" autocomplete="off"
