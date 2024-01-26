@@ -47,26 +47,7 @@ if (isset($_POST['add_submit'])) {
    <!--start page wrapper -->
    <div class="page-wrapper">
       <div class="page-content">
-            <div>Income By Reference
-                <small></small>
-            </div>
-            <div class="ml-auto">
-                <div class="btn-group">
-                    <button class="btn btn-secondary" type="button"
-                        onclick="print_data(event,'Income Report','<?php echo $start_date; ?>','<?php echo $end_date; ?>');">
-                        <i class="fa fa-print"></i>
-                        Print
-                    </button>
-                    <button class="btn btn-secondary" type="button"
-                        onclick="pdf_data(event,'Income Report','<?php echo $start_date; ?>','<?php echo $end_date; ?>');">
-                        <i class="fa fa-file-pdf-o"></i> PDF
-                    </button>
-                    <button class="btn btn-secondary" type="button"
-                        onclick="excel_data(event,'Income Report','<?php echo $start_date; ?>','<?php echo $end_date; ?>');">
-                        <i class="fa fa-file-excel-o"></i> Excel
-                    </button>
-                </div>
-            </div>
+            <h6>Income By Reference</h6>
         </div>
         <div class="container-fluid">
             <!-- DATATABLE DEMO 1-->
@@ -114,7 +95,7 @@ if (isset($_POST['add_submit'])) {
                 </div>
 
                 <div class="card-body">
-                    <table id="example2" class="table table-striped my-4 w-100" id="datatable6">
+                    <table id="example2" class="table table-striped my-4 w-100">
                         <thead>
                             <tr>
                                 <th width="20px" class="thead_data">#</th>
