@@ -132,17 +132,19 @@ if (isset($_POST['add_submit'])) {
                             <?php
                             $no = 0;
                             $total = 0;
-                            if($reference == "0"){
-                                $FinanceQuery = "SELECT a.*,b.P_name,c.d_name FROM patient_entry a,macho_patient b,doctors c WHERE a.reference=c.id and a.patient_id=b.id ";
-                                if($reference != "0") $FinanceQuery .= " and a.reference='$reference'";
-                                $FinanceQuery .= " AND entry_date>='$startdate' AND entry_date<='$enddate' ORDER BY id DESC ";
+                            if($reference == 0){
+                                $FinanceQuery = "SELECT a.*,b.P_name,'Self' as d_name FROM patient_entry a,macho_patient b WHERE a.patient_id=b.id ";
+                                $FinanceQuery .= " and a.reference='Self'";
+                                $FinanceQuery .= " AND entry_date>='$startdate' AND entry_date<='$enddate'";
+                                $FinanceQuery .= " UNION "; 
+                                $FinanceQuery .= "SELECT a.*,b.P_name,c.d_name FROM patient_entry a,macho_patient b,doctors c WHERE a.reference=c.id and a.patient_id=b.id ";
+                                $FinanceQuery .= " AND entry_date>='$startdate' AND entry_date<='$enddate'";
+                                $FinanceQuery .= " ORDER BY id DESC ";
                             }else{
                                 $FinanceQuery = "SELECT a.*,b.P_name FROM patient_entry a,macho_patient b WHERE a.patient_id=b.id ";
                                 if($reference != "0") $FinanceQuery .= " and a.reference='$reference'";
                                 $FinanceQuery .= " AND entry_date>='$startdate' AND entry_date<='$enddate' ORDER BY id DESC ";
                             }
-                            //echo $FinanceQuery;die;
-                            
                             $FinanceResult = GetAllRows($FinanceQuery);
                             $FinanceCounts = count($FinanceResult);
                             if ($FinanceCounts > 0) {
@@ -348,7 +350,7 @@ if (isset($_POST['add_submit'])) {
             autoclose: true
         });
 
-        $('#datatable6').DataTable({
+        $('#datatable666').DataTable({
             "paging": false,
             "lengthChange": false,
             "searching": true,
