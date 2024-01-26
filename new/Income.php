@@ -86,6 +86,7 @@ if (isset($_POST['add_submit'])) {
                                     </div>
                                     <div class="form-group">
                                     <select name="reference" class="form-control">
+                                        <option value="0">All</option>
                                         <option value="Self">Self</option>
                                         <?php
                                         $sql = "SELECT id,d_name FROM doctors  ORDER BY d_name";
@@ -121,6 +122,9 @@ if (isset($_POST['add_submit'])) {
                                 <th class="thead_data">Patient</th>
                                 <th class="thead_data">Bill No</th>
                                 <th class="thead_data">Payment Method</th>
+                                <?php if($reference == "0"){ ?>
+                                <th class="thead_data">Referred By</th>
+                                <?php } ?>
                                 <th class="thead_data">Amount</th>
                             </tr>
                         </thead>
@@ -128,7 +132,17 @@ if (isset($_POST['add_submit'])) {
                             <?php
                             $no = 0;
                             $total = 0;
-                            $FinanceQuery = "SELECT a.*,b.P_name FROM patient_entry a,macho_patient b WHERE a.patient_id=b.id and a.reference='$reference' AND entry_date>='$startdate' AND entry_date<='$enddate' ORDER BY id DESC ";
+                            if($reference == "0"){
+                                $FinanceQuery = "SELECT a.*,b.P_name,c.d_name FROM patient_entry a,macho_patient b,doctors c WHERE a.reference=c.id and a.patient_id=b.id ";
+                                if($reference != "0") $FinanceQuery .= " and a.reference='$reference'";
+                                $FinanceQuery .= " AND entry_date>='$startdate' AND entry_date<='$enddate' ORDER BY id DESC ";
+                            }else{
+                                $FinanceQuery = "SELECT a.*,b.P_name FROM patient_entry a,macho_patient b WHERE a.patient_id=b.id ";
+                                if($reference != "0") $FinanceQuery .= " and a.reference='$reference'";
+                                $FinanceQuery .= " AND entry_date>='$startdate' AND entry_date<='$enddate' ORDER BY id DESC ";
+                            }
+                            //echo $FinanceQuery;die;
+                            
                             $FinanceResult = GetAllRows($FinanceQuery);
                             $FinanceCounts = count($FinanceResult);
                             if ($FinanceCounts > 0) {
@@ -141,6 +155,9 @@ if (isset($_POST['add_submit'])) {
                                         <td class="tbody_data"><?php echo $FinanceData['P_name']; ?></td>
                                         <td class="tbody_data"><?php echo $FinanceData['bill_no']; ?></td>
                                         <td class="tbody_data"><?php echo $FinanceData['payment_method']; ?></td>
+                                        <?php if($reference == "0"){ ?>
+                                            <th class="tbody_data"><?php echo $FinanceData['d_name']; ?></th>
+                                        <?php } ?>
                                         <td class="tbody_data"><?php echo $FinanceData['total_amount']; ?></td>
                                     </tr>
                                 <?php }
