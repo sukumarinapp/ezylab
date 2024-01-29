@@ -19,6 +19,10 @@ $created_date = date("Y-m-d");
 
 
 ?>
+<!doctype html>
+<html lang="en">
+
+<head>
 <?php include ("headercss.php"); ?>
 <title>Patient</title>
 </head>
@@ -429,7 +433,7 @@ if (isset($_POST['update'])) {
                                                     tabindex="14">
                                                 Save
                                             </button>
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
                                         </div>
@@ -445,7 +449,6 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </div>
-	  <?php include_once 'footer.php'; ?>
 </div>
 
    <?php include ("js.php"); ?>

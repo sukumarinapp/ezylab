@@ -18,8 +18,13 @@ $PageAccessible = IsPageAccessible($user_id, 'Patient');
 $patient_id = DecodeVariable($_GET['patient_id']);
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
 
-?><?php include ("css.php"); ?>
-<title>Dashtrans</title>
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Patient Log</title>
 </head>
 <body class="bg-theme bg-theme2">
    <!--wrapper-->
@@ -40,6 +45,8 @@ $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
                 </small>
             </div>
         </div>
+        <div class="card">
+                    <div class="card-body">
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation">
@@ -234,7 +241,8 @@ $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
             </div>
         </div>
     </div>
-
+</div>
+</div>
 </section>
 </div>
 

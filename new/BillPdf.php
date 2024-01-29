@@ -112,11 +112,11 @@ foreach ($BillingResult2 as $BillingItems2) {
 
     $TestCategoryData = SelectParticularRow('macho_test_category', 'id', $CategoryID);
 
-    $mpdf->Cell(20, 8, $i, 'LR', 0, 'C', false);
-    $mpdf->Cell(100, 8, $TestCategoryData['category_name'], 'LR', 0, 'L', false);
+    $mpdf->Cell(20, 4, $i, 'LR', 0, 'C', false);
+    $mpdf->Cell(100, 4, $TestCategoryData['category_name'], 'LR', 0, 'L', false);
     // $mpdf->Cell(30, 8, $BillingItems['unit_price'], 'LR', 0, 'C', false);
     // $mpdf->Cell(20, 8, $BillingItems['quantity'] . " " . $BillingItems['uom'], 'LR', 0, 'C', false);
-    $mpdf->Cell(60, 8, $TestCategoryData['amount'], 'LR', 1, 'C', false);
+    $mpdf->Cell(60, 4, $TestCategoryData['amount'], 'LR', 1, 'R', false);
     $i++;
 }
 

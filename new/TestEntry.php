@@ -15,6 +15,10 @@ $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 $PageAccessible = IsPageAccessible($user_id, $page);
 ?>
 
+<!doctype html>
+<html lang="en">
+
+<head>
 
 <!-- Main section-->
 <style>
@@ -25,7 +29,6 @@ $PageAccessible = IsPageAccessible($user_id, $page);
         white-space: nowrap;
     }
 </style>
-<section class="section-container" xmlns="http://www.w3.org/1999/html">
 <?php include ("headercss.php"); ?>
 <title>Reports</title>
 </head>
@@ -287,6 +290,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
             </div>
         </div>
     </div>
+</div>
 </section>
 <!-- Page footer-->
 </div>
