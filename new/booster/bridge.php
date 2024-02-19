@@ -5,12 +5,12 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 if ($_SERVER['HTTP_HOST'] == "localhost") {
     define('DBHOST', 'localhost');
-    define('DBNAME', 'dream_lims');
+    define('DBNAME', 'eazy_lab');
     define('DBUSER', 'root');
     define('DBPASS', '');
 } else {
     define('DBHOST', 'localhost');
-    define('DBNAME', 'dream_lims');
+    define('DBNAME', 'eazy_lab');
     define('DBUSER', 'root');
     define('DBPASS', '');
 }

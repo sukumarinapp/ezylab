@@ -225,7 +225,6 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                     <th>Header</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <?php
                                 $no = 0;

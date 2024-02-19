@@ -147,6 +147,14 @@ $today = date("Y-m-d");
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
+            <label class="col-form-label">Sample Type</label>
+            <input value="<?= $TestTypeData['sample_type']; ?>" maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
             <label class="col-form-label">Comments </label>
             <textarea class="form-control" name="comments" id="comments" maxlength="500" rows="4"
                 tabindex="12"><?= $TestTypeData['comments']; ?></textarea>

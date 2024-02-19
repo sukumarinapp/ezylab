@@ -78,7 +78,7 @@ if (isset($_POST['add_patient'])) {
     }
 
     .row-padded {
-        background-color: #0b5ed7;
+        background-color: #808000;
         padding: 1px;
         margin: 4px;
         border: 1px black;
@@ -233,10 +233,10 @@ if (isset($_POST['add_patient'])) {
                                 class="form-control">
                                 <!--                                </div>-->
                                 <div class="col-md-2">
-                                    <label class="control-label">Home Visiting</label>
+                                    <label class="control-label">Home Visit</label>
                                 </div>
                                 <div class="col-md-3 pull-right">
-                                    <input style="text-align: right" type="text" name="home_visit" id="home_visit"
+                                    <input maxlength="4" style="text-align: right" type="text" name="home_visit" id="home_visit"
                                     class="form-control" onkeypress="return isNumberKey(event)"
                                     onkeyup="calculate_net_amount()">
                                 </div>
@@ -298,6 +298,20 @@ if (isset($_POST['add_patient'])) {
                                         <div class="col-md-3 pull-right">
                                             <input type="text" onkeypress="return isNumberDecimalKey(event)" name="pay_amount"
                                             id="pay_amount" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-1">&nbsp;</div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">Discount</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                        <input maxlength="4" type="text" name="discount" id="discount"
+                                    class="form-control" onkeypress="return isNumberKey(event)"
+                                    onkeyup="calculate_net_amount()">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -677,8 +691,8 @@ aria-hidden="true">
         tokenarr.splice(idxObj, 1);
         $("#"+test_id).prop("checked",false);
         $("#profile_"+test_id).prop("checked",false);
-        $("#dept_"+test_id).css("background-color","#0b5ed7");
-        $("#dept_profile"+test_id).css("background-color","#0b5ed7");
+        $("#dept_"+test_id).css("background-color","#808000");
+        $("#dept_profile"+test_id).css("background-color","#808000");
     });
 
      $('.poptest').click(function() {
@@ -693,9 +707,9 @@ aria-hidden="true">
         var test_category= $(this).attr("data-test_category");
         if(this.checked){
             tokenarr.push({value : test_id , label : test_name_price , testname : test_name , testprice : test_price , testtype : test_type , testcategory : test_category});
-            $("#dept_"+test_id).css("background-color","#0BDA51");
+            $("#dept_"+test_id).css("background-color","#DC143C");
             if(test_type == "group"){
-                $("#dept_profile"+test_id).css("background-color","#0BDA51");
+                $("#dept_profile"+test_id).css("background-color","#DC143C");
             }
             mytagsinput.tagsinput('add', { id: test_id, text: test_name});   
         }else{
@@ -703,8 +717,8 @@ aria-hidden="true">
               return object.value === test_id;
             });
             tokenarr.splice(idxObj, 1);
-            $("#dept_"+test_id).css("background-color","#0b5ed7");
-            $("#dept_profile"+test_id).css("background-color","#0b5ed7");
+            $("#dept_"+test_id).css("background-color","#808000");
+            $("#dept_profile"+test_id).css("background-color","#808000");
             mytagsinput.tagsinput('remove', { id: test_id, text: test_name});
         }
     });
@@ -966,22 +980,19 @@ $(document).ready(function() {
         $("#code-scan").focus();
     }
 
-    function calculate_net_amount() {
-        var home_visit = $('#home_visit').val();
-        var total_amount = $('#total_amount').val();
-        var net_amount = total_amount;
-        if(home_visit != ""){
-            net_amount = parseInt(home_visit) + parseInt(total_amount);
-        }
-        $('#net_amount').val(net_amount);
-    }
-
-    $("input[name='pay_amount']").keyup(function() {
+        $("input[name='pay_amount']").keyup(function() {
         var pay_amount = $('#pay_amount').val();
         var net_amount = $('#net_amount').val();
 
         $('#balance_amount').val(pay_amount - net_amount);
     });
+
+    function calculate_net_amount() {
+        var home_visit = ~~parseInt($('#home_visit').val());
+        var total_amount = ~~parseInt($('#total_amount').val());
+        var discount = ~~parseInt($('#discount').val());
+        $('#net_amount').val((home_visit+total_amount)-discount);
+    }
 
     function submit_data() {
 
@@ -1000,7 +1011,10 @@ $(document).ready(function() {
         var patient_id = $('#patient_id').val();
         var ref_prefix = $('#ref_prefix').val();
         var reference = $('#reference').val();
-        var total_amount = DecimalPoint($('#total_amount').val());
+        var total_amount = ~~parseInt($('#total_amount').val());
+        var net_amount = ~~parseInt($('#net_amount').val());
+        var home_visit = ~~parseInt($('#home_visit').val());
+        var discount = ~~parseInt($('#total_amount').val());
         var cgst_tax = 0;
         var sgst_tax = 0;
         var home_visit = 0;
@@ -1060,11 +1074,12 @@ $(document).ready(function() {
                 reference: reference,
                 entry_time: entry_time,
                 sales: sales_data,
-                amount: total_amount,
+                total_amount: total_amount,
                 net_amount: net_amount,
                 cgst: cgst_tax,
                 sgst: sgst_tax,
                 home_visit: home_visit,
+                discount: discount,
                 pay_amount: pay_amount,
                 payment_method: payment_method,
                 reference_no: reference_no

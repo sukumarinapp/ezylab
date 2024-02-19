@@ -67,7 +67,7 @@ $modified = date("Y-m-d H:i:s");
                     $critical_info = trim($Row[9]);
                     $interpretation = trim($Row[10]);
                    
-                    $sql = "insert into macho_test_type  (test_category,test_code,test_name,units,price,type_test,sub_head,table_input,critical_info,interpretation,lower_limit,upper_limit) values ('$test_category','$test_code','$test_name','$units','$price','$type_test','$sub_head','$table_input','$critical_info','$interpretation','$lower_limit','$upper_limit')";
+                    $sql = "insert into macho_test_type  (test_category,test_code,test_name,units,price,type_test,sub_head,sample_type,table_input,critical_info,interpretation,lower_limit,upper_limit) values ('$test_category','$test_code','$test_name','$units','$price','$type_test','$sub_head','$sample_type','$table_input','$critical_info','$interpretation','$lower_limit','$upper_limit')";
                     //echo $sql;die;
                     mysqli_query($GLOBALS['conn'], $sql) or die(mysqli_error($GLOBALS['conn']));
                 }
@@ -106,6 +106,7 @@ if (isset($_POST['submit'])) {
             'critical_info' => Filter($_POST['critical_info']),
             'comments' => Filter($_POST['comments']),
             'sub_head' => Filter($_POST['sub_head']),
+            'sample_type' => Filter($_POST['sample_type']),
             'show_critical_info' => $show_critical_info,
             'show_interpretation' => $show_interpretation,
             'created' => $created,
@@ -157,6 +158,7 @@ if (isset($_POST['update'])) {
             'critical_info' => Filter($_POST['critical_info']),
             'comments' => Filter($_POST['comments']),
             'sub_head' => Filter($_POST['sub_head']),
+            'sample_type' => Filter($_POST['sample_type']),
             'show_critical_info' => $show_critical_info,
             'show_interpretation' => $show_interpretation,
             'modified' => $modified
@@ -418,6 +420,14 @@ aria-hidden="true">
                                 <div class="form-group">
                                     <label class="col-form-label">Sub Heading Name</label>
                                     <input maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                            <label class="col-form-label">Sample Type</label>
+                                    <input maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
                                 </div>
                             </div>
                         </div>
