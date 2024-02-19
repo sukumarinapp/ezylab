@@ -1014,7 +1014,7 @@ $(document).ready(function() {
         var total_amount = ~~parseInt($('#total_amount').val());
         var net_amount = ~~parseInt($('#net_amount').val());
         var home_visit = ~~parseInt($('#home_visit').val());
-        var discount = ~~parseInt($('#total_amount').val());
+        var discount = ~~parseInt($('#discount').val());
         var cgst_tax = 0;
         var sgst_tax = 0;
         var home_visit = 0;
