@@ -179,7 +179,7 @@ foreach ($TestEntryResult as $TestEntryData) {
 
                if($TestTypeData['method']!=""){
                 $html .= '<tr>
-                <th style="background-color:#F5F5F5;font-size:12px;" colspan="2">Method</th>
+                <th style="font-size:12px;" colspan="2">Method</th>
                 <td style="text-align:left;height: 25px" colspan="9">' . str_replace("^","",$TestTypeData['method']) . '</td></tr>';
                }
 
