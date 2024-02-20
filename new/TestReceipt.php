@@ -112,10 +112,11 @@ $html =$html .'<tr>
 <thead>
 <tr><th style="text-align:center" colspan="7"><h4>Laboratory Report</h4></th></tr>
 <tr>
-<th style="background-color:#F5F5F5;font-size:15px;" colspan="2">INVESTIGATION</th>
-<th style="background-color:#F5F5F5;text-align:left;font-size:15px" colspan="2">RESULT</th>
-<th style="background-color:#F5F5F5;text-align:left;font-size:15px">UNITS</th>
-<th style="background-color:#F5F5F5;text-align:left;font-size:15px" colspan="2">NORMAL RANGE</th>
+<th style="background-color:#F5F5F5;font-size:14px;" colspan="2">Sample Type</th>
+<th style="background-color:#F5F5F5;font-size:14px;" colspan="2">INVESTIGATION</th>
+<th style="background-color:#F5F5F5;text-align:left;font-size:14px" colspan="2">RESULT</th>
+<th style="background-color:#F5F5F5;text-align:left;font-size:14px">UNITS</th>
+<th style="background-color:#F5F5F5;text-align:left;font-size:14px" colspan="2">NORMAL RANGE</th>
 </tr>
 </thead>
 
@@ -160,11 +161,12 @@ foreach ($TestEntryResult as $TestEntryData) {
 
             if ($type_test == 'Normal') {
 
-
                 $html .= '<tr>
+                <td style="text-align:left;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['sample_type']) . '</td>;
                 <td style="text-align:left;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>';
 
                   $html .= '<td colspan="2" style="';
+       
                    if(($TestEntryData3['test_result'] < $TestTypeData['lower_limit'])  || ($TestEntryData3['test_result'] > $TestTypeData['upper_limit'])){
                      $html .= 'background-color:#F0FFF0;';
                   }
@@ -174,6 +176,12 @@ foreach ($TestEntryResult as $TestEntryData) {
 
                <td colspan="2" style="text-align:left;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . '</td>
                </tr>';
+
+               if($TestTypeData['method']!=""){
+                $html .= '<tr>
+                <th style="background-color:#F5F5F5;font-size:12px;" colspan="2">Method</th>
+                <td style="text-align:left;height: 25px" colspan="9">' . str_replace("^","",$TestTypeData['method']) . '</td></tr>';
+               }
 
                if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
                 $html .= '<tr><td colspan="5"></td><td width="20%" colspan="2" style="font-weight:bold">Reference Value</td></tr>';
@@ -189,6 +197,7 @@ foreach ($TestEntryResult as $TestEntryData) {
 
 
             $html .= '<tr>
+            <td style="text-align:left;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['sample_type']) . '</td>
             <td style="text-align:left;height: 25px" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
             <td style="text-align:left;height: 25px;" colspan="2">' . $TestEntryData3['sub_head'] . '</td>
             <td style="text-align:left;height: 25px;" >' . $TestTypeData['units'] . '</td>
@@ -209,6 +218,7 @@ foreach ($TestEntryResult as $TestEntryData) {
         } elseif ($type_test == 'Table') {
 
             $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="2">' . str_replace("^","",$TestTypeData['sample_type']) . '</td>
             <td style="text-align:left;height: 25px;" colspan="2">' . str_replace("^","",$TestTypeData['test_name']) . '</td>
             <td style="text-align:left;height: 25px;" colspan="2">' . str_replace("^","",$TestEntryData3['test_result']) . '</td>
             <td style="text-align:left;height: 25px;" >&nbsp;' . $TestTypeData['units'] . '&nbsp;</td>
@@ -226,6 +236,7 @@ foreach ($TestEntryResult as $TestEntryData) {
         } elseif ($type_test == 'Date') {
 
             $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="2">&nbsp;' . str_replace("^","",$TestTypeData['sample_type']) . '&nbsp;</td>
             <td style="text-align:left;height: 25px;" colspan="2">&nbsp;' . str_replace("^","",$TestTypeData['test_name']) . '&nbsp;</td>
             <td style="text-align:left;height: 25px;" colspan="5">&nbsp;' . from_sql_date($TestEntryData3['date']) . '&nbsp;</td>
             </tr>';
@@ -241,6 +252,7 @@ foreach ($TestEntryResult as $TestEntryData) {
         } elseif ($type_test == 'Time') {
 
             $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="2">&nbsp;' . $TestTypeData['sample_type'] . '&nbsp;</td>
             <td style="text-align:left;height: 25px;" colspan="2">&nbsp;' . $TestTypeData['test_name'] . '&nbsp;</td>
             <td style="text-align:left;height: 25px;" colspan="5">&nbsp;' . $TestEntryData3['time'] . '&nbsp;</td>
             </tr>';
@@ -255,6 +267,7 @@ foreach ($TestEntryResult as $TestEntryData) {
         } elseif ($type_test == 'Image') {
 
             $html .= '<tr>
+            <td style="text-align:left;height: 25px;" colspan="7">&nbsp;' . $TestTypeData['sample_type'] . '&nbsp;</td>
             <td style="text-align:left;height: 25px;" colspan="7">&nbsp;' . $TestTypeData['test_name'] . '&nbsp;</td>
             </tr>';
 

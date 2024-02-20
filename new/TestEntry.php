@@ -283,9 +283,6 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                         </table>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     </div>

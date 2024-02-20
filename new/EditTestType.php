@@ -28,6 +28,10 @@ $today = date("Y-m-d");
                 maxlength="100" tabindex="5">
         </div>
         <div class="form-group">
+            <label class="col-form-label">Sample Type</label>
+            <input value="<?= $TestTypeData['sample_type']; ?>" maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
+        </div>
+        <div class="form-group">
             <label class="col-form-label">Type of Test </label>
             <select class="form-control" name="type_test" id="type_test2" tabindex="7">
                 <option value='Normal' <?php if ($TestTypeData['type_test'] == 'Normal')
@@ -141,14 +145,6 @@ $today = date("Y-m-d");
         <div class="form-group">
             <label class="col-form-label">Sub Heading Name</label>
             <input value="<?= $TestTypeData['sub_head']; ?>" maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-form-label">Sample Type</label>
-            <input value="<?= $TestTypeData['sample_type']; ?>" maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
         </div>
     </div>
 </div>

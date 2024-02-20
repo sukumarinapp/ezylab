@@ -98,7 +98,8 @@ $TestResult = GetAllRows($TestQuery);
                                                                name="test_id[]"
                                                                id="test_id<?= $TestID; ?>"
                                                                value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
+                                                              
+                                                        <?= $TestTypeData['test_name']; ?> <?php if(trim($TestTypeData['remarks']) != "") echo "<span style='color:red'>*</span>" ?>
                                                     </td>
                                                     <td colspan="3"><input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
                                                                            name="test_result[]"

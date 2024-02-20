@@ -231,6 +231,7 @@ if (isset($_POST['update'])) {
                                     <th class="thead_data">Unit</th>
                                     <th class="thead_data">Type</th>
                                     <th class="thead_data">Sub Heading</th>
+                                    <th class="thead_data">Sample Type</th>
                                     <th class="thead_data">Table Input</th>
                                     <th class="thead_data">Critical Info</th>
                                     <th class="thead_data">Interpretation</th>
@@ -254,6 +255,7 @@ if (isset($_POST['update'])) {
                                             <td class="tbody_data"><?= $TestTypeData['units']; ?></td>
                                             <td class="tbody_data"><?= $TestTypeData['type_test']; ?></td>
                                             <td class="tbody_data"><?= $TestTypeData['sub_head']; ?></td>
+                                            <td class="tbody_data"><?= $TestTypeData['sample_type']; ?></td>
                                             <td class="tbody_data"><?= $TestTypeData['table_input']; ?></td>
                                             <td class="ellipsis"><?= $TestTypeData['critical_info']; ?></td>
                                             <td class="ellipsis"><?= $TestTypeData['interpretation']; ?></td>
@@ -324,12 +326,16 @@ aria-hidden="true">
                                             maxlength="100" onkeypress="return isNumberDecimalKey(event)"
                                             tabindex="3" required>
                                         </div>
-
+                            
                                         <div class="form-group">
                                             <label class="col-form-label">Method </label>
                                             <input class="form-control" type="text" name="method" id="method"
                                             maxlength="100" tabindex="5">
                                         </div>
+                                        <div class="form-group">
+                                             <label class="col-form-label">Sample Type</label>
+                                             <input maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
+                                       </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Type of Test </label>
                                             <select class="form-control" name="type_test" id="type_test"
@@ -420,14 +426,6 @@ aria-hidden="true">
                                 <div class="form-group">
                                     <label class="col-form-label">Sub Heading Name</label>
                                     <input maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                            <label class="col-form-label">Sample Type</label>
-                                    <input maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
                                 </div>
                             </div>
                         </div>
