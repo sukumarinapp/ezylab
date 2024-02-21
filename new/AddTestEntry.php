@@ -299,10 +299,11 @@ $TestResult = GetAllRows($TestQuery);
                            </span>Back to List
                         </button>
                         <button class="btn btn-info" type="button" name="submit"
-                                id="save_button"
-                          onclick="submit_data();" tabindex="9">
+                                id="save_test"
+                          onclick="save_preview();" tabindex="9">
                           <span class="btn-label">Preview</span>
                         </button>
+                        
                         <button class="btn btn-labeled btn-primary" type="button" name="submit"
                                 id="save_button"
                                 onclick="submit_data();" tabindex="9">
@@ -532,6 +533,41 @@ $TestResult = GetAllRows($TestQuery);
                 window.location.href = "TestEntry";
             }
         });
+    }
+
+ function save_preview() {
+
+    $("#save_test").prop("disabled", true);
+
+    var entry_id = $('#entry_id').val();
+
+    var test_id = new Array();
+    $('input[name^="test_id"]').each(function () {
+        test_id.push($(this).val());
+    });
+
+    var obj = new Array();
+    for (var i = 0; i < test_id.length; i++) {
+        var id = test_id[i];
+
+        obj[i] = id + ',' + $('#test_result' + id).val() + ',' + $('#sub_head' + id).val() + ',' + $('#paragraph' + id).val() + ',' + $('#head_1' + id).val() + ',' + $('#head_2' + id).val() + ',' + $('#head_3' + id).val() + ',' + $('#head_4' + id).val() + ',' + $('#head_5' + id).val() + ',' + $('#head_6' + id).val() + ',' + $('#result_1' + id).val() + ',' + $('#result_2' + id).val() + ',' + $('#result_3' + id).val() + ',' + $('#result_4' + id).val() + ',' + $('#result_5' + id).val() + ',' + $('#result_6' + id).val() + ',' + $('#date' + id).val() + ',' + $('#time' + id).val();
+
+    }
+
+    var test_data = JSON.stringify(obj);
+    $.ajax({
+        type: 'POST',
+        url: 'SavePreviewTest.php',
+        data: {
+            entry_id: entry_id,
+            test_data: test_data
+        },
+        success: function (entry_id) {
+            $("#save_test").prop("disabled", false);
+            swal("Success!", "Test Details Added Successfully!", "success");
+            window.location.href = "AddTestEntry";
+        }
+    });
     }
 </script>
 </body>
