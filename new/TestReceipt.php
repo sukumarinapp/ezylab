@@ -63,7 +63,6 @@ if($header == 0){
 $html = $html . '</td>
 </tr>
 </table>
-
 <table border="1" class="table table-hover table-bordered" width="100%" align="center">
 <tr>
 <td align="left" width="15%">Patient ID</td>
@@ -71,7 +70,7 @@ $html = $html . '</td>
 <td align="left" width="25%">Sample Id '.$BillData['bill_no'].'</td><td width="25%">';
 ?>
 <?php
-$html =$html .'<img src="barcode/barcode.php?text='.$BillData['bill_no'].'&codetype=codabar&orientation=horizontal&size=20&print='.$BillData['bill_no'].'" /></td>';
+$html =$html .'<img style="padding-left:-10px" align="left" src="barcode/barcode.php?text='.$BillData['bill_no'].'&codetype=codabar&orientation=horizontal&size=20&print='.$BillData['bill_no'].'" /></td>';
 ?>
 <?php
 
