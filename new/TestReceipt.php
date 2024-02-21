@@ -111,7 +111,7 @@ $html =$html .'<tr>
 <thead>
 <tr><th style="text-align:center" colspan="7"><h4>Laboratory Report</h4></th></tr>
 <tr>
-<th style="background-color:#F5F5F5;font-size:14px;" colspan="2">Sample Type</th>
+<th style="background-color:#F5F5F5;font-size:14px;" colspan="2">Sample</th>
 <th style="background-color:#F5F5F5;font-size:14px;" colspan="2">INVESTIGATION</th>
 <th style="background-color:#F5F5F5;text-align:left;font-size:14px" colspan="2">RESULT</th>
 <th style="background-color:#F5F5F5;text-align:left;font-size:14px">UNITS</th>

@@ -126,6 +126,10 @@ $today = date("Y-m-d");
                     <input class="form-control" type="text" name="upper_limit" id="upper_limit"
                         value="<?= $TestTypeData['upper_limit']; ?>" maxlength="100" tabindex="9">
                 </div>
+                <div class="form-group">
+            <label class="col-form-label">Sub Heading Name</label>
+            <input value="<?= $TestTypeData['sub_head']; ?>" maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
+        </div>
             </div>
         <div class="form-group form-check">
               <input <?php if($TestTypeData['show_interpretation']==1) echo "checked";  ?> name="show_interpretation" class="form-check-input" type="checkbox" value="1" id="show_interpretation2" >
@@ -140,14 +144,7 @@ $today = date("Y-m-d");
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-form-label">Sub Heading Name</label>
-            <input value="<?= $TestTypeData['sub_head']; ?>" maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">

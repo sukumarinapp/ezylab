@@ -298,6 +298,11 @@ $TestResult = GetAllRows($TestQuery);
                            <span class="btn-label"><i class="fa fa-arrow-left"></i>
                            </span>Back to List
                         </button>
+                        <button class="btn btn-info" type="button" name="submit"
+                                id="save_button"
+                          onclick="submit_data();" tabindex="9">
+                          <span class="btn-label">Preview</span>
+                        </button>
                         <button class="btn btn-labeled btn-primary" type="button" name="submit"
                                 id="save_button"
                                 onclick="submit_data();" tabindex="9">
