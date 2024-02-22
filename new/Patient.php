@@ -35,7 +35,7 @@ $row = mysqli_fetch_assoc($result);
 $from_date = $row['from_date'];
 $to_date = $row['to_date'];
 
-// echo "<pre>";print_r($from_date);print_r($to_date);echo "</pre>";die;
+//echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
 
 ?>
 
@@ -143,6 +143,7 @@ if (isset($_POST['update'])) {
         <div class="card">
             <div class="card-header">
                 <div class="card-title pull-right">
+                <?php if ($to_date >= $validation) { ?>
                     <?php if ($PageAccessible['is_write'] == 1) { ?>
                         <button class="btn btn-labeled btn-danger float-end" type="button" title="Add Patient"
                                 data-bs-toggle="modal"
@@ -150,6 +151,7 @@ if (isset($_POST['update'])) {
                             Add New
                             <span class="btn-label btn-label-right"><i class="fa fa-arrow-right"></i>
                            </span></button>
+                    <?php } ?>
                     <?php } ?>
                 </div>
             </div>
@@ -193,11 +195,13 @@ if (isset($_POST['update'])) {
                                                         onClick="document.location.href='PatientLog?patient_id=<?php echo EncodeVariable($patientData['id']); ?>'">
                                                     <em class="fa fa-address-book"></em>
                                                 </button>
+                                                <?php if ($to_date >= $validation) { ?>
                                                 <button class="btn btn-success" type="button"
                                                         title="Patient Entry"
                                                         onClick="document.location.href='PatientEntry?patient_id=<?php echo EncodeVariable($patientData['id']); ?>'">
                                                     <em class="fa fas fa-flask"></em>
                                                 </button>
+                                                <?php } ?>
                                             <?php }
                                             if ($PageAccessible['is_modify'] == 1) { ?>
                                                 <button class="btn btn-info" type="button" title="Edit"

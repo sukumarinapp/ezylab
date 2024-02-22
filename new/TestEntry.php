@@ -15,6 +15,18 @@ $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 $PageAccessible = IsPageAccessible($user_id, $page);
 ?>
 
+<?php
+$validation = date("Y-m-d");
+
+$sql = "select * from  software_validation ORDER BY id";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$from_date = $row['from_date'];
+$to_date = $row['to_date'];
+
+//echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -129,12 +141,15 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                             title="View"><em class="fa fa-eye"></em>
                                                         </button>
                                                     <?php }
+                                                    
                                                     if ($PageAccessible['is_write'] == 1) { ?>
+                                                    <?php if ($to_date >= $validation) { ?>
                                                         <button class="btn btn-info" title="Test Entry"
                                                             onClick="window.open('AddTestEntry?eID=<?= EncodeVariable($BillData['id']); ?>');">
                                                             <em class="fa fa-heartbeat"></em></button>
                                                         <?php
                                                     } ?>
+                                                    <?php } ?> 
                                                 </div>
                                             </td>
                                         </tr>
@@ -263,6 +278,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
+                                                <?php if ($to_date >= $validation) { ?>
                                                     <?php
                                                     if ($PageAccessible['is_read'] == 1) { ?>
                                                         <button class="btn btn-success" title="View"
@@ -271,6 +287,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                         </button>
                                                         <?php
                                                     } ?>
+                                                    <?php } ?>
                                                 </div>
                                             </td>
                                             <td>
