@@ -103,6 +103,8 @@
 					<ul>
 						<li> <a href="OrgInfo"><i class='bx bx-radio-circle'></i>Organisation</a>
 						</li>
+						<!-- <li> <a href="Contact" target="_blank"><i class='fa fa-phone'></i>Help</a>
+						</li> -->
 						
 						<li> <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Access Control</a>
 							<ul>
@@ -118,8 +120,11 @@
 						</li>
 					</ul>
 				</li>	
+                <li>
+					<a href="Contact"><i style="font-size:22px;" class='fa fa-phone'></i>&nbsp;Help</a>
+				</li>
 				<li>
-					<a href="backup" target="_blank" ><i style="font-size:22px;" class='fab fa-google-drive'></i>&nbsp;Backup</a>
+					<a href="backup" ><i style="font-size:22px;" class='fab fa-google-drive'></i>&nbsp;Backup</a>
 				</li>
 			</ul>
 		</div>
