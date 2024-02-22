@@ -26,6 +26,20 @@ $created_date = date("Y-m-d");
 <?php include ("headercss.php"); ?>
 <title>Patient</title>
 </head>
+<?php
+$validation = date("Y-m-d");
+
+$sql = "select * from  software_validation ORDER BY id";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$from_date = $row['from_date'];
+$to_date = $row['to_date'];
+
+// echo "<pre>";print_r($from_date);print_r($to_date);echo "</pre>";die;
+
+?>
+
+
 <body class="bg-theme bg-theme2">
     <?php
     if (isset($_POST['add_patient'])) {

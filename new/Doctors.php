@@ -264,6 +264,7 @@ if (isset($_POST['update'])) {
                                                             <option value="Sr. ">Sr.</option>
                                                             <option value="Rev.Fr. ">Rev.Fr.</option>
                                                             <option value="Dr. ">Dr.</option>
+                                                            <option value="Reffer Lab. ">Reffer Lab</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-8">
