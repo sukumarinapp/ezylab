@@ -107,13 +107,9 @@ $TestingResult = GetAllRows($testview);
                                                     </td>
                                                     <?php
                                         $patientQuery = "SELECT * FROM test_entry where entry_id ='$EntryId' ";
-                                        echo  $patientQuery;
                                         $patientResult = GetAllRows($patientQuery);
                                         foreach ($patientResult as $patientData) {
                                              $test_resu = $patientData['test_result'];
-                                           echo $test_resu;
-
-
                                         } ?>
                                                     <td colspan="3">
                                                         <input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
