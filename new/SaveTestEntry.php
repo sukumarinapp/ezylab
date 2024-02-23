@@ -17,7 +17,9 @@ $test_data_array = json_decode($test_data);
 $entry_id = $_REQUEST['entry_id'];
 
 $test_status = $_REQUEST['test_status'];
-
+if($data7['test_status'] == 2){
+    DeleteRow('test_entry', 'entry_id', $entry_id);
+}
 $things = array();
 for ($i = 0; $i < count($test_data_array); $i++) {
 
@@ -60,9 +62,7 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     $data7 = mysqli_fetch_assoc($result7);
     //'test_category' => Filter($TestTypeData['test_category']),
     //sukumar
-    if($data7['test_status'] == 2){
-        DeleteRow('test_entry', 'entry_id', $entry_id);
-    }
+    
 
     $test_entry_sql = Insert('test_entry', array(
         'entry_id' => Filter($entry_id),
