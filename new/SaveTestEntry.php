@@ -16,7 +16,7 @@ $test_data_array = array();
 $test_data_array = json_decode($test_data);
 $entry_id = $_REQUEST['entry_id'];
 
-$status = '1';
+$status = '2';
 $things = array();
 for ($i = 0; $i < count($test_data_array); $i++) {
 
@@ -54,8 +54,15 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     $result6 = mysqli_query($GLOBALS['conn'], $sql6) or die(mysqli_error($GLOBALS['conn']));
     $data6 = mysqli_fetch_assoc($result6);
     
+    $sql7 = "SELECT test_status FROM  patient_entry where id = $entry_id";
+    $result7 = mysqli_query($GLOBALS['conn'], $sql7) or die(mysqli_error($GLOBALS['conn']));
+    $data7 = mysqli_fetch_assoc($result7);
     //'test_category' => Filter($TestTypeData['test_category']),
     //sukumar
+    if($data7['test_status'] == 2){
+       echo "edit";
+    }else{
+
     $test_entry_sql = Insert('test_entry', array(
         'entry_id' => Filter($entry_id),
         'test_id' => Filter($test_id),
@@ -84,11 +91,13 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     )
     );
 }
+}
 
 $update = Update('patient_entry', 'id', $entry_id, array(
     'test_status' => $status,
     'modified' => $date_time
 )
 );
-
+if($data7['test_status'] == 1){
 echo EncodeVariable($entry_id);
+}

@@ -21,9 +21,13 @@ $EntryData = SelectParticularRow('patient_entry', 'id', $EntryId);
 $patient_id = $EntryData['patient_id'];
 
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
+// echo "<pre>";print_r($PatientInfo);print_r($patient_id);;echo "</pre>";die;
 
 $TestQuery = "SELECT a.*,b.test_code,b.remarks,b.test_category FROM macho_bill_items a,macho_test_type b WHERE a.item_id=b.id and bill_id='$EntryId' ORDER BY a.id";
 $TestResult = GetAllRows($TestQuery);
+
+$testview = "SELECT * FROM test_entry where id='$EntryId'";
+$TestingResult = GetAllRows($testview);
 ?>
 
 <?php include ("headercss.php"); ?>
@@ -101,7 +105,18 @@ $TestResult = GetAllRows($TestQuery);
                                                               
                                                         <?= $TestTypeData['test_name']; ?> <?php if(trim($TestTypeData['remarks']) != "") echo "<span style='color:red'>*</span>" ?>
                                                     </td>
-                                                    <td colspan="3"><input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
+                                                    <?php
+                                        $patientQuery = "SELECT * FROM test_entry where entry_id ='$EntryId' ";
+                                        echo  $patientQuery;
+                                        $patientResult = GetAllRows($patientQuery);
+                                        foreach ($patientResult as $patientData) {
+                                             $test_resu = $patientData['test_result'];
+                                           echo $test_resu;
+
+
+                                        } ?>
+                                                    <td colspan="3">
+                                                        <input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
                                                                            name="test_result[]"
                                                                            id="test_result<?= $TestID; ?>"
                                                                            value=""
@@ -531,7 +546,9 @@ $TestResult = GetAllRows($TestQuery);
             success: function (entry_id) {
                 $("#save_button").prop("disabled", false);
                 swal("Success!", "Test Details Added Successfully!", "success");
-                window.location.href = "TestEntry";
+                location.reload();
+
+                //window.location.href = "AddTestEntry?eID="+UHMJ+"&header=1";
             }
         });
     }
@@ -571,6 +588,10 @@ $TestResult = GetAllRows($TestQuery);
         }
     });
     }
+
+    $('.rbutton').on('click',function() {
+    $(this).prop("disabled",true);
+});
 </script>
 </body>
 </html>
