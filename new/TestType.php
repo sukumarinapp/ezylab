@@ -19,13 +19,14 @@ $modified = date("Y-m-d H:i:s");
 
 ?>
 <?php
-$validation = date("Y-m-d");
+$validation = false;
+$today = date("Y-m-d");
 
-$sql = "select * from  software_validation ORDER BY id";
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$from_date = $row['from_date'];
-$to_date = $row['to_date'];
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
 
 //echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
 
@@ -216,7 +217,7 @@ if (isset($_POST['update'])) {
                                     <input class="btn btn-danger" type="submit" name="excel_import" value="Import Test Data">
                                 </div>
                                 <div class="col-md-4">
-                                <?php if ($to_date >= $validation) { ?>
+                                <?php if ($validation) { ?>
                                     <?php if ($PageAccessible['is_write'] == 1) { ?>
                                         <div class="card-title pull-right">
                                             <button class="btn btn-labeled btn-danger" type="button" data-bs-toggle="modal"
