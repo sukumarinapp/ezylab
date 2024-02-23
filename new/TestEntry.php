@@ -96,7 +96,7 @@ $to_date = $row['to_date'];
                                 <?php
                                 $no = 0;
                                 $bill_type = "patient_entry";
-                                $BillQuery = "SELECT * FROM patient_entry WHERE test_status	 ='0' ORDER BY id DESC ";
+                                $BillQuery = "SELECT * FROM patient_entry WHERE test_status	 in (0,2) ORDER BY id DESC ";
                                 $BillResult = GetAllRows($BillQuery);
                                 $BillCounts = count($BillResult);
                                 if ($BillCounts > 0) {

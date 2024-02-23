@@ -17,7 +17,7 @@ $test_data_array = json_decode($test_data);
 $entry_id = $_REQUEST['entry_id'];
 
 $test_status = $_REQUEST['test_status'];
-if($data7['test_status'] == 2){
+if($test_status == 2){
     DeleteRow('test_entry', 'entry_id', $entry_id);
 }
 $things = array();
@@ -57,11 +57,6 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     $result6 = mysqli_query($GLOBALS['conn'], $sql6) or die(mysqli_error($GLOBALS['conn']));
     $data6 = mysqli_fetch_assoc($result6);
     
-    $sql7 = "SELECT test_status FROM  patient_entry where id = $entry_id";
-    $result7 = mysqli_query($GLOBALS['conn'], $sql7) or die(mysqli_error($GLOBALS['conn']));
-    $data7 = mysqli_fetch_assoc($result7);
-    //'test_category' => Filter($TestTypeData['test_category']),
-    //sukumar
     
 
     $test_entry_sql = Insert('test_entry', array(
