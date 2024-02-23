@@ -27,15 +27,15 @@ $created_date = date("Y-m-d");
 <title>Patient</title>
 </head>
 <?php
-$validation = date("Y-m-d");
+$validation = false;
+$today = date("Y-m-d");
 
-$sql = "select * from  software_validation ORDER BY id";
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$from_date = $row['from_date'];
-$to_date = $row['to_date'];
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
 
-//echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
 
 ?>
 
@@ -143,7 +143,7 @@ if (isset($_POST['update'])) {
         <div class="card">
             <div class="card-header">
                 <div class="card-title pull-right">
-                <?php if ($to_date >= $validation) { ?>
+                <?php if ($validation) { ?>
                     <?php if ($PageAccessible['is_write'] == 1) { ?>
                         <button class="btn btn-labeled btn-danger float-end" type="button" title="Add Patient"
                                 data-bs-toggle="modal"
@@ -195,7 +195,7 @@ if (isset($_POST['update'])) {
                                                         onClick="document.location.href='PatientLog?patient_id=<?php echo EncodeVariable($patientData['id']); ?>'">
                                                     <em class="fa fa-address-book"></em>
                                                 </button>
-                                                <?php if ($to_date >= $validation) { ?>
+                                                <?php if ($validation) { ?>
                                                 <button class="btn btn-success" type="button"
                                                         title="Patient Entry"
                                                         onClick="document.location.href='PatientEntry?patient_id=<?php echo EncodeVariable($patientData['id']); ?>'">

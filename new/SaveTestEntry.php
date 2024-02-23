@@ -16,7 +16,8 @@ $test_data_array = array();
 $test_data_array = json_decode($test_data);
 $entry_id = $_REQUEST['entry_id'];
 
-$status = '2';
+$test_status = $_REQUEST['test_status'];
+
 $things = array();
 for ($i = 0; $i < count($test_data_array); $i++) {
 
@@ -60,8 +61,8 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     //'test_category' => Filter($TestTypeData['test_category']),
     //sukumar
     if($data7['test_status'] == 2){
-       echo "edit";
-    }else{
+        DeleteRow('test_entry', 'entry_id', $entry_id);
+    }
 
     $test_entry_sql = Insert('test_entry', array(
         'entry_id' => Filter($entry_id),
@@ -91,13 +92,11 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     )
     );
 }
-}
+
 
 $update = Update('patient_entry', 'id', $entry_id, array(
-    'test_status' => $status,
+    'test_status' => $test_status,
     'modified' => $date_time
 )
 );
-if($data7['test_status'] == 1){
 echo EncodeVariable($entry_id);
-}
