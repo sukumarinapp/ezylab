@@ -26,7 +26,10 @@ if (isset($_POST['add_submit'])) {
     $end_date = date("Y-m-d", strtotime($_POST['enddate']));
 }
 
-
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
 <!doctype html>
@@ -37,7 +40,7 @@ if (isset($_POST['add_submit'])) {
 <?php include ("headercss.php"); ?>
 <title>Expense</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
     <?php
     if (isset($_POST['submit'])) {
 

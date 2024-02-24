@@ -12,6 +12,11 @@ $access_token = $_SESSION["access_token"];
 ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,7 +25,7 @@ $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 <?php include ("headercss.php"); ?>
 <title>Create New Role</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
 <!--wrapper-->
 <div class="wrapper">
 <!--sidebar wrapper -->

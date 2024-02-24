@@ -18,6 +18,10 @@ $PageAccessible = IsPageAccessible($user_id, 'Patient');
 $patient_id = DecodeVariable($_GET['patient_id']);
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
 
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,7 +30,7 @@ $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
 <?php include ("headercss.php"); ?>
 <title>Patient Log</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->

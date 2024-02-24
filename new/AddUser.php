@@ -15,6 +15,10 @@
 $created = date("Y-m-d H:i:s");
 $modified = date("Y-m-d H:i:s");
 
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +27,7 @@ $modified = date("Y-m-d H:i:s");
 <?php include ("headercss.php"); ?>
 <title>Add New User Details</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
     <?php 
 if (isset($_POST['submit'])) {
 

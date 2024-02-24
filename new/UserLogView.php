@@ -15,6 +15,11 @@
 $id = DecodeVariable($_GET['uId']);
 $created = base64_decode($_GET['created']);
 $UserData = UserInfo($id);
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +28,7 @@ $UserData = UserInfo($id);
 <?php include ("headercss.php"); ?>
 <title>Log Details</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->

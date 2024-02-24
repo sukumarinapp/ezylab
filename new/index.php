@@ -40,6 +40,7 @@ if (isset($_POST['login'])) {
                             $_SESSION["user_email"] = $email;
                             $_SESSION["picture"] = $picture;
                             $_SESSION["access_token"] = $access_token;
+                            $_SESSION["colour"] = $colour;
                             header("location:Dashboard");
                          
                     } else {
@@ -158,9 +159,9 @@ if (isset($_POST['login'])) {
 				<button type="button" class="btn-close ms-auto close-switcher" aria-label="Close"></button>
 			</div>
 			<hr/>
+		
 			<p class="mb-0">Gaussian Texture</p>
 			  <hr>
-			  
 			  <ul class="switcher">
 				<li id="theme1"></li>
 				<li id="theme2"></li>
@@ -169,10 +170,9 @@ if (isset($_POST['login'])) {
 				<li id="theme5"></li>
 				<li id="theme6"></li>
 			  </ul>
-               <hr>
+        <hr>
 			  <p class="mb-0">Gradient Background</p>
 			  <hr>
-			  
 			  <ul class="switcher">
 				<li id="theme7"></li>
 				<li id="theme8"></li>
@@ -186,6 +186,7 @@ if (isset($_POST['login'])) {
 			  </ul>
 		</div>
 	</div>
+
 	<!--end switcher-->
 	
 	<!--plugins-->
@@ -209,6 +210,7 @@ if (isset($_POST['login'])) {
 	</script>
 	
 	<script>
+
 	$(".switcher-btn").on("click", function() {
 		$(".switcher-wrapper").toggleClass("switcher-toggled")
 	}), $(".close-switcher").on("click", function() {
@@ -291,7 +293,29 @@ if (isset($_POST['login'])) {
 	  function theme15() {
 		$('body').attr('class', 'bg-theme bg-theme15');
 	  }
-
+// function bgfavorites(obj,user_id){
+//           var url = "";
+          
+//               url = "{{url('/bgdark')}}/"+user_id;
+//               console.log(user_id);
+//           $.ajax({
+//             url: url,
+//             type: "GET",
+//             success: function (result) {
+//               location.reload();
+//               if($(obj).hasClass("btn-danger")){
+//                 $(obj).removeClass("btn-danger");
+//                 $(obj).addClass("btn-success");
+//               }else{
+//                 $(obj).removeClass("btn-success");
+//                 $(obj).addClass("btn-danger");
+//               }
+//             },
+//             error: function (error) {  
+//                 console.log(JSON.stringify(error));
+//             }
+//         });
+//         }
 	</script>
 </body>
 </html>

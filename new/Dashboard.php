@@ -55,6 +55,11 @@
        $month_amount = $row['month_amount'];
    }
 
+   $theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+   $TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+   $TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+   $colour = $TestTypeData['colour'];
+
    ?>
 <!doctype html>
 <html lang="en">
@@ -62,7 +67,7 @@
 <?php include ("headercss.php"); ?>
 <title>Dashboard</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->
@@ -160,6 +165,23 @@
          </div>
       </div>
    </div>
+   <input type="hidden" value="<?php echo $user_id ?>" id="user_id">
    <?php include ("js.php"); ?>
+   <script>
+      		$(".switcher li").on("click", function() {
+         var userid = $("#user_id").val();
+         var theme = this.id;
+         $.ajax({
+            url: "savetheme.php",
+            type: "post",
+            data: {
+                userid: userid,
+                theme: theme,
+            },
+            success: function(data) {
+            }
+        });
+		})
+   </script>
 </body>
 </html>

@@ -26,6 +26,10 @@ while($row = mysqli_fetch_assoc($result)){
 }
 
 //echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
 <!doctype html>
@@ -45,7 +49,7 @@ while($row = mysqli_fetch_assoc($result)){
 <?php include ("headercss.php"); ?>
 <title>Reports</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->

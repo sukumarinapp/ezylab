@@ -15,6 +15,11 @@ $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $RoleID = DecodeVariable($_GET['rID']);
 $RoleData = SelectParticularRow('macho_role', 'id', $RoleID);
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +28,7 @@ $RoleData = SelectParticularRow('macho_role', 'id', $RoleID);
 <?php include ("headercss.php"); ?>
 <title>Update Role</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
 <!--wrapper-->
 <div class="wrapper">
 <!--sidebar wrapper -->
