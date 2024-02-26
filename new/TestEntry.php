@@ -16,15 +16,20 @@ $PageAccessible = IsPageAccessible($user_id, $page);
 ?>
 
 <?php
-$validation = date("Y-m-d");
+$validation = false;
+$today = date("Y-m-d");
 
-$sql = "select * from  software_validation ORDER BY id";
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$from_date = $row['from_date'];
-$to_date = $row['to_date'];
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
 
 //echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
 <!doctype html>
@@ -44,7 +49,7 @@ $to_date = $row['to_date'];
 <?php include ("headercss.php"); ?>
 <title>Reports</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->
@@ -143,7 +148,7 @@ $to_date = $row['to_date'];
                                                     <?php }
                                                     
                                                     if ($PageAccessible['is_write'] == 1) { ?>
-                                                    <?php if ($to_date >= $validation) { ?>
+                                                    <?php if ($validation) { ?>
                                                         <button class="btn btn-info" title="Test Entry"
                                                             onClick="window.open('AddTestEntry?eID=<?= EncodeVariable($BillData['id']); ?>');">
                                                             <em class="fa fa-heartbeat"></em></button>
@@ -278,7 +283,7 @@ $to_date = $row['to_date'];
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                <?php if ($to_date >= $validation) { ?>
+                                                <?php if ($validation) { ?>
                                                     <?php
                                                     if ($PageAccessible['is_read'] == 1) { ?>
                                                         <button class="btn btn-success" title="View"

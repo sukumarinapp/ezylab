@@ -20,6 +20,11 @@ if (isset($_POST['search'])) {
     $start_date = date("Y-m-d", strtotime($_POST['startdate']));
     $end_date = date("Y-m-d", strtotime($_POST['enddate']));
 }
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
 <style>
@@ -48,7 +53,7 @@ if (isset($_POST['search'])) {
 <?php include ("headercss.php"); ?>
 <title>IP Block List</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <!--wrapper-->
    <div class="wrapper">
    <!--sidebar wrapper -->

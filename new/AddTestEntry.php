@@ -28,12 +28,17 @@ $TestResult = GetAllRows($TestQuery);
 
 $testview = "SELECT * FROM test_entry where id='$EntryId'";
 $TestingResult = GetAllRows($testview);
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
 <?php include ("headercss.php"); ?>
 <title><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?></title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
    <div class="wrapper">
    <?php include ("Menu.php"); ?>
    <?php include ("header.php"); ?>

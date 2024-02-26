@@ -17,7 +17,10 @@ $created = date("Y-m-d H:i:s");
 $modified = date("Y-m-d H:i:s");
 $created_date = date("Y-m-d");
 
-
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,7 +29,7 @@ $created_date = date("Y-m-d");
 <?php include ("headercss.php"); ?>
 <title>Doctors</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
     <?php
     if (isset($_POST['add_doctor'])) {
 

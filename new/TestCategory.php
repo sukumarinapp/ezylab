@@ -20,6 +20,10 @@ $created = date("Y-m-d H:i:s");
 $modified = date("Y-m-d H:i:s");
 
 
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
 
@@ -31,7 +35,7 @@ $modified = date("Y-m-d H:i:s");
     <title>Department</title>
 </head>
 
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
     <?php
     if (isset($_POST['submit'])) {
 

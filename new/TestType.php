@@ -16,16 +16,23 @@ $today = date("Y-m-d");
 $created = date("Y-m-d H:i:s");
 $modified = date("Y-m-d H:i:s");
 
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 
 ?>
-<?php
-$validation = date("Y-m-d");
 
-$sql = "select * from  software_validation ORDER BY id";
+
+<?php
+$validation = false;
+$today = date("Y-m-d");
+
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
 $result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$from_date = $row['from_date'];
-$to_date = $row['to_date'];
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
 
 //echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
 
@@ -46,7 +53,7 @@ $to_date = $row['to_date'];
 <?php include ("headercss.php"); ?>
 <title>Test</title>
 </head>
-<body class="bg-theme bg-theme2">
+<body class="bg-theme bg-<?php echo $colour ?>">
     <?php 
     if (isset($_POST['excel_import'])) {
     $Filepath = "excel".DIRECTORY_SEPARATOR.$_FILES["test_import"]["name"];
@@ -216,7 +223,7 @@ if (isset($_POST['update'])) {
                                     <input class="btn btn-danger" type="submit" name="excel_import" value="Import Test Data">
                                 </div>
                                 <div class="col-md-4">
-                                <?php if ($to_date >= $validation) { ?>
+                                <?php if ($validation) { ?>
                                     <?php if ($PageAccessible['is_write'] == 1) { ?>
                                         <div class="card-title pull-right">
                                             <button class="btn btn-labeled btn-danger" type="button" data-bs-toggle="modal"
