@@ -20,6 +20,8 @@ $test_status = $_REQUEST['test_status'];
 if($test_status == 2){
     DeleteRow('test_entry', 'entry_id', $entry_id);
 }
+
+if($test_status == 2){
 $things = array();
 for ($i = 0; $i < count($test_data_array); $i++) {
 
@@ -87,7 +89,7 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     )
     );
 }
-
+}
 
 $update = Update('patient_entry', 'id', $entry_id, array(
     'test_status' => $test_status,
