@@ -25,7 +25,7 @@
               </div>
             </div>
           </div>
-          <div class="d-flex align-items-center"> <a class="btn btn-white btn-sm py-3" href="#"><span>Login</span></a>
+          <div class="d-flex align-items-center">
             <div class="social-icons d-none d-lg-inline-block ms-3">
               <ul class="list-inline">
                 <li><a href="#"><i class="lab la-facebook-f"></i></a>
@@ -35,21 +35,6 @@
                 <li><a href="#"><i class="lab la-linkedin-in"></i></a>
                 </li>
               </ul>
-            </div>
-            <div class="language-selection ms-3">
-              <div class="dropdown">
-                <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">English</button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">English</a>
-                  </li>
-                  <li><a class="dropdown-item" href="#">Arabic</a>
-                  </li>
-                  <li><a class="dropdown-item" href="#">French</a>
-                  </li>
-                  <li><a class="dropdown-item" href="#">Italian</a>
-                  </li>
-                </ul>
-              </div>
             </div>
           </div>
         </div>
@@ -203,7 +188,7 @@
                  </span>
                   </a>
                 </div> -->
-              </div> <a class="btn btn-theme btn-sm d-none d-md-inline-block" href="login.php"><span>Login</span></a>
+              </div> <a class="btn btn-theme btn-sm d-none d-md-inline-block" href="login"><span>Login</span></a>
             </div>
           </nav>
         </div>
