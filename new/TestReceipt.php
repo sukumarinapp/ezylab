@@ -109,9 +109,9 @@ $html =$html .'<tr>
 <div class="col-xs-12 col-sm-12 col-md-12">
 <table border="5" class="table table-striped table-bordered" width="100%">
 <thead>
-<tr><th style="text-align:center" colspan="7"><h4>Laboratory Report</h4></th></tr>
+<tr><th style="text-align:center" colspan="9"><h4>Laboratory Report</h4></th></tr>
 <tr>
-<th style="background-color:#F5F5F5;font-size:14px;" width="100px" colspan="2">SAMPLE</th>
+<th style="background-color:#F5F5F5;font-size:14px;" width="70px" colspan="2">SAMPLE</th>
 <th style="background-color:#F5F5F5;font-size:14px;" colspan="2">INVESTIGATION</th>
 <th style="background-color:#F5F5F5;text-align:left;font-size:14px" colspan="2">RESULT</th>
 <th style="background-color:#F5F5F5;text-align:left;font-size:14px">UNITS</th>
@@ -137,7 +137,7 @@ foreach ($TestEntryResult as $TestEntryData) {
 
         if(trim(TestCategoryName($test_category))!=""){
             $html .= '<tr>
-            <td colspan="7" style="text-align: left;font-size: bold;"><strong>'. TestCategoryName($test_category) . '</strong></td>
+            <td colspan="9" style="text-align: left;font-size: bold;"><strong>'. TestCategoryName($test_category) . '</strong></td>
             </tr>';
         }
 
@@ -154,7 +154,7 @@ foreach ($TestEntryResult as $TestEntryData) {
 
             if($sub_heading != $TestEntryData3['sub_heading'] && trim($TestEntryData3['sub_heading']) != ""){
                 $html .= '<tr>
-                <td style="font-weight:bold;text-align:left;height: 25px;" colspan="7">' . $TestEntryData3['sub_heading'] . '</td>
+                <td style="font-weight:bold;text-align:left;height: 25px;" colspan="9">' . $TestEntryData3['sub_heading'] . '</td>
                 </tr>';
             }
 
@@ -187,8 +187,8 @@ foreach ($TestEntryResult as $TestEntryData) {
                 $html .= '<tr><td colspan="5"></td><td width="20%" colspan="2">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
             }
             if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
-                $html .= '<tr><td colspan="7" style="font-weight:bold">Interpretation</td></tr>';
-                $html .= '<tr><td colspan="7">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+                $html .= '<tr><td colspan="8" style="font-weight:bold">Interpretation</td></tr>';
+                $html .= '<tr><td colspan="8">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
             }
 
 
