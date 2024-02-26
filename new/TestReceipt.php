@@ -319,6 +319,12 @@ $html .= '</tbody>
 <tr>
 <td colspan="7" border="0" style="border:none;text-align: center;">Home Collection Available</td>
 </tr>
+<tr>
+<td colspan="7" border="0" style="border:none;text-align: center;">Report Generated bu eazylab.insss</td>
+</tr>
+<tr>
+<td colspan="7" border="0" style="border:none;text-align: center;"><img src="web.png" /></td>
+</tr>
 </table>
 
 </body>
