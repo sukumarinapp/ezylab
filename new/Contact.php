@@ -144,29 +144,20 @@ if (isset($_POST['update'])) {
    <div class="page-wrapper">
       <div class="page-content">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-12">
                 <div class="card card-default d-none d-lg-block">
-                    <div style='text-align:center' class="card-header">
-                        <h4>Contacts</h4>
-                    </div>
                     <div class="card-body">
                                 <div style='text-align:center' class="media">
-                                <img  class="align-self-center mr-2 rounded-circle img-thumbnail thumb48" src="profile_pic/profile.jpeg" alt="user" width="200px" height="190px">
-                                    <div class="media-body py-2">
-                                        <div class="text-bold">
-                                            <div class="text-sm text-muted">
-                                            </div>
-                                        </div>
-                                    </div>
+                                <a href="https://ezylab.in" target="_blank">ezylab.in</a>
                                 </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card card-default">
                     <div class="card-header d-flex align-items-center">
                         <div class="d-flex justify-content-center col">
-                            <div class="h4 m-0 text-center">More Information</div>
+                            <div class="h4 m-0 text-center">Contact Us</div>
                         </div>
                     </div>
                     <div class="card-body">

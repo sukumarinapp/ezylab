@@ -107,11 +107,11 @@ $html =$html .'<tr>
 
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
-<table border="1" class="table table-striped table-bordered" width="100%">
+<table border="5" class="table table-striped table-bordered" width="100%">
 <thead>
 <tr><th style="text-align:center" colspan="7"><h4>Laboratory Report</h4></th></tr>
 <tr>
-<th style="background-color:#F5F5F5;font-size:14px;" colspan="2">Sample</th>
+<th style="background-color:#F5F5F5;font-size:14px;" width="100px" colspan="2">SAMPLE</th>
 <th style="background-color:#F5F5F5;font-size:14px;" colspan="2">INVESTIGATION</th>
 <th style="background-color:#F5F5F5;text-align:left;font-size:14px" colspan="2">RESULT</th>
 <th style="background-color:#F5F5F5;text-align:left;font-size:14px">UNITS</th>

@@ -4,7 +4,7 @@
 					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
 				</div>
 				<div>
-					<h4 class="logo-text">eazy Lab</h4>
+					<h4 class="logo-text">Ezy Lab</h4>
 				</div>
 				<div class="toggle-icon ms-auto"><i class='bx bx-arrow-back'></i>
 				</div>
@@ -121,7 +121,7 @@
 					</ul>
 				</li>	
                 <li>
-					<a href="Contact"><i style="font-size:22px;" class='fa fa-phone'></i>&nbsp;Help</a>
+					<a href="Contact"><i style="font-size:22px;" class='fa fa-phone'></i>&nbsp;Contact Us</a>
 				</li>
 				<li>
 					<a href="backup" ><i style="font-size:22px;" class='fab fa-google-drive'></i>&nbsp;Backup</a>
