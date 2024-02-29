@@ -1,7 +1,6 @@
 <div class="sidebar-wrapper" data-simplebar="true">
 			<div class="sidebar-header">
 				<div>
-					<img src="logo.jpg" class="logo-icon" alt="logo icon">
 				</div>
 				<div>
 					<h4 class="logo-text">Ezy Lab</h4>
@@ -11,6 +10,9 @@
 			 </div>
 			<!--navigation-->
 			<ul class="metismenu" id="menu">
+				<?php
+				if($_SESSION["user_id"] ==1){
+				?>
 				<li>
 					<a href="Dashboard">
 						<div class="parent-icon"><i class='bx bx-home-alt'></i>
@@ -18,6 +20,9 @@
 						<div class="menu-title">Dashboard</div>
 					</a>
 				</li>
+				<?php
+				}
+				?>
                 <?php
                 $Query = "SELECT id,menu_icon,menu_name,is_dropdown,menu_url,menu_id FROM macho_user_page_acceses WHERE user_id='$user_id' AND is_parent='0' ORDER BY id ";
                 $Result = GetAllRows($Query);

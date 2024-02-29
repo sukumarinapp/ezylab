@@ -53,8 +53,7 @@ $colour = $TestTypeData['colour'];
         'service_from' => to_sql_date($_POST['service_from']),
         'service_to' => to_sql_date($_POST['service_to']),
         'login_status' => Filter($_POST['login_status']),
-        'status' => Filter($_POST['status']),
-        'editby' => $user_id,
+        'status' => Filter($_POST['status'])
     ));
     if ($update) {
 
@@ -82,7 +81,7 @@ $colour = $TestTypeData['colour'];
         $notes = $_POST['name'] . ' User details modified by ' . $user;
         $receive_id = '1';
         $receive_role_id = GetRoleOfUser($receive_id);
-        InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
+        //InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
 
         echo '<span id="update_success"></span>';
     } else {

@@ -36,7 +36,7 @@ if (isset($_POST['login'])) {
                             $_SESSION["picture"] = $picture;
                             $_SESSION["access_token"] = $access_token;
                             $_SESSION["colour"] = $colour;
-                            header("location:Dashboard");
+                            header("location:TestEntry");
                          
                     } else {
                         $error = 'Password Wrong...!';
