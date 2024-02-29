@@ -9,7 +9,7 @@
    $email = $_SESSION["user_email"];
    $picture = $_SESSION["picture"];
    $access_token = $_SESSION["access_token"];
-   ValidateAccessToken($user_id, $access_token);
+   //ValidateAccessToken($user_id, $access_token);
    $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $UserID = DecodeVariable($_GET['uId']);
@@ -53,13 +53,8 @@ $colour = $TestTypeData['colour'];
         'service_from' => to_sql_date($_POST['service_from']),
         'service_to' => to_sql_date($_POST['service_to']),
         'login_status' => Filter($_POST['login_status']),
-        'salary_mode' => Filter($_POST['salary_mode']),
-        'salary_amount' => Filter($_POST['salary_amount']),
-        'salary_percentage' => Filter($_POST['salary_percentage']),
-        'salary_duration_type' => Filter($_POST['salary_duration_type']),
         'status' => Filter($_POST['status']),
         'editby' => $user_id,
-        'modified' => $modified
     ));
     if ($update) {
 
@@ -203,28 +198,7 @@ $colour = $TestTypeData['colour'];
                                         <input class="form-control" type="email" name="email" id="email"
                                                value="<?php echo $UserData['email']; ?>" maxlength="250" tabindex="10">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Salary Method </label>
-                                        <select class="form-control" name="salary_mode" id="salary_mode"
-                                                tabindex="12">
-                                            <option
-                                                value="0" <?php if ($UserData['salary_mode'] == '0') echo 'selected'; ?> >
-                                                Salary Amount
-                                            </option>
-                                            <option
-                                                value="1" <?php if ($UserData['salary_mode'] == '1') echo 'selected'; ?> >
-                                                Share Percentage
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group" id="salary_tab" style="display:none;">
-                                        <label class="col-form-label">Salary Amount </label>
-                                        <input class="form-control" type="text" name="salary_amount"
-                                               id="salary_amount"
-                                               value="<?php echo $UserData['salary_amount']; ?>" maxlength="20"
-                                               onkeypress="return isNumberDecimalKey(event)"
-                                               tabindex="13">
-                                    </div>
+                                    
                                     <div id="share_tab" style="display: none">
                                         <div class="row">
                                             <div class="col-md-6">
