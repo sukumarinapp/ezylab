@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from themeht.com/template/labortech/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 26 Feb 2024 04:59:36 GMT -->
 <head>
 
 <!-- meta tags -->
@@ -209,7 +208,7 @@
                 <div class="service-title">
                   <h4>Biochemistry Solution</h4>
                 </div>
-                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="biochemistry-solution.html"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="BiochemistrySolution"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
@@ -857,5 +856,5 @@
 </body>
 
 
-<!-- Mirrored from themeht.com/template/labortech/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 26 Feb 2024 05:02:21 GMT -->
+
 </html>
