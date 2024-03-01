@@ -208,7 +208,7 @@
                 <div class="service-title">
                   <h4>Biochemistry Solution</h4>
                 </div>
-                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="mobile"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="product/1"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
