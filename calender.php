@@ -1,12 +1,35 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php'; ?>
-<link rel="stylesheet" href="<?php echo VENDOR; ?>fullcalendar/dist/fullcalendar.css">
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
+?>
+
+<?php include ("css.php"); ?>
+<title>Dashtrans</title>
+</head>
+<body class="bg-theme bg-theme2">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
         <div class="content-heading">
             <div>Full Calendar
                 <small>View Your Events</small>
@@ -30,40 +53,10 @@ include_once 'Menu.php'; ?>
             <!-- END row-->
         </div>
     </div>
-</section>
-<!-- Page footer-->
-<?php include_once "footer.php"; ?>
+</section>	  <?php include_once 'footer.php'; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- JQUERY UI-->
-<script src="<?php echo VENDOR; ?>components-jqueryui/jquery-ui.js"></script>
-<script src="<?php echo VENDOR; ?>jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
-<!-- MOMENT JS-->
-<script src="<?php echo VENDOR; ?>moment/min/moment-with-locales.js"></script>
-<!-- FULLCALENDAR-->
-<script src="<?php echo VENDOR; ?>fullcalendar/dist/fullcalendar.js"></script>
-<script src="<?php echo VENDOR; ?>fullcalendar/dist/gcal.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
+
+   <?php include ("js.php"); ?>
 <script>
     function getevents() {
         var events;

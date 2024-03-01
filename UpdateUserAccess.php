@@ -15,8 +15,8 @@ $is_write = $_POST['is_write'];
 $is_modify = $_POST['is_modify'];
 $is_delete = $_POST['is_delete'];
 
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
 $ExistMenuID = array();
 $Query = "SELECT menu_id FROM macho_role_menu_acceses WHERE role_id='$RoleID' ORDER BY id ";

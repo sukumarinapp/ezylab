@@ -1,17 +1,52 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
 $PageAccessible = IsPageAccessible($user_id, $page);
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 $created_date = date("Y-m-d");
 
+// echo $colour;die;
 
+?>
+<!doctype html>
+<html lang="en">
 
+<head>
+<?php include ("headercss.php"); ?>
+<title>Patient</title>
+</head>
+<?php
+$validation = false;
+$today = date("Y-m-d");
 
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
+$result = mysqli_query($conn, $sql);
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
 
-if (isset($_POST['add_patient'])) {
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
+
+?>
+
+<body class="bg-theme bg-<?php echo $colour ?>">
+<!-- <body class="bg-theme bg-theme2"> -->
+    <?php
+    if (isset($_POST['add_patient'])) {
 
     $insert_patient = Insert('macho_patient', array(
         'P_code' => Filter($_POST['P_code']),
@@ -81,14 +116,18 @@ if (isset($_POST['update'])) {
     }
 }
 ?>
-<!-- Main section-->
-<section class="section-container no-print">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div>Patients
-                <small></small>
-            </div>
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+            <h6>Patients</h6>
             <div class="ml-auto">
                 <div class="btn-group">
                     <button class="btn btn-secondary" type="button"
@@ -108,19 +147,22 @@ if (isset($_POST['update'])) {
         <div class="card">
             <div class="card-header">
                 <div class="card-title pull-right">
+                <?php if ($validation) { ?>
                     <?php if ($PageAccessible['is_write'] == 1) { ?>
-                        <button class="btn btn-labeled btn-secondary" type="button" title="Add Patient"
-                                data-toggle="modal"
-                                data-target="#add_patient">
+                        <button class="btn btn-labeled btn-danger float-end" type="button" title="Add Patient"
+                                data-bs-toggle="modal"
+                                data-bs-target="#add_patient">
                             Add New
                             <span class="btn-label btn-label-right"><i class="fa fa-arrow-right"></i>
                            </span></button>
                     <?php } ?>
+                    <?php } ?>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped my-4 w-100" id="datatable1">
+            <div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example2" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
                             <th width="20px" class="thead_data">#</th>
@@ -152,27 +194,29 @@ if (isset($_POST['update'])) {
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <?php if ($PageAccessible['is_write'] == 1) { ?>
-                                                <button class="btn btn-sm btn-primary" type="button"
+                                                <button class="btn btn-primary" type="button"
                                                         title="Patient Log"
                                                         onClick="document.location.href='PatientLog?patient_id=<?php echo EncodeVariable($patientData['id']); ?>'">
                                                     <em class="fa fa-address-book"></em>
                                                 </button>
-                                                <button class="btn btn-sm btn-success" type="button"
+                                                <?php if ($validation) { ?>
+                                                <button class="btn btn-success" type="button"
                                                         title="Patient Entry"
                                                         onClick="document.location.href='PatientEntry?patient_id=<?php echo EncodeVariable($patientData['id']); ?>'">
                                                     <em class="fa fas fa-flask"></em>
                                                 </button>
+                                                <?php } ?>
                                             <?php }
                                             if ($PageAccessible['is_modify'] == 1) { ?>
-                                                <button class="btn btn-sm btn-info" type="button" title="Edit"
+                                                <button class="btn btn-info" type="button" title="Edit"
                                                         onclick="ModalEdit(<?= $patientData['id']; ?>);">
                                                     <em class="fa fa-edit"></em>
                                                 </button>
                                             <?php }
                                             if ($PageAccessible['is_delete'] == 1) { ?>
-                                                <button class="btn btn-sm btn-danger" type="button" title="Delete"
+                                                <button class="btn btn-danger" type="button" title="Delete"
                                                         onclick="Delete(<?php echo $patientData['id']; ?>,'<?= $patientData['P_name']; ?>');">
-                                                    <em class="fa fa-trash-o"></em>
+                                                    <em class="fa fa-trash"></em>
                                                 </button>
                                             <?php } ?>
                                         </div>
@@ -186,10 +230,9 @@ if (isset($_POST['update'])) {
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
 <div class="modal fade" id="edit_patient" tabindex="-1" role="dialog" aria-labelledby="myModalLabelLarge"
@@ -198,7 +241,7 @@ if (isset($_POST['update'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabelLarge">Edit Patient Details</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -214,7 +257,7 @@ if (isset($_POST['update'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabelLarge">Create New Patient</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -241,7 +284,7 @@ if (isset($_POST['update'])) {
                                                 <select required class="form-control" name="gender" id="gender" required
                                                         tabindex="3">
                                                     <option value="">Select Gender</option>
-                                                    <option value="Male">Male</option>
+                                                    <option selected value="Male">Male</option>
                                                     <option value="Female">Female</option>
                                                     <option value="Trans Gender">Trans Gender</option>
                                                 </select>
@@ -252,7 +295,7 @@ if (isset($_POST['update'])) {
                                                        class="form-control"
                                                        name="mobile"
                                                        id="mobile" onkeypress="return isNumberKey(event)"
-                                                       maxlength="10" required
+                                                       maxlength="10" 
                                                        tabindex="11">
                                             </div>
                                             <div class="form-group">
@@ -283,7 +326,7 @@ if (isset($_POST['update'])) {
                                             </div>
                                             <div class="form-group">
                                                 <label>Date of Birth</label>
-                                                <input type="text"
+                                                <input type="date"
                                                        class="form-control"
                                                        name="dob"
                                                        id="dob" autocomplete="off"
@@ -412,7 +455,7 @@ if (isset($_POST['update'])) {
                                                     tabindex="14">
                                                 Save
                                             </button>
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
                                         </div>
@@ -428,38 +471,12 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
+</div>
 
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+   <?php include ("js.php"); ?>
 
-<!-- Datatables-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+
+
 <script>
 
     $(document).ready(function(){
@@ -595,44 +612,40 @@ if (isset($_POST['update'])) {
 
     function Delete(id, patientname) {
         swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this Entry!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: 'btn-danger',
-                confirmButtonText: 'Yes!',
-                cancelButtonText: "No!",
-                closeOnConfirm: false,
-                closeOnCancel: false
+          title: 'Are you sure?',
+          text: "You will not be able to recover this Entry!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+      }).then(function(result) {
+        if(result.value){
+          $.ajax({
+            type: "POST",
+            url: "Deletepatient.php",
+            data: {
+                id: id,
+                P_name: patientname
             },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        type: "POST",
-                        url: "Deletepatient.php",
-                        data: {
-                            id: id,
-                            P_name: patientname
-                        },
-                        success: function (response) {
-                            if (response == '1') {
-                                swal("Deleted!", "Selected patient Data has been deleted!", "success");
-                                location.href = "Patient";
-                            } else {
-                                swal({
-                                    title: "Oops!",
-                                    text: "Something Wrong...",
-                                    imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
-                                });
-                            }
-                        }
-                    });
-
+            success: function (response) {
+                if (response == '1') {
+                    swal("Deleted!", "Selected patient Data has been deleted!", "success");
+                    location.href = "Patient";
                 } else {
-                    swal("Cancelled", "Your Entry Data is safe :)", "error");
+                    swal({
+                        title: "Oops!",
+                        tepxt: "Something Wrong...",
+                        imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
+                    });
                 }
-            });
+            }
+        });
+      }else{
+        swal("Cancelled", "Your Entry Data is safe :)", "error");
     }
+})
+  }
 </script>
 <script>
     window.onload = function () {
@@ -667,6 +680,21 @@ if (isset($_POST['update'])) {
         event.preventDefault();
         }
     });
+</script>
+<script>
+$(document).ready(function() {
+	  $('#example').DataTable()
+	});
+	
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
 </script>
 </body>
 </html>

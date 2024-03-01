@@ -3,6 +3,7 @@ include_once 'booster/bridge.php';
 IsAjaxRequest();
 $id = Filter($_POST['id']);
 $TestTypeData = SelectParticularRow('macho_test_type', 'id', $id);
+//print_r($TestTypeData);die;
 $today = date("Y-m-d");
 ?>
 
@@ -25,6 +26,10 @@ $today = date("Y-m-d");
             <label class="col-form-label">Method </label>
             <input class="form-control" type="text" name="method" id="method" value="<?= $TestTypeData['method']; ?>"
                 maxlength="100" tabindex="5">
+        </div>
+        <div class="form-group">
+            <label class="col-form-label">Sample Type</label>
+            <input value="<?= $TestTypeData['sample_type']; ?>" maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
         </div>
         <div class="form-group">
             <label class="col-form-label">Type of Test </label>
@@ -63,6 +68,12 @@ $today = date("Y-m-d");
             <label class="col-form-label">Units </label>
             <input value="<?= $TestTypeData['units'] ?>" maxlength="10" class="form-control" name="units" id="units" tabindex="8" />
         </div>
+        <div class="form-group form-check">
+          <input <?php if($TestTypeData['show_critical_info'] == 1) echo "checked";  ?> name="show_critical_info" class="form-check-input" type="checkbox" value="1" id="show_critical_info2" >
+          <label class="form-check-label" for="show_critical_info2">
+            Show Critical Info
+          </label>
+        </div>
         <div class="form-group">
             <label class="col-form-label">Critical Info </label>
             <textarea class="form-control" name="critical_info" id="critical_info" maxlength="500" rows="9"
@@ -96,13 +107,13 @@ $today = date("Y-m-d");
             </select>
         </div>
         
-            <div id='table_tab2'>
+             <div id='table_tab2'>
                 <div class="form-group">
                     <label class="col-form-label">Table Input </label>
                     <textarea class="form-control" name="table_input" id="table_input" maxlength="500" rows="5"
-                        tabindex="9"><?= $TestTypeData['table_input']; ?></textarea>
+                        tabindex="9"><?php echo $TestTypeData['table_input']; ?></textarea>
                 </div>
-            </div>
+            </div> 
        
             <div id='others_tab2'>
                 <div class="form-group">
@@ -115,8 +126,17 @@ $today = date("Y-m-d");
                     <input class="form-control" type="text" name="upper_limit" id="upper_limit"
                         value="<?= $TestTypeData['upper_limit']; ?>" maxlength="100" tabindex="9">
                 </div>
+                <div class="form-group">
+            <label class="col-form-label">Sub Heading Name</label>
+            <input value="<?= $TestTypeData['sub_head']; ?>" maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
+        </div>
             </div>
-        
+        <div class="form-group form-check">
+              <input <?php if($TestTypeData['show_interpretation']==1) echo "checked";  ?> name="show_interpretation" class="form-check-input" type="checkbox" value="1" id="show_interpretation2" >
+              <label class="form-check-label" for="show_interpretation2">
+                Show Interpretation
+              </label>
+            </div>
         <div class="form-group">
             <label class="col-form-label">Interpretations </label>
             <textarea class="form-control" name="interpretation" id="interpretation" maxlength="500" rows="9"
@@ -124,14 +144,7 @@ $today = date("Y-m-d");
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group">
-            <label class="col-form-label">Sub Heading Name</label>
-            <input value="<?= $TestTypeData['sub_head']; ?>" maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
@@ -144,7 +157,7 @@ $today = date("Y-m-d");
 </div>
 
 <script>
-    $(function () {
+     $( document ).ready(function() {
         var type_test = $('#type_test2').val();
         if (type_test == 'Table') {
             $('#table_tab2').show();
@@ -153,7 +166,7 @@ $today = date("Y-m-d");
             $('#others_tab2').show();
             $('#table_tab2').hide();
         }
-    });
+    
 
     $('#type_test2').change(function () {
             var type_test = $(this).val();
@@ -165,4 +178,5 @@ $today = date("Y-m-d");
                 $('#table_tab2').hide();
             }
         });
+    });
 </script>

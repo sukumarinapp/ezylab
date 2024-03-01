@@ -1,19 +1,49 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
-$PageAccessible = IsPageAccessible($user_id, 'Payments');
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
+//$PageAccessible = IsPageAccessible($user_id, 'Payments');
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Users</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
         <div class="content-heading">Users</div>
         <div class="card">
             <?php if ($PageAccessible['is_write'] == 1) { ?>
                 <div class="card-header">
                     <div class="card-title pull-right">
-                        <button class="btn btn-labeled btn-secondary" type="button"
+                        <button class="btn btn-labeled btn-secondary float-end" type="button"
                                 onclick="location.href='AddUser';">
                             Add New User
                             <span class="btn-label btn-label-right"><i class="fa fa-arrow-right"></i>
@@ -80,16 +110,16 @@ $PageAccessible = IsPageAccessible($user_id, 'Payments');
                                             <em class="fa fa-search"></em>
                                         </button>
                                     <?php }
-                                    if ($PageAccessible['is_modify'] == 1) { ?>
+                                    //if ($PageAccessible['is_modify'] == 1) { ?>
                                         <button class="btn btn-sm btn-info" type="button" title="Update Details"
                                                 onclick="location.href='UserEdit?uId=<?php echo EncodeVariable($UserData['id']); ?>';">
-                                            <i class="fa fa-edit"></i>
+                                            <em class="fa fa-edit"></em>
                                         </button>
                                         <button type="button" class="btn btn-sm btn-warning"
                                                 title="Update Access Details"
                                                 onClick="document.location.href='EditAccess?uID=<?php echo EncodeVariable($UserData['id']); ?>'">
-                                            <i class="icon-support"></i></button>
-                                    <?php } ?>
+                                            <i class="fas fa-wrench"></i></button>
+                                    <?php //} ?>
                                 </td>
                             </tr>
                             <?php
@@ -101,37 +131,8 @@ $PageAccessible = IsPageAccessible($user_id, 'Payments');
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- Datatables-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+   <?php include ("js.php"); ?>
 </body>
 </html>

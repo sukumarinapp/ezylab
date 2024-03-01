@@ -1,7 +1,17 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include 'Menu.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
 $PageAccessible = IsPageAccessible($user_id, $page);
 $finance_year = '';
     $start_date = date("01-m-Y");
@@ -18,12 +28,21 @@ $Data = mysqli_fetch_assoc($result);
     $start_date = date("d-m-Y", strtotime($Data['from_date']));
     $end_date = date("d-m-Y", strtotime($Data['to_date']));
 }
-?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
+?><?php include ("css.php"); ?>
+<title>Annual Report</title>
+</head>
+<body class="bg-theme bg-theme2">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
             <div>Annual Report
                 <small></small>
             </div>
@@ -219,43 +238,10 @@ $Data = mysqli_fetch_assoc($result);
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php' ?>
+	  <?php include_once 'footer.php'; ?>
 </div>
 
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- Datatables-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>select2/dist/js/select2.full.js"></script>
-
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+   <?php include ("js.php"); ?>
 <script>
 
     var thead_data = new Array();

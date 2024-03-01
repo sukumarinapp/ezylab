@@ -1,27 +1,83 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+
 $PageAccessible = IsPageAccessible($user_id, $page);
 ?>
+
+<?php
+$validation = false;
+$today = date("Y-m-d");
+
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
+$result = mysqli_query($conn, $sql);
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
+
+//echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
 <!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">Reports</div>
+<style>
+    .ellipsis {
+        max-width: 40px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+<?php include ("headercss.php"); ?>
+<title>Reports</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+        <h6>Reports</h6></div>
+<div class="card">
+                    <div class="card-body">
+
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active bg-danger" href="#home1" aria-controls="home1" role="tab" data-toggle="tab">Pending
+                    <a class="nav-link active bg-danger" href="#home1" aria-controls="home1" role="tab" data-bs-toggle="tab">Pending
                         Test</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link bg-success" href="#profile1" aria-controls="profile1" role="tab" data-toggle="tab">Completed
+                    <a class="nav-link bg-success" href="#profile1" aria-controls="profile1" role="tab" data-bs-toggle="tab">Completed
                         Test</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link bg-info" href="#profile2" aria-controls="profile2" role="tab"
-                        data-toggle="tab">Reports</a>
+                        data-bs-toggle="tab">Reports</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -45,7 +101,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                 <?php
                                 $no = 0;
                                 $bill_type = "patient_entry";
-                                $BillQuery = "SELECT * FROM patient_entry WHERE test_status	 ='0' ORDER BY id DESC ";
+                                $BillQuery = "SELECT * FROM patient_entry WHERE test_status	 in (0,2) ORDER BY id DESC ";
                                 $BillResult = GetAllRows($BillQuery);
                                 $BillCounts = count($BillResult);
                                 if ($BillCounts > 0) {
@@ -87,15 +143,18 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                     if ($PageAccessible['is_read'] == 1) { ?>
                                                         <button class="btn btn-success"
                                                             onClick="window.open('BillPdf?bID=<?= EncodeVariable($BillData['id']); ?>');"
-                                                            title="View"><i class="fa fa-search-plus"></i>
+                                                            title="View"><em class="fa fa-eye"></em>
                                                         </button>
                                                     <?php }
+                                                    
                                                     if ($PageAccessible['is_write'] == 1) { ?>
+                                                    <?php if ($validation) { ?>
                                                         <button class="btn btn-info" title="Test Entry"
                                                             onClick="window.open('AddTestEntry?eID=<?= EncodeVariable($BillData['id']); ?>');">
-                                                            <i class="fa fa-heartbeat"></i></button>
+                                                            <em class="fa fa-heartbeat"></em></button>
                                                         <?php
                                                     } ?>
+                                                    <?php } ?> 
                                                 </div>
                                             </td>
                                         </tr>
@@ -173,7 +232,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                 </div>
                 <div class="tab-pane" id="profile2" role="tabpanel">
                     <div class="table-responsive">
-                        <table class="table table-striped my-4 w-100" id="datatable3">
+                        <table id="example2" class="table table-striped my-4 w-100" id="datatable3">
                             <thead>
                                 <tr>
                                     <th width="20">#</th>
@@ -186,7 +245,6 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                     <th>Header</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                                 <?php
                                 $no = 0;
@@ -225,6 +283,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                             </td>
                                             <td class="text-center">
                                                 <div class="btn-group">
+                                                <?php if ($validation) { ?>
                                                     <?php
                                                     if ($PageAccessible['is_read'] == 1) { ?>
                                                         <button class="btn btn-success" title="View"
@@ -233,6 +292,7 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                         </button>
                                                         <?php
                                                     } ?>
+                                                    <?php } ?>
                                                 </div>
                                             </td>
                                             <td>
@@ -248,10 +308,9 @@ $PageAccessible = IsPageAccessible($user_id, $page);
             </div>
         </div>
     </div>
-
+</div>
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
 <div class="modal fade" id="add_test_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -375,35 +434,9 @@ $PageAccessible = IsPageAccessible($user_id, $page);
         </div>
     </div>
 </div>
+</div>
 
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+   <?php include ("js.php"); ?>
 <script>
     $(document).ready(function () {
         $('#datatable1').dataTable();
@@ -433,6 +466,21 @@ $PageAccessible = IsPageAccessible($user_id, $page);
 
         return true;
     }
+</script>
+<script>
+$(document).ready(function() {
+	  $('#example').DataTable()
+	});
+	
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
 </script>
 </body>
 

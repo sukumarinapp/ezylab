@@ -1,18 +1,47 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
 $PageAccessible = IsPageAccessible($user_id, 'Patient');
 
 $patient_id = DecodeVariable($_GET['patient_id']);
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
 
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Patient Log</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
             <div>
                 <?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?>
                 <small>
@@ -20,14 +49,16 @@ $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
                 </small>
             </div>
         </div>
+        <div class="card">
+                    <div class="card-body">
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" href="#home1" aria-controls="home1" role="tab" data-toggle="tab">Patient
+                    <a class="nav-link active" href="#home1" aria-controls="home1" role="tab" data-bs-toggle="tab">Patient
                         Log</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="#profile1" aria-controls="profile1" role="tab" data-toggle="tab">Payment
+                    <a class="nav-link" href="#profile1" aria-controls="profile1" role="tab" data-bs-toggle="tab">Payment
                         Receipt</a>
                 </li>
             </ul>
@@ -85,15 +116,15 @@ $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
                                                 <div class="btn-group">
                                                     <?php
                                                     if ($PageAccessible['is_read'] == 1) { ?>
-                                                        <button class="btn btn-success"
+                                                        <button class="btn btn-sm btn-success"
                                                             onClick="window.open('BillPdf?bID=<?= EncodeVariable($BillData['id']); ?>');"
-                                                            title="View"><i class="fa fa-search-plus"></i>
+                                                            title="View"><i class="fa fa-eye"></i>
                                                         </button>
                                                     <?php }
                                                     if ($PageAccessible['is_write'] == 1) {
                                                         if ($BillData['test_status'] == '1') {
                                                             ?>
-                                                            <button class="btn btn-info" title="Test Receipt"
+                                                            <button class="btn btn-sm btn-info" title="Test Receipt"
                                                                 onClick="window.open('TestReceipt?bID=<?= EncodeVariable($BillData['id']); ?>');">
                                                                 <i class="fa fa-heartbeat"></i></button>
                                                             <?php
@@ -214,41 +245,12 @@ $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
             </div>
         </div>
     </div>
-
+</div>
+</div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
-
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+   <?php include ("js.php"); ?>
 <script>
     $(document).ready(function () {
         $('#datatable1').dataTable();

@@ -1,9 +1,34 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   //ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
+$created = date("Y-m-d H:i:s");
+$modified = "";
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Add New User Details</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+    <?php 
 if (isset($_POST['submit'])) {
 
     $photo = $_FILES['photo']['name'];
@@ -23,14 +48,7 @@ if (isset($_POST['submit'])) {
         'about' => Filter($_POST['about']),
         'role_id' => Filter($_POST['role_id']),
         'service_from' => to_sql_date($_POST['service_from']),
-        'login_status' => Filter($_POST['login_status']),
-        'salary_mode' => Filter($_POST['salary_mode']),
-        'salary_amount' => Filter($_POST['salary_amount']),
-        'salary_percentage' => Filter($_POST['salary_percentage']),
-        'salary_duration_type' => Filter($_POST['salary_duration_type']),
-        'editby' => $user_id,
-        'created' => $created,
-        'modified' => $modified
+        'login_status' => Filter($_POST['login_status'])
     ));
     if (is_int($insert_macho_user)) {
         $last_insert_id = $insert_macho_user;
@@ -54,18 +72,26 @@ if (isset($_POST['submit'])) {
         $notes = $_POST['name'] . ' User details added by ' . $user;
         $receive_id = '1';
         $receive_role_id = GetRoleOfUser($receive_id);
-        InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
+        //InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
 
         echo '<span id="insert_success"></span>';
     } else {
         echo '<span  id="insert_failure"></span>';
     }
 }
-?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
+    ?>
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+	  
         <div class="content-heading">Add New User Details</div>
         <div class="row">
             <div class="col-xl-12">
@@ -140,20 +166,7 @@ if (isset($_POST['submit'])) {
                                         <input class="form-control" type="email" name="email" id="email"
                                                maxlength="250" tabindex="10">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Salary Method </label>
-                                        <select class="form-control" name="salary_mode" id="salary_mode"
-                                                tabindex="12">
-                                            <option value="0">Salary Amount</option>
-                                            <option value="1">Share Percentage</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group" id="salary_tab">
-                                        <label class="col-form-label">Salary Amount </label>
-                                        <input class="form-control" type="text" name="salary_amount" id="salary_amount"
-                                               maxlength="20" onkeypress="return isNumberDecimalKey(event)"
-                                               tabindex="13">
-                                    </div>
+                                    
                                     <div id="share_tab" style="display:none;">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -302,34 +315,10 @@ if (isset($_POST['submit'])) {
     </div>
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<script src="<?php echo VENDOR; ?>select2/dist/js/select2.full.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+
+   <?php include ("js.php"); ?>
+
 <script>
     $(function () {
         //Date picker

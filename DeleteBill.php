@@ -11,8 +11,8 @@ $id = Filter($_POST['id']);
 $bill_no = Filter($_POST['bill_no']);
 
 $entry_date = date("Y-m-d");
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
 
 

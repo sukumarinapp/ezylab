@@ -43,7 +43,7 @@ $FinanceData = SelectParticularRow('macho_revenue', 'id', $id);
                         <div class="float-right">
                             <button class="btn btn-warning" type="submit" name="Update" tabindex="5">Save Changes
                             </button>
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                                 Cancel
                             </button>
                         </div>

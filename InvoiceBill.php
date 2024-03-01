@@ -1,16 +1,32 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include 'Menu.php';
+
 $PageAccessible = IsPageAccessible($user_id, $page);
-$start_date = date("01-m-Y");
-$end_date = date("d-m-Y");
+$start_date = date("Y-m-01");
+$end_date = date("Y-m-d");
 
 if (isset($_POST['search'])) {
-    $start_date = date("d-m-Y", strtotime($_POST['startdate']));
-    $end_date = date("d-m-Y", strtotime($_POST['enddate']));
+    $start_date = date("Y-m-d", strtotime($_POST['startdate']));
+    $end_date = date("Y-m-d", strtotime($_POST['enddate']));
 }
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
+
 <style>
     @media print {
         body * {
@@ -34,14 +50,25 @@ if (isset($_POST['search'])) {
         }
     }
 </style>
-<!-- Main section-->
-<section class="section-container no-print">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div>Invoice Bill
-                <small></small>
-            </div>
+<?php include ("headercss.php"); ?>
+<title>IP Block List</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+	  
+	  
+	  
+            <h6>Invoice Bill</h6>
         </div>
         <!-- start  -->
         <div class="container-fluid">
@@ -50,7 +77,7 @@ if (isset($_POST['search'])) {
                 <div class="card-header">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <?php if ($PageAccessible['is_write'] == 1) { ?>
                                     <button type="button" class="btn btn-sm btn-white" title="New Entry"
                                         onClick="location.href='AddBill';"><i class="fa fa-plus"></i>
@@ -58,22 +85,23 @@ if (isset($_POST['search'])) {
                                     </button>
                                 <?php } ?>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <?php if ($PageAccessible['is_read'] == 1) { ?>
                                     <form class="form mt-4 mt-lg-0" method="post" action="">
                                         <table class="table table-borderless">
 
                                             <thead>
                                                 <tr>
-                                                    <th><input type="text" class="form-control" id="startdate"
+                                                    <th>From Date</th>
+                                                    <th><input type="date" class="form-control" id="startdate"
                                                             name="startdate" value="<?= $start_date; ?>"></th>
-                                                    <th>to</th>
-                                                    <th><input type="text" class="form-control" id="enddate" name="enddate"
-                                                            max="<?= date("d-m-Y"); ?>" value="<?= $end_date; ?>">
+                                                    <th>To Date</th>
+                                                    <th><input type="date" class="form-control" id="enddate" name="enddate"
+                                                            max="<?= date("Y-m-d"); ?>" value="<?= $end_date; ?>">
                                                     </th>
                                                     <th>
-                                                        <button type="submit" name="search" class="btn btn-primary"><i
-                                                                class="fa fa-search"></i></button>
+                                                        <button type="submit" name="search" class="btn btn-primary"><em
+                                                                class="fa fa-search"></em></button>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -87,7 +115,7 @@ if (isset($_POST['search'])) {
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped my-4 w-100" id="datatable2">
+                            <table id="example2" class="table table-striped my-4 w-100" id="datatable2">
                                 <thead>
                                     <tr>
                                         <th width="20">#</th>
@@ -147,18 +175,18 @@ if (isset($_POST['search'])) {
                                                         <?php
                                                         if ($PageAccessible['is_modify'] == 1) { ?>
                                                             <button class="btn btn-info"
-                                                                onclick="PrintBill(<?= $BillData['id']; ?>);" title="POS Receipt"><i
-                                                                    class="fa fa fa-copy"></i>
+                                                                onclick="PrintBill(<?= $BillData['id']; ?>);" title="POS Receipt"><em
+                                                                    class="fa fa fa-copy"></em>
                                                             </button>
                                                             <button class="btn btn-success"
                                                                 onClick="window.open('InvoicePDF?bID=<?= EncodeVariable($BillData['id']); ?>');"
-                                                                title="View"><i class="fa fa-search-plus"></i>
+                                                                title="View"><em class="fa fa-eye"></em>
                                                             </button>
                                                         <?php }
                                                         if ($PageAccessible['is_delete'] == 1) { ?>
                                                             <button class="btn btn-danger" title="Delete"
                                                                 onclick="Delete(<?= $BillData['id']; ?>,'<?= $BillData['billnum']; ?>');">
-                                                                <i class="fa fa-trash-o"></i></button>
+                                                                <em class="fa fa-trash"></em></button>
                                                             <?php
                                                         } ?>
                                                     </div>
@@ -174,41 +202,26 @@ if (isset($_POST['search'])) {
             </div>
         </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php' ?>
 </div>
+</div>	  
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
 
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- Datatables-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+   <?php include ("js.php"); ?>
+	<script>
+		$(document).ready(function() {
+			$('#Transaction-History').DataTable({
+				lengthMenu: [[6, 10, 20, -1], [6, 10, 20, 'Todos']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+
 <script>
     $(function () {
         //Date picker
@@ -232,33 +245,29 @@ if (isset($_POST['search'])) {
 </script>
 <script>
 
-    function Delete(id, bill_no) {
+     function Delete(id,bill_no ) {
         swal({
-            title: "Are you sure?",
+            title: 'Are you sure?',
             text: "You will not be able to recover this Customer Entry!",
-            type: "warning",
+            type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        type: "POST",
-                        url: "DeleteBill.php",
-                        data: {
-                            id: id,
-                            bill_no: bill_no
-                        },
-                        success: function (response) {
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes!'
+        }).then(function(result) {
+            if(result.value){
+                $.ajax({
+                    type: "POST",
+                    url: "DeleteBill.php",
+                    data: {
+                        
+                        id: id,
+                        bill_no: bill_no
+                    },
+               success: function (response) {
                             if (response == '1') {
                                 swal("Deleted!", "Selected Bill Data has been deleted!", "success");
-                                setTimeout(function () {
                                     window.location.href = 'InvoiceBill';
-                                }, 5000);
                             } else {
                                 swal({
                                     title: "Oops!",
@@ -267,14 +276,14 @@ if (isset($_POST['search'])) {
                                 });
                             }
                         }
-                    });
-
-                } else {
-                    swal("Cancelled", "Your Entry Data is safe :)", "error");
-                }
-            });
+                });
+            }else{
+                swal("Cancelled", "Your Entry Data is safe :)", "error");
+            }
+        })
     }
 
+    
     function PrintBill(id) {
 
         $.ajax({
@@ -298,6 +307,21 @@ if (isset($_POST['search'])) {
             }
         });
     }
+</script>
+<script>
+$(document).ready(function() {
+	  $('#example').DataTable()
+	});
+	
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
 </script>
 </body>
 

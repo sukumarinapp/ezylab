@@ -1,17 +1,36 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
 $PageAccessible = IsPageAccessible($user_id, 'GroupProfile');
 $profile_id = DecodeVariable($_GET['cID']);
 $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
-?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div>Update Profile Entry</div>
+?><?php include ("headercss.php"); ?>
+<title>Update Profile Entry</title>
+</head>
+<body class="bg-theme bg-theme2">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+            <h6>Update Profile Entry</h6>
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -25,7 +44,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <select class="form-control select2" name="test_name" id="test_name"
+                                        <select class="form-select" name="test_name" id="test_name"
                                             onchange='GetTestData();'>
                                             <option>Enter Test</option>
                                             <?php
@@ -47,7 +66,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-5">
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="product_id" class="control-label">Description</label>
@@ -67,15 +86,11 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                                             placeholder="">
                                     </div>
                                 </div>
-                                <!--                                    <div class="col-md-1">-->
-                                <!--                                        <div class="form-group">-->
-                                <!--                                            <label for="gst"-->
-                                <!--                                                   class="control-label">GST%</label>-->
+                                
                                 <input type="hidden" name="gst_amount" id="gst_amount" value="">
                                 <input readonly required="required" type="hidden" maxlength="2" size="2" name="gst"
                                     id="gst" class="form-control Number" placeholder="">
-                                <!--                                        </div>-->
-                                <!--                                    </div>-->
+                                
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label style="display:none" for="quantity" class="control-label">Qty</label>
@@ -103,10 +118,10 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                                     </div>
                                 </div>
 
-                                <div class="col-md-1">
+                                <div class="col-md-1 mt-3">
                                     <div class="form-group">
                                         <label for="add" class="control-label">&nbsp;</label>
-                                        <input onclick="add_row()" class="btn btn-info form-control" type="button"
+                                        <input onclick="add_row()" class="btn btn-danger" type="button"
                                             id="add" value="Add" tabindex="6" />
                                     </div>
                                 </div>
@@ -123,9 +138,6 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                                             <td style='text-align: left'>
                                                 Description
                                             </td>
-
-                                           
-
                                             <td class="text-right">
                                                 Amount
                                             </td>
@@ -195,40 +207,9 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<script src="<?php echo VENDOR; ?>select2/dist/js/select2.full.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+
+   <?php include ("js.php"); ?>
 <script>
 
     function isNumberKey(evt) {
@@ -388,7 +369,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                 + "<input value='" + amount + "' name='item_amount[]' type='hidden'>"
                 + item_name + "</td>"
                 + "<td style='text-align: right'>" + amount + "</td>"
-                + "<td width='50px' style='text-align: center' valign='middle'><button title='Remove' class='btn btn-info btn-danger fa fa-remove' onclick='delete_row(" + i + ")'></button></td>");
+                + "<td width='50px' style='text-align: center' valign='middle'><a class='btn btn-danger' onclick='delete_row(" + i + ")'><em class='fa fa-trash'></em></a></td>");
             $('#tab_logic').append('<tr class="row_class" id="addr' + (i + 1) + '"></tr>');
             i++;
             set_fix();
@@ -459,10 +440,10 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
 
     function submit_data() {
         var net_amount = parseFloat($('#total_amount').val());
-        if (isNaN(net_amount) || net_amount < 0) {
-            swal("Total should be greater than zero");
-            return;
-        } else {
+        //if (isNaN(net_amount) || net_amount < 0) {
+            //swal("Total should be greater than zero");
+            //return;
+        //} else {
             var profile_id = $('#profile_id').val();
             var profile_name = $('#profile_name').val();
             if(profile_name == ""){
@@ -489,7 +470,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
 
             for (var j = 0; j < item_id_length; j++) {
                 var item_amount2 = item_amount.eq(j).val();
-                if (item_amount2 != 0) {
+                //if (item_amount2 != 0) {
 
                     var record = {
                         'item_id': item_id.eq(j).val(),
@@ -502,7 +483,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                         'item_amount': item_amount2
                     };
                     sales.push(record);
-                }
+                //}
             }
 
             var sales_data = JSON.stringify(sales);
@@ -527,7 +508,7 @@ $ProfileData = SelectParticularRow('macho_test_category', 'id', $profile_id);
                     location.href = "GroupProfile";
                 }
             });
-        }
+        //}
     }
 </script>
 </body>

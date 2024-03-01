@@ -1,13 +1,33 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   //ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $UserID = DecodeVariable($_GET['uId']);
 $UserData = UserInfo($UserID);
-$modified = date("Y-m-d h:i:sa");
+$modified = date("Y-m-d H:i:s");
 
-if (isset($_POST['update'])) {
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
+
+?><?php include ("headercss.php"); ?>
+<title>User Information</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+    <?php
+    if (isset($_POST['update'])) {
 
     $ExistRole = GetRoleOfUser($UserID);
     if ($ExistRole != Filter($_POST['role_id'])) {
@@ -34,13 +54,7 @@ if (isset($_POST['update'])) {
         'service_from' => to_sql_date($_POST['service_from']),
         'service_to' => to_sql_date($_POST['service_to']),
         'login_status' => Filter($_POST['login_status']),
-        'salary_mode' => Filter($_POST['salary_mode']),
-        'salary_amount' => Filter($_POST['salary_amount']),
-        'salary_percentage' => Filter($_POST['salary_percentage']),
-        'salary_duration_type' => Filter($_POST['salary_duration_type']),
-        'status' => Filter($_POST['status']),
-        'editby' => $user_id,
-        'modified' => $modified
+        'status' => Filter($_POST['status'])
     ));
     if ($update) {
 
@@ -68,7 +82,7 @@ if (isset($_POST['update'])) {
         $notes = $_POST['name'] . ' User details modified by ' . $user;
         $receive_id = '1';
         $receive_role_id = GetRoleOfUser($receive_id);
-        InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
+        //InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
 
         echo '<span id="update_success"></span>';
     } else {
@@ -76,10 +90,17 @@ if (isset($_POST['update'])) {
     }
 }
 ?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
         <div class="content-heading">User Information</div>
         <div class="row">
             <div class="col-xl-12">
@@ -177,28 +198,7 @@ if (isset($_POST['update'])) {
                                         <input class="form-control" type="email" name="email" id="email"
                                                value="<?php echo $UserData['email']; ?>" maxlength="250" tabindex="10">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Salary Method </label>
-                                        <select class="form-control" name="salary_mode" id="salary_mode"
-                                                tabindex="12">
-                                            <option
-                                                value="0" <?php if ($UserData['salary_mode'] == '0') echo 'selected'; ?> >
-                                                Salary Amount
-                                            </option>
-                                            <option
-                                                value="1" <?php if ($UserData['salary_mode'] == '1') echo 'selected'; ?> >
-                                                Share Percentage
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group" id="salary_tab" style="display:none;">
-                                        <label class="col-form-label">Salary Amount </label>
-                                        <input class="form-control" type="text" name="salary_amount"
-                                               id="salary_amount"
-                                               value="<?php echo $UserData['salary_amount']; ?>" maxlength="20"
-                                               onkeypress="return isNumberDecimalKey(event)"
-                                               tabindex="13">
-                                    </div>
+                                    
                                     <div id="share_tab" style="display: none">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -330,7 +330,7 @@ if (isset($_POST['update'])) {
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control" id="password"
                                                        name="password" value="<?php echo $UserData['password']; ?>"
-                                                       maxlength="100" tabindex="18" required>
+                                                       maxlength="100" tabindex="18">
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="button"
@@ -407,35 +407,9 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<script src="<?php echo VENDOR; ?>select2/dist/js/select2.full.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+
+   <?php include ("js.php"); ?>
 <script>
     $(function () {
         //Date picker

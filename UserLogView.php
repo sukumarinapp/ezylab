@@ -1,26 +1,58 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
 $id = DecodeVariable($_GET['uId']);
 $created = base64_decode($_GET['created']);
 $UserData = UserInfo($id);
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Log Details</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
         <div class="content-heading">Log Details</div>
+        <div class="card">
+        <div class="card-body">
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#log_history"
                                                             aria-controls="edit"
                                                             role="tab"
-                                                            data-toggle="tab">Log History</a>
+                                                            data-bs-toggle="tab">Log History</a>
                 </li>
                 <li class="nav-item" role="presentation"><a class="nav-link" href="#user_view" aria-controls="seo"
                                                             role="tab"
-                                                            data-toggle="tab">User Details</a>
+                                                            data-bs-toggle="tab">User Details</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -161,35 +193,11 @@ $UserData = UserInfo($id);
             </div>
         </div>
     </div>
-</section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
+    </div>
+</section>
+</div>
+
+   <?php include ("js.php"); ?>
 </body>
 </html>

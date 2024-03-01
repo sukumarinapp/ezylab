@@ -9,8 +9,8 @@ $product_data = $_REQUEST['product_data'];
 $product_data = stripslashes($product_data);
 $product_data_array = array();
 $product_data_array = json_decode($product_data);
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 $created_date = date("Y-m-d");
 $qty = 1;
 

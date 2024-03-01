@@ -44,11 +44,11 @@ $patientData = SelectParticularRow('macho_patient', 'id', $patient_id);
                             </div>
                             <div class="form-group">
                                                 <label>Data of Birth</label>
-                                                <input type="text"
+                                                <input type="date"
                                                        class="form-control"
                                                        name="dob"
                                                        id="dob"  value="<?= from_sql_date($patientData['dob']); ?>" autocomplete="off"
-                                                       maxlength="100" required
+                                                       maxlength="100" 
                                                        tabindex="5">
                                             </div>
                                             <div class="form-group">
@@ -64,7 +64,7 @@ $patientData = SelectParticularRow('macho_patient', 'id', $patient_id);
                                                 <label>ID Card</label>
                                                 <select class="form-control" tabindex="9"
                                                         id="id_card_type"
-                                                        name="id_card_type" required>
+                                                        name="id_card_type" >
                                                     <option value="">Select Identity Card Type</option>
                                                     <option value="Aadhaar card" <?php if ($patientData['id_card_type'] == 'Aadhaar card') echo 'selected'; ?>>Aadhaar card</option>
                                                     <option value="Driving licence" <?php if ($patientData['id_card_type'] == 'Driving licence') echo 'selected'; ?>>Driving licence</option>
@@ -193,7 +193,7 @@ $patientData = SelectParticularRow('macho_patient', 'id', $patient_id);
                                                        class="form-control"
                                                        name="id_number"
                                                        id="id_number" value="<?= $patientData['id_number']; ?>"
-                                                       maxlength="100" required
+                                                       maxlength="100" 
                                                        tabindex="10">
                                             </div>
                             <div class="form-group">
@@ -224,7 +224,7 @@ $patientData = SelectParticularRow('macho_patient', 'id', $patient_id);
                             <button class="btn btn-warning" type="submit" name="update" tabindex="24">
                                 Save Changes
                             </button>
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            <button class="btn btn-secondary" close="close" type="button" data-bs-dismiss="modal">
                                 Cancel
                             </button>
                         </div>

@@ -99,7 +99,7 @@ $patientData = SelectParticularRow('doctors', 'id', $patient_id);
                             <button class="btn btn-warning" type="submit" name="update" tabindex="8">
                                 Save Changes
                             </button>
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                            <button class="btn btn-secondary" type="button" class="close" data-bs-dismiss="modal">
                                 Cancel
                             </button>
                         </div>

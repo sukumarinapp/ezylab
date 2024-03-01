@@ -20,8 +20,8 @@ $reference_no = $_REQUEST['reference_no'];
 $pay_amount = $_REQUEST['pay_amount'];
 
 $created_date = date("Y-m-d");
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
 $status = '1';
 $paying_amount = 0;

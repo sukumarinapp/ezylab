@@ -11,18 +11,19 @@ $patient_id = $_REQUEST['patient_id'];
 $ref_prefix = $_REQUEST['ref_prefix'];
 $reference = $_REQUEST['reference'];
 $entry_time = $_REQUEST['entry_time'];
-$total = $_REQUEST['amount'];
+$total_amount = $_REQUEST['total_amount'];
+$home_visit = $_REQUEST['home_visit'];
 $net_amount = $_REQUEST['net_amount'];
+$discount = $_REQUEST['discount'];
 $cgst = $_REQUEST['cgst'];
 $sgst = $_REQUEST['sgst'];
-$home_visit = $_REQUEST['home_visit'];
 $payment_method = $_REQUEST['payment_method'];
 $reference_no = $_REQUEST['reference_no'];
 $pay_amount = $_REQUEST['pay_amount'];
 
 $created_date = date("Y-m-d");
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
 $status = '1';
 $paying_amount = 0;
@@ -56,13 +57,14 @@ $bill_sql = Insert(
         'patient_id' => Filter($patient_id),
         'ref_prefix' => Filter($ref_prefix),
         'reference' => Filter($reference),
-        'total_amount' => Filter($total),
+        'total_amount' => Filter($total_amount),
         'net_amount' => Filter($net_amount),
         'cgst' => Filter($cgst),
         'sgst' => Filter($sgst),
         'home_visit' => Filter($home_visit),
         'payment_method' => Filter($payment_method),
         'reference_no' => Filter($reference_no),
+        'discount' => Filter($discount),
         'created_by' => Filter($user_id),
         'created' => Filter($created),
         'modified' => Filter($modified)
@@ -83,7 +85,7 @@ for ($i = 0; $i < $sales_array_count; $i++) {
     $item_amount = $sales_array[$i]->item_amount;
 
     if ($item_type == 'group') {
-        $ProfileQuery = "SELECT * FROM macho_profile_tests WHERE profile_id='$item_category'";
+        $ProfileQuery = "SELECT * FROM macho_profile_tests WHERE profile_id='$item_category' order by id";
         $ProfileResult = GetAllRows($ProfileQuery);
         foreach ($ProfileResult as $ProfileData) {
             $item_id = $ProfileData['item_id'];

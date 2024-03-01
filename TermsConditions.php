@@ -1,13 +1,39 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
 $PageAccessible = IsPageAccessible($user_id, $page);
 $today = date("Y-m-d");
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
-if (isset($_POST['submit'])) {
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
+?>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <?php include ("headercss.php"); ?>
+    <title>Terms and Conditions</title>
+</head>
+
+
+<body class="bg-theme bg-<?php echo $colour ?>">
+    <?php 
+    if (isset($_POST['submit'])) {
 
     $insert_terms = Insert('macho_terms', array(
 
@@ -48,17 +74,20 @@ if (isset($_POST['update'])) {
         echo '<span  id="update_failure"></span>';
     }
 }
-?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div>Terms & Conditions
-                <small></small>
-            </div>
-            <div class="ml-auto">
-            </div>
+    ?>
+	<!--wrapper-->
+	<div class="wrapper">
+		<!--sidebar wrapper -->
+<?php include ("Menu.php"); ?>
+		<!--end sidebar wrapper -->
+		<!--start header -->
+		
+	<?php include ("header.php"); ?>
+	
+	<div class="page-wrapper">
+			<div class="page-content">
+			
+            <h6>Terms & Conditions</h6>
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -67,16 +96,18 @@ if (isset($_POST['update'])) {
                     <div class="card-header">
                         <?php if ($PageAccessible['is_write'] == 1) { ?>
                             <div class="card-title pull-right">
-                                <button class="btn btn-labeled btn-secondary" type="button" data-toggle="modal"
-                                        data-target="#add_terms">Create New
+                                <button class="btn btn-labeled btn-danger" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#add_terms">Create New
                                 <span class="btn-label btn-label-right"><i class="fa fa-arrow-right"></i>
                            </span></button>
                             </div>
                         <?php } ?>
                         <div class="text-sm"></div>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-striped my-4 w-100" id="datatable1">
+                    <div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example2" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
                                 <th width="20px" class="thead_data">#</th>
@@ -102,16 +133,15 @@ if (isset($_POST['update'])) {
                                         <td>
                                             <div class="btn-group">
                                                 <?php if ($PageAccessible['is_modify'] == 1) { ?>
-                                                    <button class="btn btn-info" type="button"
+                                                    <button class="btn btn-sm btn-info" type="button"
                                                             onclick="ModalEdit(<?php echo $TermsData['id']; ?>);">
-                                                        <i class="fa fa-edit"></i> Edit
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
                                                 <?php }
                                                 if ($PageAccessible['is_delete'] == 1) { ?>
-                                                    <button class="btn btn-danger" type="button"
+                                                    <button class="btn btn-sm btn-danger" type="button"
                                                             onclick="Delete('macho_terms','id',<?php echo $TermsData['id']; ?>);">
-                                                        <i class="fa fa-trash-o"></i>
-                                                        Delete
+                                                        <i class="fa fa-trash"></i>
                                                     </button>
                                                 <?php } ?>
                                             </div>
@@ -124,21 +154,23 @@ if (isset($_POST['update'])) {
                         </table>
                     </div>
                 </div>
+                </div>
+                </div>
                 <!-- END card-->
             </div>
         </div>
     </div>
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
+
 <div class="modal fade" id="add_terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Create New Terms & Conditions</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -161,7 +193,7 @@ if (isset($_POST['update'])) {
                                             <button class="btn btn-primary" type="submit" name="submit" tabindex="3">
                                                 Save
                                             </button>
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal"
                                                     tabindex="4">
                                                 Cancel
                                             </button>
@@ -183,7 +215,7 @@ if (isset($_POST['update'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Update Terms & Conditions</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -192,37 +224,37 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
 
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- Datatables-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
+	<!--end switcher-->
+	<!-- Bootstrap JS -->
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<!--plugins-->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
+	<script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
+	<script src="assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js"></script>
+	<script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+	<script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 <script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+	<script>
+		$(document).ready(function() {
+			$('#Transaction-History').DataTable({
+				lengthMenu: [[6, 10, 20, -1], [6, 10, 20, 'Todos']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+
 <script>
     function isNumberDecimalKey(evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -260,45 +292,41 @@ if (isset($_POST['update'])) {
 
     function Delete(table, key, id) {
         swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this Entry!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: 'btn-danger',
-                confirmButtonText: 'Yes!',
-                cancelButtonText: "No!",
-                closeOnConfirm: false,
-                closeOnCancel: false
+          title: 'Are you sure?',
+          text: "You will not be able to recover this Entry!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+      }).then(function(result) {
+        if(result.value){
+          $.ajax({
+            type: "POST",
+            url: "Delete.php",
+            data: {
+                table: table,
+                key: key,
+                id: id
             },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        type: "POST",
-                        url: "Delete.php",
-                        data: {
-                            table: table,
-                            key: key,
-                            id: id
-                        },
-                        success: function (response) {
-                            if (response == '1') {
-                                swal("Deleted!", "Selected Data has been deleted!", "success");
-                                location.href = "TermsConditions";
-                            } else {
-                                swal({
-                                    title: "Oops!",
-                                    text: "Something Wrong...",
-                                    imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
-                                });
-                            }
-                        }
-                    });
-
+            success: function (response) {
+                if (response == '1') {
+                    swal("Deleted!", "Selected Data has been deleted!", "success");
+                    location.href = "TermsConditions";
                 } else {
-                    swal("Cancelled", "Your Entry Data is safe :)", "error");
+                    swal({
+                        title: "Oops!",
+                        text: "Something Wrong...",
+                        imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
+                    });
                 }
-            });
+            }
+        });
+      }else{
+        swal("Cancelled", "Your Entry Data is safe :)", "error");
     }
+})
+  }
 
     window.onload = function () {
 
@@ -329,6 +357,21 @@ if (isset($_POST['update'])) {
         }
 
     }
+</script>
+<script>
+$(document).ready(function() {
+	  $('#example').DataTable()
+	});
+	
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
 </script>
 </body>
 </html>

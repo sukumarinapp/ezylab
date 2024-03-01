@@ -1,14 +1,45 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
+
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+
 $PageAccessible = IsPageAccessible($user_id, $page);
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">Payments</div>
+<!doctype html>
+<html lang="en">
+
+<head>
+<?php include ("headercss.php"); ?>
+<title>Payments</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+        <div class="page-content"><h6>Payments</h6></div>
         <div role="tabpanel">
             <ul class="nav nav-tabs nav-justified">
                 <!--                <li class="nav-item" role="presentation">-->
@@ -18,10 +49,10 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                 <!--                </li>-->
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" href="#profile1" aria-controls="profile1" role="tab"
-                        data-toggle="tab">Patient Payments</a>
+                        data-bs-toggle="tab">Patient Payments</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="#profile2" aria-controls="profile2" role="tab" data-toggle="tab">Payments
+                    <a class="nav-link" href="#profile2" aria-controls="profile2" role="tab" data-bs-toggle="tab">Payments
                         Receipt</a>
                 </li>
             </ul>
@@ -100,9 +131,10 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                 <!--                        </table>-->
                 <!--                    </div>-->
                 <!--                </div>-->
-                <div class="tab-pane active" id="profile1" role="tabpanel">
-                    <div class="table-responsive">
-                        <table class="table table-striped my-4 w-100" id="datatable2">
+                <div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example2" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th width="20">#</th>
@@ -166,13 +198,13 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                     if ($PageAccessible['is_read'] == 1) { ?>
                                                         <button class="btn btn-success"
                                                             onClick="window.open('BillPdf?bID=<?= EncodeVariable($BillData['id']); ?>');"
-                                                            title="View"><i class="fa fa-search-plus"></i>
+                                                            title="View"><em class="fa fa-eye"></em>
                                                         </button>
                                                     <?php }
                                                     if ($PageAccessible['is_write'] == 1) { ?>
-                                                        <button class="btn btn-danger" title="Add Payment"
-                                                            onClick="window.open('PatientFinance?cID=<?= EncodeVariable($patient_id); ?>');">
-                                                            <i class="fa fa-paypal"></i></button>
+                                           <button class="btn btn-danger" title="Add Payment"
+                                                    onClick="window.open('PatientFinance?cID=<?= EncodeVariable($patient_id); ?>');">
+                                                    <em class="fab fa-paypal"></em></button>
                                                         <?php
                                                     } ?>
                                                 </div>
@@ -222,15 +254,15 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                 <div class="btn-group">
                                                     <?php
                                                     if ($PageAccessible['is_read'] == 1) { ?>
-                                                        <button class="btn btn-success"
+                                                        <button class="btn btn-sm btn-success"
                                                             onClick="window.open('InvoicePDF?bID=<?= EncodeVariable($BillData2['id']); ?>');"
-                                                            title="View"><i class="fa fa-search-plus"></i>
+                                                            title="View"><i class="fa fa-eye"></i>
                                                         </button>
                                                     <?php }
                                                     if ($PageAccessible['is_write'] == 1) { ?>
-                                                        <button class="btn btn-danger" title="Add Payment"
+                                                        <button class="btn btn-sm btn-danger" title="Add Payment"
                                                             onClick="window.open('PatientFinance?cID=<?= EncodeVariable($patient_id2); ?>');">
-                                                            <i class="fa fa-paypal"></i></button>
+                                                            <i class="fab fa-paypal"></i></button>
                                                         <?php
                                                     } ?>
                                                 </div>
@@ -240,9 +272,11 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                 } ?>
                             </tbody>
                         </table>
-                    </div>
-
+                            </div>
                 </div>
+                            </div>
+
+
                 <div class="tab-pane" id="profile2" role="tabpanel">
                     <div class="table-responsive">
                         <table class="table table-striped my-4 w-100" id="datatable3">
@@ -291,9 +325,9 @@ $PageAccessible = IsPageAccessible($user_id, $page);
                                                 <div class="btn-group">
                                                     <?php
                                                     if ($PageAccessible['is_read'] == 1) { ?>
-                                                        <button class="btn btn-success"
+                                                        <button class="btn btn-sm btn-success"
                                                             onClick="window.open('PaymentReceipt2?pID=<?= EncodeVariable($BillData['id']); ?>');"
-                                                            title="View"><i class="fa fa-search-plus"></i> View
+                                                            title="View"><i class="fa fa-eye"></i> View
                                                         </button>
                                                         <?php
                                                     } ?>
@@ -312,36 +346,13 @@ $PageAccessible = IsPageAccessible($user_id, $page);
 
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+	  
+</div>
+
+   <?php include ("js.php"); ?>
+
+
 <script>
     $(document).ready(function () {
         $('#datatable1').dataTable();
@@ -351,6 +362,21 @@ $PageAccessible = IsPageAccessible($user_id, $page);
         $('#datatable3').dataTable();
 
     });
+</script>
+<script>
+$(document).ready(function() {
+	  $('#example').DataTable()
+	});
+	
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
 </script>
 </body>
 

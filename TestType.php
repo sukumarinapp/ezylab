@@ -1,13 +1,61 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
 $PageAccessible = IsPageAccessible($user_id, $page);
 $today = date("Y-m-d");
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
-if (isset($_POST['excel_import'])) {
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
+
+?>
+
+
+<?php
+$validation = false;
+$today = date("Y-m-d");
+
+$sql = "select * from  software_validation where from_date <= '$today' and to_date >= '$today'";
+$result = mysqli_query($conn, $sql);
+while($row = mysqli_fetch_assoc($result)){
+    $validation = true;
+}
+
+//echo "<pre>";print_r($from_date);print_r($to_date);print_r($validation);echo "</pre>";die;
+
+?>
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<style>
+    .ellipsis {
+        max-width: 40px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+<?php include ("headercss.php"); ?>
+<title>Test</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+    <?php 
+    if (isset($_POST['excel_import'])) {
     $Filepath = "excel".DIRECTORY_SEPARATOR.$_FILES["test_import"]["name"];
     move_uploaded_file($_FILES["test_import"]["tmp_name"], $Filepath);
     require('library/php-excel-reader/excel_reader2.php');
@@ -22,22 +70,24 @@ if (isset($_POST['excel_import'])) {
                     $test_category = trim($Row[0]);
                     $test_code = GetTestCode();
                     $test_name     = trim($Row[1]);
-                    $units         = trim($Row[2]);
-                    $price         = trim($Row[3]);
-                    $type_test     = trim($Row[4]);
+                    $price         = trim($Row[2]);
+                    $lower_limit = trim($Row[3]);
+                    $upper_limit = trim($Row[4]);
+                    $units         = trim($Row[5]);
+                    $type_test     = trim($Row[6]);
                     $sub_head = "";
                     $table_input  = "";
                     if(strtolower($type_test) == "sub heading"){
-                        $sub_head     = trim($Row[5]);
+                        $sub_head     = trim($Row[7]);
                     }
                     if(strtolower($type_test) == "table"){
-                        $table_input     = trim($Row[5]);
+                        $table_input     = trim($Row[8]);
                     }
-                    $critical_info = trim($Row[6]);
-                    $interpretation = trim($Row[7]);
-                    $lower_limit = trim($Row[8]);
-                    $upper_limit = trim($Row[9]);
-                    $sql = "insert into macho_test_type  (test_category,test_code,test_name,units,price,type_test,sub_head,table_input,critical_info,interpretation,lower_limit,upper_limit) values ('$test_category','$test_code','$test_name','$units','$price','$type_test','$sub_head','$table_input','$critical_info','$interpretation','$lower_limit','$upper_limit')";
+                    $critical_info = trim($Row[9]);
+                    $interpretation = trim($Row[10]);
+                   
+                    $sql = "insert into macho_test_type  (test_category,test_code,test_name,units,price,type_test,sub_head,sample_type,table_input,critical_info,interpretation,lower_limit,upper_limit) values ('$test_category','$test_code','$test_name','$units','$price','$type_test','$sub_head','$sample_type','$table_input','$critical_info','$interpretation','$lower_limit','$upper_limit')";
+                    //echo $sql;die;
                     mysqli_query($GLOBALS['conn'], $sql) or die(mysqli_error($GLOBALS['conn']));
                 }
             }
@@ -51,7 +101,10 @@ if (isset($_POST['submit'])) {
     $test_category = $_POST['test_category'];
     $TestCategoryData = SelectParticularRow('macho_test_category', 'id', $test_category);
     $dept_id = $TestCategoryData['dept_id'];
-
+    $show_critical_info = 0;
+    $show_interpretation = 0;
+    if(isset($_POST['show_critical_info'])) $show_critical_info = 1;
+    if(isset($_POST['show_interpretation'])) $show_interpretation = 1;
     $insert_Test_type = Insert(
         'macho_test_type',
         array(
@@ -72,6 +125,9 @@ if (isset($_POST['submit'])) {
             'critical_info' => Filter($_POST['critical_info']),
             'comments' => Filter($_POST['comments']),
             'sub_head' => Filter($_POST['sub_head']),
+            'sample_type' => Filter($_POST['sample_type']),
+            'show_critical_info' => $show_critical_info,
+            'show_interpretation' => $show_interpretation,
             'created' => $created,
             'modified' => $modified 
         )
@@ -94,6 +150,10 @@ if (isset($_POST['submit'])) {
 if (isset($_POST['update'])) {
     $test_type_id = Filter($_POST['id']);
     $test_category = $_POST['test_category'];
+    $show_critical_info = 0;
+    $show_interpretation = 0;
+    if(isset($_POST['show_critical_info'])) $show_critical_info = 1;
+    if(isset($_POST['show_interpretation'])) $show_interpretation = 1;
     $TestCategoryData = SelectParticularRow('macho_test_category', 'id', $test_category);
     $dept_id = $TestCategoryData['dept_id'];
 
@@ -117,6 +177,9 @@ if (isset($_POST['update'])) {
             'critical_info' => Filter($_POST['critical_info']),
             'comments' => Filter($_POST['comments']),
             'sub_head' => Filter($_POST['sub_head']),
+            'sample_type' => Filter($_POST['sample_type']),
+            'show_critical_info' => $show_critical_info,
+            'show_interpretation' => $show_interpretation,
             'modified' => $modified
         )
     );
@@ -132,25 +195,19 @@ if (isset($_POST['update'])) {
         echo '<span  id="update_failure"></span>';
     }
 }
-?>
-<!-- Main section-->
-<style>
-    .ellipsis {
-        max-width: 40px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-</style>
-<section class="section-container" xmlns="http://www.w3.org/1999/html">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div>Test
-                <small></small>
-            </div>
-            <div class="ml-auto">
-            </div>
+    ?>
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+            <h6>Test</h6>
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -166,21 +223,25 @@ if (isset($_POST['update'])) {
                                     <input class="btn btn-danger" type="submit" name="excel_import" value="Import Test Data">
                                 </div>
                                 <div class="col-md-4">
+                                <?php if ($validation) { ?>
                                     <?php if ($PageAccessible['is_write'] == 1) { ?>
                                         <div class="card-title pull-right">
-                                            <button class="btn btn-labeled btn-secondary" type="button" data-toggle="modal"
-                                            data-target="#add_test_type">Create New
+                                            <button class="btn btn-labeled btn-danger" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#add_test_type">Create New
                                             <span class="btn-label btn-label-right"><i class="fa fa-arrow-right"></i>
                                             </span></button>
                                         </div>
+                                    <?php } ?>
                                     <?php } ?>
                                     <div class="text-sm"></div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="card-body">
-                        <table width="2000px" class="table table-striped" id="datatable5">
+                    <div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example2" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="thead_data">Dept</th>
@@ -188,13 +249,14 @@ if (isset($_POST['update'])) {
                                     <th width="25" class="thead_data">Price</th>
                                     <th class="thead_data">Lower Limit</th>
                                     <th class="thead_data">Upper Limit</th>
-                                    <th>Action</th>
                                     <th class="thead_data">Unit</th>
                                     <th class="thead_data">Type</th>
                                     <th class="thead_data">Sub Heading</th>
+                                    <th class="thead_data">Sample Type</th>
                                     <th class="thead_data">Table Input</th>
                                     <th class="thead_data">Critical Info</th>
                                     <th class="thead_data">Interpretation</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,31 +273,33 @@ if (isset($_POST['update'])) {
                                             <td class="tbody_data"><?= $TestTypeData['price']; ?></td>
                                             <td class="tbody_data"><?= $TestTypeData['lower_limit']; ?></td>
                                             <td class="tbody_data"><?= $TestTypeData['upper_limit']; ?></td>
+                                            <td class="tbody_data"><?= $TestTypeData['units']; ?></td>
+                                            <td class="tbody_data"><?= $TestTypeData['type_test']; ?></td>
+                                            <td class="tbody_data"><?= $TestTypeData['sub_head']; ?></td>
+                                            <td class="tbody_data"><?= $TestTypeData['sample_type']; ?></td>
+                                            <td class="tbody_data"><?= $TestTypeData['table_input']; ?></td>
+                                            <td class="ellipsis"><?= $TestTypeData['critical_info']; ?></td>
+                                            <td class="ellipsis"><?= $TestTypeData['interpretation']; ?></td>
                                             <td>
+
                                                 <div class="btn-group">
                                                     <?php if ($PageAccessible['is_read'] == 1) { ?>
-                                                        <button class="btn btn-success" type="button" title="View"
+                                                        <button class="btn btn-sm btn-info" type="button" title="View"
                                                         onclick="ModalView(<?php echo $TestTypeData['id']; ?>);">
-                                                        <i class="fa fa-search-plus"></i></button>
+                                                        <i class="fa fa-eye"></i></button>
                                                     <?php }
                                                     if ($PageAccessible['is_modify'] == 1) { ?>
-                                                        <button class="btn btn-info" type="button" title="Edit"
+                                                        <button class="btn btn-sm btn-info" type="button" title="Edit"
                                                         onclick="ModalEdit(<?php echo $TestTypeData['id']; ?>);">
                                                         <i class="fa fa-edit"></i></button>
                                                     <?php }
                                                     if ($PageAccessible['is_delete'] == 1) { ?>
-                                                        <button class="btn btn-danger" type="button" title="Delete"
+                                                        <button class="btn btn-sm btn-danger" type="button" title="Delete"
                                                         onclick="Delete('macho_test_type','id',<?php echo $TestTypeData['id']; ?>);">
-                                                        <i class="fa fa-trash-o"></i></button>
+                                                        <i class="fa fa-trash"></i></button>
                                                     <?php } ?>
                                                 </div>
                                             </td>
-                                            <td class="tbody_data"><?= $TestTypeData['units']; ?></td>
-                                            <td class="tbody_data"><?= $TestTypeData['type_test']; ?></td>
-                                            <td class="tbody_data"><?= $TestTypeData['sub_head']; ?></td>
-                                            <td class="tbody_data"><?= $TestTypeData['table_input']; ?></td>
-                                            <td class="ellipsis"><?= $TestTypeData['critical_info']; ?></td>
-                                            <td class="ellipsis"><?= $TestTypeData['interpretation']; ?></td>
                                         </tr>
                                         <?php
                                     }
@@ -243,6 +307,8 @@ if (isset($_POST['update'])) {
                             </tbody>
                         </table>
                     </div>
+                            </div>
+                            </div>
                 </div>
                 <!-- END card-->
             </div>
@@ -250,7 +316,6 @@ if (isset($_POST['update'])) {
     </div>
 </section>
 <!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 <div class="modal fade" id="add_test_type" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
@@ -258,7 +323,7 @@ aria-hidden="true">
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">Create New Test</h4>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -282,12 +347,16 @@ aria-hidden="true">
                                             maxlength="100" onkeypress="return isNumberDecimalKey(event)"
                                             tabindex="3" required>
                                         </div>
-
+                            
                                         <div class="form-group">
                                             <label class="col-form-label">Method </label>
                                             <input class="form-control" type="text" name="method" id="method"
                                             maxlength="100" tabindex="5">
                                         </div>
+                                        <div class="form-group">
+                                             <label class="col-form-label">Sample Type</label>
+                                             <input maxlength="100" class="form-control" name="sample_type" id="sample_type" tabindex="8" />
+                                       </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Type of Test </label>
                                             <select class="form-control" name="type_test" id="type_test"
@@ -304,6 +373,12 @@ aria-hidden="true">
                                     <div class="form-group">
                                         <label class="col-form-label">Units </label>
                                         <input maxlength="10" class="form-control" name="units" id="units" tabindex="8" />
+                                    </div>
+                                    <div class="form-group form-check">
+                                      <input name="show_critical_info" class="form-check-input" type="checkbox" value="1" id="show_critical_info" >
+                                      <label class="form-check-label" for="show_critical_info">
+                                        Show Critical Info
+                                      </label>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-form-label">Critical Info </label>
@@ -353,22 +428,25 @@ aria-hidden="true">
                                         <input class="form-control" type="text" name="upper_limit"
                                         id="upper_limit" maxlength="100" tabindex="9">
                                     </div>
+                                    <div class="form-group">
+                                    <label class="col-form-label">Sub Heading Name</label>
+                                    <input maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
+                                   </div>
                                 </div>
+                                <div class="form-group form-check">
+                                      <input name="show_interpretation" class="form-check-input" type="checkbox" value="1" id="show_interpretation" >
+                                      <label class="form-check-label" for="show_interpretation">
+                                        Show Interpretation
+                                      </label>
+                                    </div>
                                 <div class="form-group">
-                                    <label class="col-form-label">Interpretations </label>
+                                    <label class="col-form-label">Interpretation</label>
                                     <textarea class="form-control" name="interpretation" id="interpretation"
                                     maxlength="500" rows="9" tabindex="11"></textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="col-form-label">Sub Heading Name</label>
-                                    <input maxlength="100" class="form-control" name="sub_head" id="sub_head" tabindex="8" />
-                                </div>
-                            </div>
-                        </div>
+                       
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -385,7 +463,7 @@ aria-hidden="true">
                                 <button class="btn btn-primary" type="submit" name="submit" tabindex="13">
                                     Save
                                 </button>
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                <button class="btn btn-secondary" class="close" type="button" data-bs-dismiss="modal">
                                     Cancel
                                 </button>
                             </div>
@@ -407,7 +485,7 @@ aria-hidden="true">
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">Test Type Details</h4>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -415,7 +493,7 @@ aria-hidden="true">
             <div class="modal-body" id="view_body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </form>
     </div>
@@ -428,7 +506,7 @@ aria-hidden="true">
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title" id="myModalLabel">Update Test Details</h4>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -436,7 +514,7 @@ aria-hidden="true">
             <div class="modal-body" id="edit_body">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" class="close" data-bs-dismiss="modal">Cancel</button>
                 <button class="btn btn-sm btn-primary m-t-n-xs" type="submit" name="update" tabindex="11">
                     <strong>Save Changes</strong>
                 </button>
@@ -445,54 +523,14 @@ aria-hidden="true">
     </div>
 </div>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
+</div>
 
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- Datatables-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+   <?php include ("js.php"); ?>
+
 <script>
 
-    $(function () {
+     $( document ).ready(function() {
         //Date picker
-        $('#start_date').datepicker({
-            autoclose: true
-        });
-
-        $('#end_date').datepicker({
-            autoclose: true
-        });
-
 
         $('#type_test').change(function () {
             var type_test = $(this).val();
@@ -560,47 +598,44 @@ aria-hidden="true">
         });
     }
 
-    function Delete(table, key, id) {
+   function Delete(table, key, id) {
         swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this Entry!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: 'btn-danger',
-            confirmButtonText: 'Yes!',
-            cancelButtonText: "No!",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        },
-        function (isConfirm) {
-            if (isConfirm) {
-                $.ajax({
-                    type: "POST",
-                    url: "Delete.php",
-                    data: {
-                        table: table,
-                        key: key,
-                        id: id
-                    },
-                    success: function (response) {
-                        if (response == '1') {
-                            swal("Deleted!", "Selected Data has been deleted!", "success");
-                            location.href = "TestType";
-                        } else {
-                            swal({
-                                title: "Oops!",
-                                text: "Something Wrong...",
-                                imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
-                            });
-                        }
-                    }
-                });
-
-            } else {
-                swal("Cancelled", "Your Entry Data is safe :)", "error");
+          title: 'Are you sure?',
+          text: "You will not be able to recover this Entry!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+      }).then(function(result) {
+        if(result.value){
+          $.ajax({
+            type: "POST",
+            url: "Delete.php",
+            data: {
+                table: table,
+                key: key,
+                id: id
+            },
+            success: function (response) {
+                if (response == '1') {
+                    swal("Deleted!", "Selected Data has been deleted!", "success");
+                    location.href = "TestType";
+                } else {
+                    swal({
+                        title: "Oops!",
+                        text: "Something Wrong...",
+                        imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
+                    });
+                }
             }
         });
+      }else{
+        swal("Cancelled", "Your Entry Data is safe :)", "error");
     }
+})
+  }
+
 
     window.onload = function () {
 
@@ -633,9 +668,23 @@ aria-hidden="true">
         }
 
     }
-
-    
 </script>
-</body>
 
+<script>
+$(document).ready(function() {
+	  $('#example').DataTable()
+	});
+	
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
+</script>
+
+</body>
 </html>

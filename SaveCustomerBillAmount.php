@@ -8,7 +8,7 @@ $user_role = $_SESSION["role_name"];
 $user_role_id = $_SESSION["role_id"];
 
 $created = date("Y-m-d");
-$date_time = date("Y-m-d h:i:sa");
+$date_time = date("Y-m-d H:i:s");
 
 $bill_data = $_REQUEST['bill_data'];
 $bill_data = stripslashes($bill_data);

@@ -1,10 +1,20 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
 $PageAccessible = IsPageAccessible($user_id, 'Patient');
-$created = date("Y-m-d h:i:sa");
-$updated = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$updated = date("Y-m-d H:i:s");
 $patient_id = 0;
 
 if (isset($_GET['patient_id'])) {
@@ -52,6 +62,11 @@ if (isset($_POST['add_patient'])) {
         exit;
     }
 }
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 <!-- Main section-->
 <style>
@@ -68,16 +83,27 @@ if (isset($_POST['add_patient'])) {
     }
 
     .row-padded {
-        background-color: #F7F7F7;
+        background-color: #808000;
         padding: 1px;
         margin: 4px;
-        border: 1px solid #DDD;
+        border: 1px black;
     }
-</style>
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
+</style> <?php include ("headercss.php"); ?>
+<title>Dashtrans</title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+
             <div>Patient Entry</div>
         </div>
         <div class="row">
@@ -93,7 +119,7 @@ if (isset($_POST['add_patient'])) {
                                 <div class="col-md-10">
                                     <div class="form-group">
                                         <label for="patient_id" class="control-label">Patient ID</label>
-                                        <select class="form-control select2" name="patient_id" id="patient_id"
+                                        <select class="form-select" name="patient_id" id="patient_id"
                                         tabindex="1">
                                         <option value="0">Select Patient</option>
                                         <option value="new">New Patient</option>
@@ -167,166 +193,178 @@ if (isset($_POST['add_patient'])) {
                         </div>
                     </div>
                     <div class="row">
-                        
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <button class="btn btn-info form-control" type="button" id="testopen"
-                            tabindex="2">Select Test </button>
-                        </div>
-                    </div>
-                </div>
-                    
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered" id="tab_logic">
-                                    <thead>
-                                        <tr style="background-color: #81888c;color:white">
-                                            <td style="width: 20px" class="text-center">
-                                                S.No
-                                            </td>
-                                            <td style='text-align: left'>
-                                                Description
-                                            </td>
-                                            <td class="text-right">
-                                                Amount
-                                            </td>
-                                            <td width="50px" class="text-center">
-                                                Remove
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody_data">
-                                        <tr class="row_class" id='addr0'></tr>
-                                    </tbody>
-                                </table>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button class="btn btn-danger" type="button" id="testopen"
+                                tabindex="2">Select Test </button>
                             </div>
                         </div>
-                        <br>
-
-                        <div class="row">
-                            <!--                                <div class="col-md-2">-->
-                                <!--                                    <label class="control-label">CGST</label>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="col-md-3 pull-right">-->
-                                    <input style="text-align: right" readonly type="hidden" name="cgst" id="cgst"
-                                    class="form-control">
-                                    <!--                                </div>-->
-                                    <div class="col-md-2">
-                                        <label class="control-label">Home Visiting</label>
-                                    </div>
-                                    <div class="col-md-3 pull-right">
-                                        <input style="text-align: right" type="text" name="home_visit" id="home_visit"
-                                        class="form-control" onkeypress="return isNumberDecimalKey(event)"
-                                        onkeyup="calculate_net_amount()">
-                                    </div>
-                                    <div class="col-md-2">&nbsp;</div>
-                                    <div class="col-md-2">
-                                        <label class="control-label">Total</label>
-                                    </div>
-                                    <div class="col-md-3 pull-right">
-                                        <input style="text-align: right" readonly type="text" name="total_amount"
-                                        id="total_amount" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <!--                                <div class="col-md-2">-->
-                                        <!--                                    <label class="control-label">SGST</label>-->
-                                        <!--                                </div>-->
-                                        <!--                                <div class="col-md-3 pull-right">-->
-                                            <input style="text-align: right" readonly type="hidden" name="sgst" id="sgst"
-                                            class="form-control">
-                                            <!--                                </div>-->
-                                            <!--                                <div class="col-md-2">&nbsp;</div>-->
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label class="control-label">Payment Method</label>
-                                            </div>
-                                            <div class="col-md-3 pull-right">
-                                                <select name="payment_method" id="payment_method" class="form-control">
-                                                    <option value="Cash">Cash</option>
-                                                    <option value="Credit Card">Credit Card</option>
-                                                    <option value="Debit Card">Debit Card</option>
-                                                    <option value="Online Payment">Online Payment</option>
-                                                    <option value="Cheque">Cheque</option>
-                                                    <option value="Demand Draft">Demand Draft</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2">&nbsp;</div>
-                                            <div class="col-md-2">
-                                                <label class="control-label">Net Total</label>
-                                            </div>
-                                            <div class="col-md-3 pull-right">
-                                                <input style="text-align: right" readonly type="text" name="net_amount" id="net_amount"
-                                                class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label class="control-label">Reference No.</label>
-                                            </div>
-                                            <div class="col-md-3 pull-right">
-                                                <input type="text" name="reference_no" id="reference_no" class="form-control"
-                                                maxlength="100">
-                                            </div>
-                                            <div class="col-md-2">&nbsp;</div>
-                                            <div class="col-md-2">
-                                                <label class="control-label">Pay Amount</label>
-                                            </div>
-                                            <div class="col-md-3 pull-right">
-                                                <input type="text" onkeypress="return isNumberDecimalKey(event)" name="pay_amount"
-                                                id="pay_amount" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label class="control-label">Created By</label>
-                                            </div>
-                                            <div class="col-md-3 pull-right">
-                                                <input type="text" name="created_by" id="created_by" class="form-control"
-                                                value="<?= $user; ?>" maxlength="100">
-                                            </div>
-                                            <div class="col-md-2">&nbsp;</div>
-                                            <div class="col-md-2">
-                                                <label class="control-label">Balance Amount</label>
-                                            </div>
-                                            <div class="col-md-3 pull-right">
-                                                <input type="text" readonly name="balance_amount" id="balance_amount"
-                                                class="form-control">
-                                            </div>
-                                        </div>
-                                        <br><br>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="clearfix">
-                                                    <div class="float-right">
-                                                        <button class="btn btn-labeled btn-secondary" type="button"
-                                                        onclick="location.href='PatientEntry';">
-                                                        <span class="btn-label"><i class="fa fa-arrow-left"></i>
-                                                        </span>Back to List
-                                                    </button>
-                                                    <?php if ($PageAccessible['is_modify'] == 1) { ?>
-                                                        <button class="btn btn-labeled btn-primary" type="submit" name="submit"
-                                                        id="save_button" onclick="submit_data();" tabindex="9">
-                                                        <span class="btn-label"><i class="fa fa-check"></i>
-                                                        </span>Save
-                                                    </button>
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php } ?>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered" id="tab_logic">
+                                <thead>
+                                    <tr style="background-color: #81888c;color:white">
+                                        <td style="width: 20px" class="text-center">
+                                            S.No
+                                        </td>
+                                        <td style='text-align: left'>
+                                            Description
+                                        </td>
+                                        <td class="text-right">
+                                            Amount
+                                        </td>
+                                        <td width="50px" class="text-center">
+                                            Remove
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_data">
+                                    <tr class="row_class" id='addr0'></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <!-- END card-->
+                    <br>
+
+                    <div class="row">
+                        <!--                                <div class="col-md-2">-->
+                            <!--                                    <label class="control-label">CGST</label>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="col-md-3 pull-right">-->
+                                <input style="text-align: right" readonly type="hidden" name="cgst" id="cgst"
+                                class="form-control">
+                                <!--                                </div>-->
+                                <div class="col-md-2">
+                                    <label class="control-label">Home Visit</label>
+                                </div>
+                                <div class="col-md-3 pull-right">
+                                    <input maxlength="4" style="text-align: right" type="text" name="home_visit" id="home_visit"
+                                    class="form-control" onkeypress="return isNumberKey(event)"
+                                    onkeyup="calculate_net_amount()">
+                                </div>
+                                <div class="col-md-2">&nbsp;</div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Total</label>
+                                </div>
+                                <div class="col-md-3 pull-right">
+                                    <input style="text-align: right" readonly type="text" name="total_amount"
+                                    id="total_amount" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--                                <div class="col-md-2">-->
+                                    <!--                                    <label class="control-label">SGST</label>-->
+                                    <!--                                </div>-->
+                                    <!--                                <div class="col-md-3 pull-right">-->
+                                        <input style="text-align: right" readonly type="hidden" name="sgst" id="sgst"
+                                        class="form-control">
+                                        <!--                                </div>-->
+                                        <!--                                <div class="col-md-2">&nbsp;</div>-->
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label class="control-label">Payment Method</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <select name="payment_method" id="payment_method" class="form-control">
+                                                <option value="Cash">Cash</option>
+                                                <option value="Credit Card">Credit Card</option>
+                                                <option value="Debit Card">Debit Card</option>
+                                                <option value="Online Payment">Online Payment</option>
+                                                <option value="Cheque">Cheque</option>
+                                                <option value="Demand Draft">Demand Draft</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">Net Total</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <input style="text-align: right" readonly type="text" name="net_amount" id="net_amount"
+                                            class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label class="control-label">Reference No.</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <input type="text" name="reference_no" id="reference_no" class="form-control"
+                                            maxlength="100">
+                                        </div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">Pay Amount</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <input type="text" onkeypress="return isNumberDecimalKey(event)" name="pay_amount"
+                                            id="pay_amount" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-1">&nbsp;</div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">Discount</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                        <input maxlength="4" type="text" name="discount" id="discount"
+                                    class="form-control" onkeypress="return isNumberKey(event)"
+                                    onkeyup="calculate_net_amount()">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label class="control-label">Created By</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <input type="text" name="created_by" id="created_by" class="form-control"
+                                            value="<?= $user; ?>" maxlength="100">
+                                        </div>
+                                        <div class="col-md-2">&nbsp;</div>
+                                        <div class="col-md-2">
+                                            <label class="control-label">Balance Amount</label>
+                                        </div>
+                                        <div class="col-md-3 pull-right">
+                                            <input type="text" readonly name="balance_amount" id="balance_amount"
+                                            class="form-control">
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="clearfix">
+                                                <div class="float-right">
+                                                    <button class="btn btn-labeled btn-secondary" type="button"
+                                                    onclick="location.href='PatientEntry';">
+                                                    <span class="btn-label"><i class="fa fa-arrow-left"></i>
+                                                    </span>Back to List
+                                                </button>
+                                                <?php if ($PageAccessible['is_modify'] == 1) { ?>
+                                                    <button class="btn btn-labeled btn-primary" type="submit" name="submit"
+                                                    id="save_button" onclick="submit_data();" tabindex="9">
+                                                    <span class="btn-label"><i class="fa fa-check"></i>
+                                                    </span>Save
+                                                </button>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
+                <!-- END card-->
             </div>
         </div>
-    </section>
-    <!-- Page footer-->
-    <?php include_once 'footer.php'; ?>
+    </div>
+</section>
 </div>
 
 <div class="modal fade" id="add_patient" tabindex="-1" role="dialog" aria-labelledby="myModalLabelLarge"
@@ -335,7 +373,7 @@ aria-hidden="true">
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title" id="myModalLabelLarge">Create New Patient</h4>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -467,7 +505,7 @@ aria-hidden="true">
                         tabindex="12">
                         Save
                     </button>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                         Cancel
                     </button>
                 </div>
@@ -492,7 +530,7 @@ aria-hidden="true">
             <h4 class="modal-title">
 
             </h4>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -503,12 +541,12 @@ aria-hidden="true">
                         <!-- START card-->
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-departmenttest-tab" data-toggle="pill"
+                                <a class="nav-link active" id="pills-departmenttest-tab" data-bs-toggle="pill"
                                 href="#pills-departmenttest" role="tab" aria-controls="pills-departmenttest"
                                 aria-selected="false">Department</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-profiletest-tab" data-toggle="pill"
+                                <a class="nav-link" id="pills-profiletest-tab" data-bs-toggle="pill"
                                 href="#pills-profiletest" role="tab" aria-controls="pills-profiletest"
                                 aria-selected="false">Profile</a>
                             </li>
@@ -590,8 +628,7 @@ aria-hidden="true">
 
             </div>
             <div style="margin-top:10px;margin-bottom:10px">
-                <input class="form-control" id="tokenfield" value="" />
-
+                <input readonly type="text" data-role="tagsinput" value=""  id="mytags" itemValue="" />
             </div>
 
         </div>
@@ -599,7 +636,7 @@ aria-hidden="true">
             <div class="clearfix">
 
 
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                     Close
                 </button>
                 <button class="btn btn-primary float-lg-right" onclick="add_rows()" type="button" tabindex="12">
@@ -623,7 +660,7 @@ aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Confirmation Alert </h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -637,183 +674,153 @@ aria-hidden="true">
         </div>
     </div>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<script src="<?php echo VENDOR; ?>select2/dist/js/select2.full.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+</div>
+
+   <?php include ("js.php"); ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
-<script type="text/javascript" src="<?php echo JS; ?>bootstrap-tokenfield.js"></script>
-
+<script src="assets/plugins/input-tags/js/tagsinput.js"></script>
 
 <script>
-    $('#tokenfield').tokenfield();
-
+    var mytagsinput = $('#mytags');
+    mytagsinput.tagsinput({itemValue: 'id',itemText: 'text'});
     var i = 0;
     var tokenarr = [];
-
-    $('#tokenfield').on('tokenfield:removedtoken', function (e) {
-    //alert('Token removed! Token value was: ' + e.attrs.value);
-        var test_id = e.attrs.value;
+    
+    $("#mytags").on('itemRemoved', function(event) {
+        var test_id = event.item.id;
         const idxObj = tokenarr.findIndex(object => {
           return object.value === test_id;
-      });
+        });
         tokenarr.splice(idxObj, 1);
         $("#"+test_id).prop("checked",false);
         $("#profile_"+test_id).prop("checked",false);
-        $("#dept_"+test_id).css("background-color","#F7F7F7");
-        $("#dept_profile"+test_id).css("background-color","#F7F7F7");
+        $("#dept_"+test_id).css("background-color","#808000");
+        $("#dept_profile"+test_id).css("background-color","#808000");
     });
 
-    $('.poptest').click(function() {
+     $('.poptest').click(function() {
+        var test_name = $(this).attr("data-test_name");
         var test_id = $(this).attr("data-test_id");
         var test_type = $(this).attr("data-test_type");
         if(test_type == "group"){
             test_id = test_id.substring(8);
         }
         var test_name_price = $(this).attr("data-test_name_price");
-        var test_name = $(this).attr("data-test_name");
         var test_price = $(this).attr("data-test_price");
         var test_category= $(this).attr("data-test_category");
         if(this.checked){
             tokenarr.push({value : test_id , label : test_name_price , testname : test_name , testprice : test_price , testtype : test_type , testcategory : test_category});
-            $("#dept_"+test_id).css("background-color","#7fffd4");
+            $("#dept_"+test_id).css("background-color","#DC143C");
             if(test_type == "group"){
-                $("#dept_profile"+test_id).css("background-color","#7fffd4");
+                $("#dept_profile"+test_id).css("background-color","#DC143C");
             }
+            mytagsinput.tagsinput('add', { id: test_id, text: test_name});   
         }else{
             const idxObj = tokenarr.findIndex(object => {
               return object.value === test_id;
-          });
+            });
             tokenarr.splice(idxObj, 1);
-            $("#dept_"+test_id).css("background-color","#F7F7F7");
-            $("#dept_profile"+test_id).css("background-color","#F7F7F7");
-            
+            $("#dept_"+test_id).css("background-color","#808000");
+            $("#dept_profile"+test_id).css("background-color","#808000");
+            mytagsinput.tagsinput('remove', { id: test_id, text: test_name});
         }
-        $('#tokenfield').tokenfield('setTokens', tokenarr);
     });
 
-    function add_test_rows(){
-        i = 0 ;
-        $("#tbody_data").html("<tr class='row_class' id='addr0'></tr>");
-        $.each(tokenarr, function(index, value) {
-          var test_id = value.value;
-          var test_type = value.testtype;
-          var test_name = value.testname;
-          if(test_type == "group"){
-            test_id = test_id.substring(8);
-          }
-          var test_price = value.testprice;
-          var test_category = value.testcategory;
-          var test_gst = parseFloat('0');
-          var test_gst_amount = "";
-          var test_quantity = 1;
-          var test_uom = "LF";
-          
-          $('#addr' + i).html("<td style='text-align: center' class='serial_num'><span class='sl_no'>" + (i + 1) +
-            "</span></td>" +
-            "<td style='text-align: left'><input value='" + test_id + "' name='item_id[]' type='hidden'>" +
-            "<input value='" + test_type + "' name='item_type[]' type='hidden'>" +
-            "<input value='" + test_name + "' name='item_name[]' type='hidden'>" +
-            "<input value='" + test_category + "' name='item_category[]' type='hidden'>" +
-            "<input value='" + test_price + "' name='item_rate[]' type='hidden'>" +
-            "<input value='" + test_gst + "' name='item_gst2[]' type='hidden'>" +
-            "<input value='" + test_gst_amount + "' name='item_gst_amount[]' type='hidden'>" +
-            "<input value='" + test_quantity + "' name='item_quantity[]' type='hidden'>" +
-            "<input value='" + test_uom + "' name='item_uom[]' type='hidden'>" +
-            "<input value='" + test_price + "' name='item_amount[]' type='hidden'>" +
-            test_name + "</td>" +
-            "<td style='text-align: right'>" + test_price + "</td>" +
-            "<td width='50px' style='text-align: center' valign='middle'><button title='Remove' class='btn btn-info btn-danger fa fa-remove' onclick='delete_row(" +
-            i + ")'></button></td>");
-          $('#tab_logic').append('<tr class="row_class" id="addr' + (i + 1) + '"></tr>');
-          i++;
-      });
-      set_fix();
-      home_visit=0;
-      var home_visit = $('#home_visit').val().toString().trim();
-      var total_amount = $('#total_amount').val();
-      net_amount = total_amount;
-      if(home_visit != ""){
+ function add_test_rows(){
+    i = 0 ;
+    $("#tbody_data").html("<tr class='row_class' id='addr0'></tr>");
+    $.each(tokenarr, function(index, value) {
+      var test_id = value.value;
+      var test_type = value.testtype;
+      var test_name = value.testname;
+      if(test_type == "group"){
+        test_id = test_id.substring(8);
+    }
+    var test_price = value.testprice;
+    var test_category = value.testcategory;
+    var test_gst = parseFloat('0');
+    var test_gst_amount = "";
+    var test_quantity = 1;
+    var test_uom = "LF";
+
+    $('#addr' + i).html("<td style='text-align: center' class='serial_num'><span class='sl_no'>" + (i + 1) +
+        "</span></td>" +
+        "<td style='text-align: left'><input value='" + test_id + "' name='item_id[]' type='hidden'>" +
+        "<input value='" + test_type + "' name='item_type[]' type='hidden'>" +
+        "<input value='" + test_name + "' name='item_name[]' type='hidden'>" +
+        "<input value='" + test_category + "' name='item_category[]' type='hidden'>" +
+        "<input value='" + test_price + "' name='item_rate[]' type='hidden'>" +
+        "<input value='" + test_gst + "' name='item_gst2[]' type='hidden'>" +
+        "<input value='" + test_gst_amount + "' name='item_gst_amount[]' type='hidden'>" +
+        "<input value='" + test_quantity + "' name='item_quantity[]' type='hidden'>" +
+        "<input value='" + test_uom + "' name='item_uom[]' type='hidden'>" +
+        "<input value='" + test_price + "' name='item_amount[]' type='hidden'>" +
+        test_name + "</td>" +
+        "<td style='text-align: right'>" + test_price + "</td>" +
+        "<td width='50px' style='text-align: center' valign='middle'><button title='Remove' class='btn btn-info btn-danger ' onclick='delete_row(" +
+        i + ")'><em class='fa fa-trash'></em></button></td>");
+    $('#tab_logic').append('<tr class="row_class" id="addr' + (i + 1) + '"></tr>');
+    i++;
+});
+    set_fix();
+    home_visit=0;
+    var home_visit = $('#home_visit').val().toString().trim();
+    var total_amount = $('#total_amount').val();
+    net_amount = total_amount;
+    if(home_visit != ""){
         net_amount = parseInt(home_visit) + parseInt(total_amount);
-      }
-      $('#net_amount').val(net_amount);
     }
+    $('#net_amount').val(net_amount);
+}
 
-    function add_rows(){
-        if (tokenarr.length == 0) {
-            swal("Please select a Test");
-            return;
-        }
-        add_test_rows();
-        $("#testpopup").modal("hide");
+function add_rows(){
+    if (tokenarr.length == 0) {
+        swal("Please select a Test");
+        return;
     }
+    add_test_rows();
+    $("#testpopup").modal("hide");
+}
 
-    function isNumberKey(evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+function isNumberDecimalKey(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode != 46 && charCode > 31 &&
+        (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+}
+
+function DecimalPoint(x) {
+    return Number.parseFloat(x).toFixed(2);
+}
+
+$('#patient_id').change(function() {
+    var title = $(this).val();
+    if (title == 'new') {
+        $('#add_patient').modal('show');
     }
+});
 
-    function isNumberDecimalKey(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode != 46 && charCode > 31 &&
-            (charCode < 48 || charCode > 57))
-            return false;
-
-        return true;
-    }
-
-    function DecimalPoint(x) {
-        return Number.parseFloat(x).toFixed(2);
-    }
-
-    $('#patient_id').change(function() {
-        var title = $(this).val();
-        if (title == 'new') {
-            $('#add_patient').modal('show');
-        }
-    });
-
-    function show_dept_test() {
-        var dept_id = $("#department_name").val();
-        $(".dept_test").hide();
-        $("#dept_test_" + dept_id).show();
+function show_dept_test() {
+    var dept_id = $("#department_name").val();
+    $(".dept_test").hide();
+    $("#dept_test_" + dept_id).show();
         //alert(dept_id);
-    }
+}
 
-    $('#testopen').click(function() {
-        $('#testpopup').modal('show');
-    });
+$('#testopen').click(function() {
+    $('#testpopup').modal('show');
+});
 
 $(document).ready(function() {
     $("#multipletest").select2({
@@ -978,148 +985,153 @@ $(document).ready(function() {
         $("#code-scan").focus();
     }
 
-    function calculate_net_amount() {
-        var home_visit = $('#home_visit').val();
-        var total_amount = $('#total_amount').val();
-        var net_amount = total_amount;
-        if(home_visit != ""){
-            net_amount = parseInt(home_visit) + parseInt(total_amount);
-        }
-        $('#net_amount').val(net_amount);
-    }
-
-    $("input[name='pay_amount']").keyup(function() {
+        $("input[name='pay_amount']").keyup(function() {
         var pay_amount = $('#pay_amount').val();
         var net_amount = $('#net_amount').val();
 
         $('#balance_amount').val(pay_amount - net_amount);
     });
 
+    function calculate_net_amount() {
+        var home_visit = ~~parseInt($('#home_visit').val());
+        var total_amount = ~~parseInt($('#total_amount').val());
+        var discount = ~~parseInt($('#discount').val());
+        $('#net_amount').val((home_visit+total_amount)-discount);
+    }
+
     function submit_data() {
 
       if (tokenarr.length == 0) {
         swal("Please select a Test");
         return;
-      }
-        var net_amount = parseFloat($('#net_amount').val());
-        //if (isNaN(net_amount) || net_amount <= 0) {
-            //swal("Net Total should be greater than zero");
-            //return;
-        //} else {
-            var bill_num = $('#bill_num').val();
-            var bill_date = $('#bill_date').val();
-            var entry_time = $('#entry_time').val();
-            var patient_id = $('#patient_id').val();
-            var ref_prefix = $('#ref_prefix').val();
-            var reference = $('#reference').val();
-            var total_amount = DecimalPoint($('#total_amount').val());
-            var cgst_tax = DecimalPoint($('#cgst').val());
-            var sgst_tax = DecimalPoint($('#sgst').val());
-            var home_visit = DecimalPoint($('#home_visit').val());
-            var payment_method = $('#payment_method').val();
-            var reference_no = $('#reference_no').val();
-            var pay_amount = $('#pay_amount').val();
+    }
+    var net_amount = parseFloat($('#net_amount').val());
+    //if (isNaN(net_amount) || net_amount <= 0) {
+        //swal("Net Total should be greater than zero");
+        //return;
+    //} else {
+        var bill_num = $('#bill_num').val();
+        var bill_date = $('#bill_date').val();
+        var entry_time = $('#entry_time').val();
+        var patient_id = $('#patient_id').val();
+        var ref_prefix = $('#ref_prefix').val();
+        var reference = $('#reference').val();
+        var total_amount = ~~parseInt($('#total_amount').val());
+        var net_amount = ~~parseInt($('#net_amount').val());
+        var home_visit = ~~parseInt($('#home_visit').val());
+        var discount = ~~parseInt($('#discount').val());
+        var cgst_tax = 0;
+        var sgst_tax = 0;
+        var home_visit = 0;
+        if($('#home_visit').val() != ""){
+             home_visit = parseInt($('#home_visit').val());
+        }
+        var payment_method = $('#payment_method').val();
+        var reference_no = $('#reference_no').val();
+        var pay_amount = $('#pay_amount').val();
 
-            $("#save_button").prop("disabled", true);
+        $("#save_button").prop("disabled", true);
 
-            var item_id = $('input[name="item_id[]"]');
-            var item_type = $('input[name="item_type[]"]');
-            var item_category = $('input[name="item_category[]"]');
-            var item_name = $('input[name="item_name[]"]');
-            var item_uom2 = $('input[name="item_uom[]"]');
-            var item_quantity = $('input[name="item_quantity[]"]');
-            var item_rate = $('input[name="item_rate[]"]');
-            var item_gst2 = $('input[name="item_gst2[]"]');
-            var item_amount = $('input[name="item_amount[]"]');
+        var item_id = $('input[name="item_id[]"]');
+        var item_type = $('input[name="item_type[]"]');
+        var item_category = $('input[name="item_category[]"]');
+        var item_name = $('input[name="item_name[]"]');
+        var item_uom2 = $('input[name="item_uom[]"]');
+        var item_quantity = $('input[name="item_quantity[]"]');
+        var item_rate = $('input[name="item_rate[]"]');
+        var item_gst2 = $('input[name="item_gst2[]"]');
+        var item_amount = $('input[name="item_amount[]"]');
 
-            var item_id_length = item_id.length;
+        var item_id_length = item_id.length;
 
-            var sales = new Array();
+        var sales = new Array();
 
-            for (var j = 0; j < item_id_length; j++) {
-                var item_amount2 = item_amount.eq(j).val();
+        for (var j = 0; j < item_id_length; j++) {
+            var item_amount2 = item_amount.eq(j).val();
                 //if (item_amount2 != 0) {
 
-                    var record = {
-                        'item_id': item_id.eq(j).val(),
-                        'item_type': item_type.eq(j).val(),
-                        'item_category': item_category.eq(j).val(),
-                        'item_name': item_name.eq(j).val(),
-                        'item_rate': item_rate.eq(j).val(),
-                        'item_gst': item_gst2.eq(j).val(),
-                        'item_quantity': item_quantity.eq(j).val(),
-                        'item_uom': item_uom2.eq(j).val(),
-                        'item_amount': item_amount2
-                    };
-                    sales.push(record);
+            var record = {
+                'item_id': item_id.eq(j).val(),
+                'item_type': item_type.eq(j).val(),
+                'item_category': item_category.eq(j).val(),
+                'item_name': item_name.eq(j).val(),
+                'item_rate': item_rate.eq(j).val(),
+                'item_gst': item_gst2.eq(j).val(),
+                'item_quantity': item_quantity.eq(j).val(),
+                'item_uom': item_uom2.eq(j).val(),
+                'item_amount': item_amount2
+            };
+            sales.push(record);
                 //}
-            }
+        }
 
-            var sales_data = JSON.stringify(sales);
-
-            $.ajax({
-                type: 'POST',
-                url: 'SavePatientEntry.php',
-                data: {
-                    bill_num: bill_num,
-                    bill_date: bill_date,
-                    patient_id: patient_id,
-                    ref_prefix: ref_prefix,
-                    reference: reference,
-                    entry_time: entry_time,
-                    sales: sales_data,
-                    amount: total_amount,
-                    net_amount: net_amount,
-                    cgst: cgst_tax,
-                    sgst: sgst_tax,
-                    home_visit: home_visit,
-                    pay_amount: pay_amount,
-                    payment_method: payment_method,
-                    reference_no: reference_no
-                },
-                success: function(response) {
-                    $('#cgst').val("");
-                    $('#sgst').val("");
-                    $('#total_amount').val("");
-                    $('#home_visit').val("");
-                    $('#net_amount').val("");
-                    $('#pay_amount').val("");
-                    $('#balance_amount').val("");
-                    for (var j = 0; j < i; j++) {
-                        $("#addr" + (j)).html('');
-                    }
-                    i = 0;
-                    $("#save_button").prop("disabled", false);
-                //location.href = "PatientEntry";
-                    $('#view_body').html(response);
-                    $('#modal_view').modal('show');
-                }
-            });
-        //}
-    }
-
-    function PrintBill(id) {
+        var sales_data = JSON.stringify(sales);
+       
 
         $.ajax({
             type: 'POST',
-            url: 'PrintBillData.php',
+            url: 'SavePatientEntry.php',
             data: {
-                id: id
+                bill_num: bill_num,
+                bill_date: bill_date,
+                patient_id: patient_id,
+                ref_prefix: ref_prefix,
+                reference: reference,
+                entry_time: entry_time,
+                sales: sales_data,
+                total_amount: total_amount,
+                net_amount: net_amount,
+                cgst: cgst_tax,
+                sgst: sgst_tax,
+                home_visit: home_visit,
+                discount: discount,
+                pay_amount: pay_amount,
+                payment_method: payment_method,
+                reference_no: reference_no
             },
             success: function(response) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost/lims/POSBILL.php',
-                    data: {
-                        print_data: response
-                    },
-                    success: function(data) {}
-                });
-
-                location.href = "Patient";
+                $('#cgst').val("");
+                $('#sgst').val("");
+                $('#total_amount').val("");
+                $('#home_visit').val("");
+                $('#net_amount').val("");
+                $('#pay_amount').val("");
+                $('#balance_amount').val("");
+                for (var j = 0; j < i; j++) {
+                    $("#addr" + (j)).html('');
+                }
+                i = 0;
+                $("#save_button").prop("disabled", false);
+                //location.href = "PatientEntry";
+                $('#view_body').html(response);
+                $('#modal_view').modal('show');
             }
         });
-    }
+    //}
+}
+
+function PrintBill(id) {
+
+    $.ajax({
+        type: 'POST',
+        url: 'PrintBillData.php',
+        data: {
+            id: id
+        },
+        success: function(response) {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/lims/POSBILL.php',
+                data: {
+                    print_data: response
+                },
+                success: function(data) {}
+            });
+
+            location.href = "Patient";
+        }
+    });
+}
 </script>
 </body>
 

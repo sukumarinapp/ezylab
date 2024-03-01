@@ -8,7 +8,7 @@ $user_role = $_SESSION["role_name"];
 $user_role_id = $_SESSION["role_id"];
 
 $created = date("Y-m-d");
-$date_time = date("Y-m-d h:i:sa");
+$date_time = date("Y-m-d H:i:s");
 
 $test_data = $_REQUEST['test_data'];
 $test_data = stripslashes($test_data);
@@ -16,7 +16,12 @@ $test_data_array = array();
 $test_data_array = json_decode($test_data);
 $entry_id = $_REQUEST['entry_id'];
 
-$status = '1';
+$test_status = $_REQUEST['test_status'];
+if($test_status == 2){
+    DeleteRow('test_entry', 'entry_id', $entry_id);
+}
+
+if($test_status == 2){
 $things = array();
 for ($i = 0; $i < count($test_data_array); $i++) {
 
@@ -39,9 +44,7 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     $result_5 = $things[14];
     $result_6 = $things[15];
     $date = $things[16];
-    $time = $things[17];
-    $interpretation = $things[18];
-    $comments = $things[19];
+    $time = date("H:i:s");
 
     //    $image = $_FILES[$photo]['name'];
 
@@ -56,8 +59,8 @@ for ($i = 0; $i < count($test_data_array); $i++) {
     $result6 = mysqli_query($GLOBALS['conn'], $sql6) or die(mysqli_error($GLOBALS['conn']));
     $data6 = mysqli_fetch_assoc($result6);
     
-    //'test_category' => Filter($TestTypeData['test_category']),
-    //sukumar
+    
+
     $test_entry_sql = Insert('test_entry', array(
         'entry_id' => Filter($entry_id),
         'test_id' => Filter($test_id),
@@ -81,18 +84,16 @@ for ($i = 0; $i < count($test_data_array); $i++) {
         'result_6' => Filter($result_6),
         'date' => to_sql_date($date),
         'time' => $time,
-        'interpretation' => $interpretation,
-        'comments' => $comments,
         'created' => $created,
         'created_by' => $user_id
     )
     );
 }
+}
 
 $update = Update('patient_entry', 'id', $entry_id, array(
-    'test_status' => $status,
+    'test_status' => $test_status,
     'modified' => $date_time
 )
 );
-
 echo EncodeVariable($entry_id);

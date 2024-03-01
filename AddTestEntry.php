@@ -1,35 +1,55 @@
 <?php
+session_start();
+include "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
+
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+
 $PageAccessible = IsPageAccessible($user_id, 'TestEntry');
 $today = date("Y-m-d");
 $EntryId = DecodeVariable($_GET['eID']);
 
 $EntryData = SelectParticularRow('patient_entry', 'id', $EntryId);
 $patient_id = $EntryData['patient_id'];
+$test_status = $EntryData['test_status'];
 
 $PatientInfo = SelectParticularRow('macho_patient', 'id', $patient_id);
 
-$TestQuery = "SELECT a.*,b.test_code,b.remarks,b.test_category FROM macho_bill_items a,macho_test_type b WHERE a.item_id=b.id and bill_id='$EntryId' ORDER BY b.test_category,b.sub_head,b.id";
+$TestQuery = "SELECT a.*,b.test_code,b.remarks,b.test_category FROM macho_bill_items a,macho_test_type b WHERE a.item_id=b.id and bill_id='$EntryId' ORDER BY a.id";
 $TestResult = GetAllRows($TestQuery);
+
+$testview = "SELECT * FROM test_entry where id='$EntryId'";
+$TestingResult = GetAllRows($testview);
+
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
 
-<!-- Main section-->
-<section class="section-container no-print">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?>
+<?php include ("headercss.php"); ?>
+<title><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?></title>
+</head>
+<body class="bg-theme bg-<?php echo $colour ?>">
+   <div class="wrapper">
+   <?php include ("Menu.php"); ?>
+   <?php include ("header.php"); ?>
+   <div class="page-wrapper">
+      <div class="page-content">
+            <h6><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?>
                 <small><?= $PatientInfo['P_code']; ?></small>
-            </div>
+            </h6>
         </div>
-        <!-- start  -->
         <div class="container-fluid">
-            <!-- DATATABLE DEMO 1-->
             <div class="card">
-                <div class="card-header">
-                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -43,7 +63,6 @@ $TestResult = GetAllRows($TestQuery);
                                         <th>Unit</th>
                                         <th>Lower Limit</th>
                                         <th>Upper Limit</th>
-                                        <th>Interpretation/Comments</th>
                                     </tr>
                                     </thead>
 
@@ -58,7 +77,12 @@ $TestResult = GetAllRows($TestQuery);
                                             $TestID = $TestData['item_id'];
                                             $formula = $TestData['remarks'];
                                             $test_code = $TestData['test_code'];
-
+                                            $patientQuery = "SELECT * FROM test_entry where entry_id ='$EntryId' and test_id=$TestID ";
+                                            $patientResult = GetAllRows($patientQuery);
+                                            $test_resu="";
+                                            foreach ($patientResult as $patientData) {
+                                                $test_resu = $patientData['test_result'];
+                                            } 
                                             $TestTypeQuery = "SELECT * FROM macho_test_type WHERE id ='$TestID'";
                                             $TestTypeResult = mysqli_query($GLOBALS['conn'], $TestTypeQuery) or die(mysqli_error($GLOBALS['conn']));
                                             $TestTypeData = mysqli_fetch_assoc($TestTypeResult);
@@ -77,18 +101,20 @@ $TestResult = GetAllRows($TestQuery);
                                                                name="test_id[]"
                                                                id="test_id<?= $TestID; ?>"
                                                                value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
+                                                              
+                                                        <?= $TestTypeData['test_name']; ?> <?php if(trim($TestTypeData['remarks']) != "") echo "<span style='color:red'>*</span>" ?>
                                                     </td>
-                                                    <td colspan="3"><input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
+                                                    <td colspan="3">
+                                                        <input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
                                                                            name="test_result[]"
                                                                            id="test_result<?= $TestID; ?>"
-                                                                           value=""
+                                                                           value="<?= $test_resu; ?>"
                                                                            onkeypress="return isNumberDecimalKey(event)">
                                                     </td>
                                                     <td><?= $TestTypeData['units']; ?></td>
                                                     <td><?= $TestTypeData['lower_limit']; ?></td>
                                                     <td><?= $TestTypeData['upper_limit']; ?></td>
-                                                    <td><input style="vertical-align: middle" id="inter<?= $TestID; ?>" type="checkbox" value="1" name="interpretation[]" /><label for="inter<?= $TestID; ?>"><label>&nbsp;Inter</label>&nbsp;<input style="vertical-align: middle" id="comm<?= $TestID; ?>" type="checkbox" value="1" name="comments[]" /><label for="comm<?= $TestID; ?>"><label>&nbsp;Cmt</label></label></td>
+                                                    
                                                 </tr>
                                               
                                             <?php } elseif ($type_test == 'Sub Heading') { ?>
@@ -134,8 +160,7 @@ $TestResult = GetAllRows($TestQuery);
                                                     <td colspan="3"><input type="text" class="form-control"
                                                                            name="test_result[]"
                                                                            id="test_result<?= $TestID; ?>"
-                                                                           value=""
-                                                                           readonly>
+                                                                           value="<?= $test_resu; ?>" >
                                                     </td>
                                                     <td><?= $TestTypeData['units']; ?></td>
                                                     <td colspan="2"><select class="form-control" name="table_input" id="table_input<?= $TestID; ?>" onchange="feed_data(<?= $TestID; ?>);">
@@ -277,12 +302,22 @@ $TestResult = GetAllRows($TestQuery);
                            <span class="btn-label"><i class="fa fa-arrow-left"></i>
                            </span>Back to List
                         </button>
+                        
                         <button class="btn btn-labeled btn-primary" type="button" name="submit"
                                 id="save_button"
                                 onclick="submit_data();" tabindex="9">
                            <span class="btn-label"><i class="fa fa-check"></i>
                            </span>Save Data
                         </button>
+                        <?php if($test_status == 2){ ?>
+                        <a target="_blank" href="TestReceipt?bID=<?= $_GET['eID'] ?>&header=0" class="btn btn-info"  >Preview</a>
+                        </button>
+
+                        <button class="btn btn-info" type="button" name="submit"
+                                id="complete_test" onclick="complete_test();" tabindex="9">
+                          <span class="btn-label">Complete Test</span>
+                        </button>
+                        <?php } ?>
                     </div>
                     <br>
                 </div>
@@ -291,8 +326,6 @@ $TestResult = GetAllRows($TestQuery);
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php' ?>
 </div>
 
 <div class="modal fade" id="add_doc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -310,33 +343,10 @@ $TestResult = GetAllRows($TestQuery);
         </div>
     </div>
 </div>
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
 
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- Datatables-->
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+   <?php include ("js.php"); ?>
+</body>
+</html>
 <script>
     function calculate(){
         var formula = [];
@@ -498,8 +508,8 @@ $TestResult = GetAllRows($TestQuery);
         return true;
     }
 
-    function submit_data() {
-
+    function complete_test() {
+        var test_status = 1;
         $("#save_button").prop("disabled", true);
 
         var entry_id = $('#entry_id').val();
@@ -512,10 +522,8 @@ $TestResult = GetAllRows($TestQuery);
         var obj = new Array();
         for (var i = 0; i < test_id.length; i++) {
             var id = test_id[i];
-            var inter = $('#inter' + id).is(":checked") ? 1 : 0;
-            var comm = $('#comm' + id).is(":checked") ? 1 : 0;
 
-            obj[i] = id + ',' + $('#test_result' + id).val() + ',' + $('#sub_head' + id).val() + ',' + $('#paragraph' + id).val() + ',' + $('#head_1' + id).val() + ',' + $('#head_2' + id).val() + ',' + $('#head_3' + id).val() + ',' + $('#head_4' + id).val() + ',' + $('#head_5' + id).val() + ',' + $('#head_6' + id).val() + ',' + $('#result_1' + id).val() + ',' + $('#result_2' + id).val() + ',' + $('#result_3' + id).val() + ',' + $('#result_4' + id).val() + ',' + $('#result_5' + id).val() + ',' + $('#result_6' + id).val() + ',' + $('#date' + id).val() + ',' + $('#time' + id).val() + ',' + inter + ',' + comm;
+            obj[i] = id + ',' + $('#test_result' + id).val() + ',' + $('#sub_head' + id).val() + ',' + $('#paragraph' + id).val() + ',' + $('#head_1' + id).val() + ',' + $('#head_2' + id).val() + ',' + $('#head_3' + id).val() + ',' + $('#head_4' + id).val() + ',' + $('#head_5' + id).val() + ',' + $('#head_6' + id).val() + ',' + $('#result_1' + id).val() + ',' + $('#result_2' + id).val() + ',' + $('#result_3' + id).val() + ',' + $('#result_4' + id).val() + ',' + $('#result_5' + id).val() + ',' + $('#result_6' + id).val() + ',' + $('#date' + id).val() + ',' + $('#time' + id).val();
 
         }
 
@@ -525,26 +533,57 @@ $TestResult = GetAllRows($TestQuery);
             url: 'SaveTestEntry.php',
             data: {
                 entry_id: entry_id,
+                test_status: test_status,
                 test_data: test_data
             },
             success: function (entry_id) {
                 $("#save_button").prop("disabled", false);
-
-                swal({
-                        title: "Success",
-                        text: "Test Details Added Successfully!",
-                        type: "success",
-                        showCancelButton: true,
-                        confirmButtonClass: "btn-success",
-                        confirmButtonText: "OK",
-                        closeOnConfirm: false
-                    },
-                    function () {
-                        location.href = "TestEntry";
-                    });
+                swal("Success!", "Test Entry Completed Added Successfully!", "success");
+                window.location.href = "TestEntry";
             }
         });
     }
+
+
+    function submit_data() {
+        var test_status = 2;
+        $("#save_button").prop("disabled", true);
+
+        var entry_id = $('#entry_id').val();
+
+        var test_id = new Array();
+        $('input[name^="test_id"]').each(function () {
+            test_id.push($(this).val());
+        });
+
+        var obj = new Array();
+        for (var i = 0; i < test_id.length; i++) {
+            var id = test_id[i];
+
+            obj[i] = id + ',' + $('#test_result' + id).val() + ',' + $('#sub_head' + id).val() + ',' + $('#paragraph' + id).val() + ',' + $('#head_1' + id).val() + ',' + $('#head_2' + id).val() + ',' + $('#head_3' + id).val() + ',' + $('#head_4' + id).val() + ',' + $('#head_5' + id).val() + ',' + $('#head_6' + id).val() + ',' + $('#result_1' + id).val() + ',' + $('#result_2' + id).val() + ',' + $('#result_3' + id).val() + ',' + $('#result_4' + id).val() + ',' + $('#result_5' + id).val() + ',' + $('#result_6' + id).val() + ',' + $('#date' + id).val() + ',' + $('#time' + id).val();
+
+        }
+
+        var test_data = JSON.stringify(obj);
+        $.ajax({
+            type: 'POST',
+            url: 'SaveTestEntry.php',
+            data: {
+                entry_id: entry_id,
+                test_status: test_status,
+                test_data: test_data
+            },
+            success: function (entry_id) {
+                $("#save_button").prop("disabled", false);
+                swal("Success!", "Test Details Added Successfully!", "success");
+                location.reload();
+
+                //window.location.href = "AddTestEntry?eID="+UHMJ+"&header=1";
+            }
+        });
+    }
+
+
 </script>
 </body>
 </html>

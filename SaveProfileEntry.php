@@ -10,8 +10,8 @@ $total_amount = $_REQUEST['net_amount'];
 $notes = $_REQUEST['notes'];
 
 $created_date = date("Y-m-d");
-$created = date("Y-m-d h:i:sa");
-$modified = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$modified = date("Y-m-d H:i:s");
 
 $sales = $_REQUEST['sales'];
 $sales = stripslashes($sales);
@@ -46,7 +46,7 @@ for ($i = 0; $i < $sales_array_count; $i++) {
             'profile_id' => Filter($profile_id),
             'item_id' => Filter($item_id),
             'item_name' => $item_name,
-            'test_category' => Filter($item_category),
+            'test_category' => $profile_id,
             'amount' => Filter($item_amount),
         )
     );

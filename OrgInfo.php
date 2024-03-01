@@ -1,21 +1,34 @@
 <?php
-$page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+
 $PageAccessible = IsPageAccessible($user_id, 'Payments');
 
+$theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
+$TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
+$TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+$colour = $TestTypeData['colour'];
 ?>
-
 <!doctype html>
 <html lang="en">
 
 <head>
-    <?php include ("headercss.php"); ?>
-    <title>Department</title>
+<?php include ("headercss.php"); ?>
+<title>Info</title>
 </head>
-
-<body class="bg-theme bg-theme2">
-  <?php 
-
-$OrgInfo = OrgInfo();
+<body class="bg-theme bg-<?php echo $colour ?>">
+    <?php 
+    $OrgInfo = OrgInfo();
 
 if (isset($_POST['update'])) {
     $macho_id = '1';
@@ -121,18 +134,18 @@ if (isset($_POST['update'])) {
         echo '<span  id="update_failure"></span>';
     }
 }
-  ?>
-    <div class="wrapper">
-        <!--sidebar wrapper -->
-        <?php include ("Menu.php"); ?>
-        <!--end sidebar wrapper -->
-        <!--start header -->
-
-        <?php include ("header.php"); ?>
-
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
+    ?>
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
         <div class="row">
             <div class="col-lg-4">
                 <div class="card card-default d-none d-lg-block">
@@ -370,11 +383,10 @@ if (isset($_POST['update'])) {
             </div>
         </div>
     </div>
-</section>
-<!-- Page footer-->
+</section>	 
 </div>
-<?php include ("js.php"); ?>
 
+   <?php include ("js.php"); ?>
 <script>
     $(document).ready(function () {
         $("#logo").on('change', function () {

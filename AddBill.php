@@ -1,10 +1,20 @@
 <?php
+session_start();
+include_once "booster/bridge.php";
+$user_id = $_SESSION["user_id"];
+$role_id = $_SESSION["role_id"];
+$role = $_SESSION["role"];
+$user = $_SESSION["user"];
+$user_name = $_SESSION["user_name"];
+$email = $_SESSION["user_email"];
+$picture = $_SESSION["picture"];
+$access_token = $_SESSION["access_token"];
+ValidateAccessToken($user_id, $access_token);
 $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-include 'header.php';
-include_once 'Menu.php';
+
 $PageAccessible = IsPageAccessible($user_id, 'InvoiceBill');
-$created = date("Y-m-d h:i:sa");
-$updated = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
+$updated = date("Y-m-d H:i:s");
 $patient_id = 0;
 
 if (isset($_GET['patient_id'])) {
@@ -53,12 +63,23 @@ if (isset($_POST['add_patient'])) {
     }
 }
 ?>
-<!-- Main section-->
-<section class="section-container">
-    <!-- Page content-->
-    <div class="content-wrapper">
-        <div class="content-heading">
-            <div>Patient Bill</div>
+<?php include ("headercss.php"); ?>
+<title>Patient Bill</title>
+</head>
+<body class="bg-theme bg-theme2">
+   <!--wrapper-->
+   <div class="wrapper">
+   <!--sidebar wrapper -->
+   <?php include ("Menu.php"); ?>
+   <!--end sidebar wrapper -->
+   <!--start header -->
+   <?php include ("header.php"); ?>
+   <!--end header -->
+   <!--start page wrapper -->
+   <div class="page-wrapper">
+      <div class="page-content">
+			
+            <h6>Patient Bill</h6>
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -73,7 +94,7 @@ if (isset($_POST['add_patient'])) {
                                 <div class="col-md-10">
                                     <div class="form-group">
                                         <label for="patient_id" class="control-label">Patient ID</label>
-                                        <select class="form-control select2" name="patient_id" id="patient_id"
+                                        <select class="form-select" name="patient_id" id="patient_id"
                                             tabindex="1">
                                             <option value="0">Select Patient</option>
                                             <option value="new">New Patient</option>
@@ -205,9 +226,10 @@ if (isset($_POST['add_patient'])) {
                                     </div>
                                 </div>
                             </form>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <table class="table table-bordered" id="tab_logic">
+                            <div class="card">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="example" class="table table-striped table-bordered" style="width:100%">
                                         <thead>
                                             <tr style="background-color: #81888c;color:white">
                                                 <td style="width: 20px" class="text-center">
@@ -357,6 +379,7 @@ if (isset($_POST['add_patient'])) {
                                     </div>
                                 </div>
                             </div>
+                                            </div>
                         <?php } ?>
                     </div>
                 </div>
@@ -365,8 +388,6 @@ if (isset($_POST['add_patient'])) {
         </div>
     </div>
 </section>
-<!-- Page footer-->
-<?php include_once 'footer.php'; ?>
 </div>
 
 <div class="modal fade" id="add_patient" tabindex="-1" role="dialog" aria-labelledby="myModalLabelLarge"
@@ -375,7 +396,7 @@ if (isset($_POST['add_patient'])) {
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabelLarge">Create New Patient</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -507,7 +528,7 @@ if (isset($_POST['add_patient'])) {
                                                 tabindex="12">
                                                 Save
                                             </button>
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
                                         </div>
@@ -524,37 +545,25 @@ if (isset($_POST['add_patient'])) {
     </div>
 </div>
 
-<!-- =============== VENDOR SCRIPTS ===============-->
-<!-- MODERNIZR-->
-<script src="<?php echo VENDOR; ?>modernizr/modernizr.custom.js"></script>
-<!-- JQUERY-->
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.js"></script>
-<script src="<?php echo VENDOR; ?>jquery/dist/jquery.min.js"></script>
-<script src="<?php echo JS; ?>jquery.redirect.js"></script>
-<!-- BOOTSTRAP-->
-<script src="<?php echo VENDOR; ?>popper.js/dist/umd/popper.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap/dist/js/bootstrap.js"></script>
-<!-- STORAGE API-->
-<script src="<?php echo VENDOR; ?>js-storage/js.storage.js"></script>
-<!-- JQUERY EASING-->
-<script src="<?php echo VENDOR; ?>jquery.easing/jquery.easing.js"></script>
-<!-- ANIMO-->
-<script src="<?php echo VENDOR; ?>animo/animo.js"></script>
-<!-- SCREENFULL-->
-<script src="<?php echo VENDOR; ?>screenfull/dist/screenfull.js"></script>
-<!-- LOCALIZE-->
-<script src="<?php echo VENDOR; ?>jquery-localize/dist/jquery.localize.js"></script>
-<script src="<?php echo VENDOR; ?>select2/dist/js/select2.full.js"></script>
-<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo VENDOR; ?>datatables.net/js/jquery.dataTables.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive/js/dataTables.responsive.js"></script>
-<script src="<?php echo VENDOR; ?>datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-<!-- =============== APP SCRIPTS ===============-->
-<script src="<?php echo JS; ?>app.js"></script>
-<script src="<?php echo VENDOR; ?>bootstrap-sweetalert/dist/sweetalert.js"></script>
+	 
+</div>
+
+   <?php include ("js.php"); ?>
+	<script>
+		$(document).ready(function() {
+			$('#Transaction-History').DataTable({
+				lengthMenu: [[6, 10, 20, -1], [6, 10, 20, 'Todos']]
+			});
+		  } );
+	</script>
+	<script src="assets/js/index.js"></script>
+	<!--app JS-->
+	<script src="assets/js/app.js"></script>
+	<script>
+		new PerfectScrollbar('.product-list');
+		new PerfectScrollbar('.customers-list');
+	</script>
+
 <script>
 
     function isNumberKey(evt) {

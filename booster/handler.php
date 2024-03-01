@@ -282,7 +282,7 @@ function WordReplace2($Word)
 
 function errorHandler($errno, $errstr, $errfile, $errline)
 {
-
+    return;
     $query = "INSERT INTO macho_error_log (severity, message, filename, lineno, time) ";
     switch ($errno) {
         case E_NOTICE:
@@ -675,7 +675,7 @@ function SendEmail($to = null, $subject = null, $messageBody = null)
 
 function IpVerification($ip_details)
 {
-    $date_time = date("Y-m-d h:i:sa");
+    $date_time = date("Y-m-d H:i:s");
     $sql = "select blocked from macho_ip_tracking WHERE ip_addr='$ip_details->ip'";
     $result = mysqli_query($GLOBALS['conn'], $sql) or die(mysqli_error($GLOBALS['conn']));
     $track_count = mysqli_num_rows($result);
@@ -851,7 +851,7 @@ function LogEntry($user_id, $geo_details)
     $location = explode(',', $geo_details->loc);
     $lat = $location[0];
     $lang = $location[1];
-    $datetime = date("Y-m-d h:i:sa");
+    $datetime = date("Y-m-d H:i:s");
     $created = date("Y-m-d");
     $sql2 = "INSERT INTO `macho_entry_log` (`login_id`, `in_time`,`ip_addr`, `city`, `state`, `country`, `lat`, `lang`, `postal`, `created`)
                                     VALUES ('$user_id', '$datetime','$geo_details->ip', '$geo_details->city', '$geo_details->region', '$geo_details->country', '$lat', '$lang', '$geo_details->postal', '$created');";
@@ -867,7 +867,7 @@ function LogOutEntry($user_id)
 {
 
     $max_id = MaxId('macho_entry_log', 'login_id', $user_id);
-    $datetime = date("Y-m-d h:i:sa");
+    $datetime = date("Y-m-d H:i:s");
     $sql2 = "UPDATE macho_entry_log SET out_time='$datetime' WHERE id='$max_id'";
     $result2 = mysqli_query($GLOBALS['conn'], $sql2) or die(mysqli_error($GLOBALS['conn']));
     if ($result2) {
@@ -906,7 +906,7 @@ function UserLogInCount($user_id, $date)
 
 function BrokedSession($user_id, $user_name, $access_token, $url)
 {
-    $datetime = date("Y-m-d h:i:sa");
+    $datetime = date("Y-m-d H:i:s");
     $sql2 = "INSERT INTO `macho_session_brokedup` (`login_id`, `username`, `access_token`, `current_url`, `created`)
                                             VALUES ('$user_id', '$user_name', '$access_token', '$url', '$datetime');";
     $result2 = mysqli_query($GLOBALS['conn'], $sql2) or die(mysqli_error($GLOBALS['conn']));
@@ -959,8 +959,8 @@ function GetRoleOfUser($UserId)
 
 function UserPageAcceses($UserID, $RoleId)
 {
-    $created = date("Y-m-d h:i:sa");
-    $modified = date("Y-m-d h:i:sa");
+    $created = date("Y-m-d H:i:s");
+    $modified = date("Y-m-d H:i:a");
     $is_added = '0';
 
     $RoleId = explode('~', $RoleId);
@@ -1038,7 +1038,7 @@ function IsPageAccessible($user_id, $Page)
 
 function InsertNotification($notes, $sender_id, $send_role_id, $receive_role_id, $receive_id)
 {
-    $date_time = date("Y-m-d h:i:sa");
+    $date_time = date("Y-m-d h:i:s");
     $created = date("Y-m-d");
     $sql2 = "INSERT INTO macho_notifications(notes,sender_id,send_role_id,receive_role_id,receive_id,date_time,created)
 VALUES('$notes','$sender_id','$send_role_id','$receive_role_id','$receive_id','$date_time','$created')";

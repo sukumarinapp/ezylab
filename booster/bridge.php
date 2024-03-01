@@ -10,9 +10,9 @@ if ($_SERVER['HTTP_HOST'] == "localhost") {
     define('DBPASS', '');
 } else {
     define('DBHOST', 'localhost');
-    define('DBNAME', 'dream_realmart');
-    define('DBUSER', 'dream_realmart');
-    define('DBPASS', 'fgPz^W,rvqiQ');
+    define('DBNAME', 'eazy_lab');
+    define('DBUSER', 'root');
+    define('DBPASS', '');
 }
 
 $conn = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);

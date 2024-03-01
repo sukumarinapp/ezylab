@@ -27,7 +27,7 @@ $type = 'Expense';
 $farmer_bill_type = 'Debit';
 $account_id = 4;
 $paying_amount = 0;
-$created = date("Y-m-d h:i:sa");
+$created = date("Y-m-d H:i:s");
 $created_date = date("Y-m-d");
 if ($payment_method == 'Cash') {
     $saving_account = 12;

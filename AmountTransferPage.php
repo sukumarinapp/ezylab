@@ -1,10 +1,25 @@
 <?php
-include_once 'booster/bridge.php';
+   session_start();
+   include "booster/bridge.php";
+   $user_id = $_SESSION["user_id"];
+   $role_id = $_SESSION["role_id"];
+   $role = $_SESSION["role"];
+   $user = $_SESSION["user"];
+   $user_name = $_SESSION["user_name"];
+   $email = $_SESSION["user_email"];
+   $picture = $_SESSION["picture"];
+   $access_token = $_SESSION["access_token"];
+   ValidateAccessToken($user_id, $access_token);
+   
 $account_id = Filter($_POST['account_id']);
 $account_amount = Filter($_POST['account_amount']);
 $from_date = from_sql_date($_POST['from_date']);
 $to_date = from_sql_date($_POST['to_date']);
 ?>
+<?php include ("css.php"); ?>
+<title>BankAccount</title>
+</head>
+
 <div class="row">
     <div class="col-xl-12">
         <?php if ($account_id == 9){ ?>
