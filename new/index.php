@@ -51,10 +51,7 @@ if (isset($_POST['login'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 
-=======
->>>>>>> 5fff372743f1bbe575902d0e49bf34c93ec0a86d
 <head>
     <title><?= TITLE; ?></title>
     <meta content="<?= KEYWORDS; ?>" name="description">
