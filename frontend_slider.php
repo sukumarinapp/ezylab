@@ -8,7 +8,7 @@
               <h1 class="mb-4 text-black">LaB <span class="text-theme">Software</span> </h1>
               <p class="lead font-w-5 text-black">Labortech is modern laboratory services Delivering newer flows by their place website is the first impression.</p>
               <div class="btn-box mt-5">
-                <a class="btn btn-theme" href="lab_software.php"> <span>More Software</span>
+                <a class="btn btn-theme" href="lab_software"> <span>More Software</span>
                 </a>
                 <a class="btn btn-dark" href="#"> <span>Book Appointment</span>
                 </a>
