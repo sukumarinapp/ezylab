@@ -39,6 +39,7 @@ $colour = $TestTypeData['colour'];
 
     $update = Update('macho_users', 'id', $UserID, array(
         'username' => Filter($_POST['username']),
+        'password' => EncodePass($_POST['password']),
         'prefix' => ($_POST['prefix']),
         'name' => Filter($_POST['name']),
         'gender' => Filter($_POST['gender']),

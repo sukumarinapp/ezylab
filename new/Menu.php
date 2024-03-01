@@ -108,7 +108,7 @@
 					<ul>
 						<li> <a href="OrgInfo"><i class='bx bx-radio-circle'></i>Organisation</a>
 						</li>
-						<!-- <li> <a href="Contact" target="_blank"><i class='fa fa-phone'></i>Help</a>
+						<!-- <li> <a href="ChangePassword" ><i class='fa fa-lock'></i>Change Password</a>
 						</li> -->
 						
 						<li> <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Access Control</a>
