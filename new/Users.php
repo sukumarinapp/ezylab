@@ -12,7 +12,7 @@
    ValidateAccessToken($user_id, $access_token);
    $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
-$PageAccessible = IsPageAccessible($user_id, 'Payments');
+//$PageAccessible = IsPageAccessible($user_id, 'Payments');
 
 $theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
 $TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
@@ -110,7 +110,7 @@ $colour = $TestTypeData['colour'];
                                             <em class="fa fa-search"></em>
                                         </button>
                                     <?php }
-                                    if ($PageAccessible['is_modify'] == 1) { ?>
+                                    //if ($PageAccessible['is_modify'] == 1) { ?>
                                         <button class="btn btn-sm btn-info" type="button" title="Update Details"
                                                 onclick="location.href='UserEdit?uId=<?php echo EncodeVariable($UserData['id']); ?>';">
                                             <em class="fa fa-edit"></em>
@@ -119,7 +119,7 @@ $colour = $TestTypeData['colour'];
                                                 title="Update Access Details"
                                                 onClick="document.location.href='EditAccess?uID=<?php echo EncodeVariable($UserData['id']); ?>'">
                                             <i class="fas fa-wrench"></i></button>
-                                    <?php } ?>
+                                    <?php //} ?>
                                 </td>
                             </tr>
                             <?php

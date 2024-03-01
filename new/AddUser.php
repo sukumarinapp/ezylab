@@ -9,11 +9,11 @@
    $email = $_SESSION["user_email"];
    $picture = $_SESSION["picture"];
    $access_token = $_SESSION["access_token"];
-   ValidateAccessToken($user_id, $access_token);
+   //ValidateAccessToken($user_id, $access_token);
    $page = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 
 $created = date("Y-m-d H:i:s");
-$modified = date("Y-m-d H:i:s");
+$modified = "";
 
 $theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
 $TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
@@ -48,14 +48,7 @@ if (isset($_POST['submit'])) {
         'about' => Filter($_POST['about']),
         'role_id' => Filter($_POST['role_id']),
         'service_from' => to_sql_date($_POST['service_from']),
-        'login_status' => Filter($_POST['login_status']),
-        'salary_mode' => Filter($_POST['salary_mode']),
-        'salary_amount' => Filter($_POST['salary_amount']),
-        'salary_percentage' => Filter($_POST['salary_percentage']),
-        'salary_duration_type' => Filter($_POST['salary_duration_type']),
-        'editby' => $user_id,
-        'created' => $created,
-        'modified' => $modified
+        'login_status' => Filter($_POST['login_status'])
     ));
     if (is_int($insert_macho_user)) {
         $last_insert_id = $insert_macho_user;
@@ -79,7 +72,7 @@ if (isset($_POST['submit'])) {
         $notes = $_POST['name'] . ' User details added by ' . $user;
         $receive_id = '1';
         $receive_role_id = GetRoleOfUser($receive_id);
-        InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
+        //InsertNotification($notes, $user_id, $role_id, $receive_role_id, $receive_id);
 
         echo '<span id="insert_success"></span>';
     } else {
@@ -173,20 +166,7 @@ if (isset($_POST['submit'])) {
                                         <input class="form-control" type="email" name="email" id="email"
                                                maxlength="250" tabindex="10">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-form-label">Salary Method </label>
-                                        <select class="form-control" name="salary_mode" id="salary_mode"
-                                                tabindex="12">
-                                            <option value="0">Salary Amount</option>
-                                            <option value="1">Share Percentage</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group" id="salary_tab">
-                                        <label class="col-form-label">Salary Amount </label>
-                                        <input class="form-control" type="text" name="salary_amount" id="salary_amount"
-                                               maxlength="20" onkeypress="return isNumberDecimalKey(event)"
-                                               tabindex="13">
-                                    </div>
+                                    
                                     <div id="share_tab" style="display:none;">
                                         <div class="row">
                                             <div class="col-md-6">

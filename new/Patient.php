@@ -284,7 +284,7 @@ if (isset($_POST['update'])) {
                                                 <select required class="form-control" name="gender" id="gender" required
                                                         tabindex="3">
                                                     <option value="">Select Gender</option>
-                                                    <option value="Male">Male</option>
+                                                    <option selected value="Male">Male</option>
                                                     <option value="Female">Female</option>
                                                     <option value="Trans Gender">Trans Gender</option>
                                                 </select>
@@ -295,7 +295,7 @@ if (isset($_POST['update'])) {
                                                        class="form-control"
                                                        name="mobile"
                                                        id="mobile" onkeypress="return isNumberKey(event)"
-                                                       maxlength="10" required
+                                                       maxlength="10" 
                                                        tabindex="11">
                                             </div>
                                             <div class="form-group">
