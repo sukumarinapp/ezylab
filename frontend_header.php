@@ -8,7 +8,7 @@
             <div class="d-none d-sm-flex align-items-center me-3">
               <div> <i class="las la-phone"></i>
               </div>
-              <div>Phone: <a class="text-black" href="contact:+919500936096"> +919500936096</a>
+              <div>Phone: <a class="text-black" href="tel:+919500936096"> +919500936096</a>
               </div>
             </div>
             <div class="d-none d-md-flex align-items-center me-3">

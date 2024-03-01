@@ -99,6 +99,9 @@
                     endforeach;
                 endif;
                 ?>
+                <?php
+				if($_SESSION["user_id"] ==1){
+				?>
                   <li>
 					<a class="has-arrow" href="javascript:;">
 						<div class="parent-icon"><i class="lni lni-cog"></i>
@@ -130,6 +133,9 @@
 				<li>
 					<a href="backup" ><i style="font-size:22px;" class='fab fa-google-drive'></i>&nbsp;Backup</a>
 				</li>
+				<?php
+				}
+				?>
 			</ul>
 		</div>
  
