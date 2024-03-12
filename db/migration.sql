@@ -26,3 +26,9 @@ alter table macho_users modify modified varchar(30) DEFAULT NULL;
 alter table macho_users modify editby int DEFAULT 0;
 alter table macho_role modify modified varchar(30) DEFAULT NULL;
 alter table macho_user_page_acceses modify modified varchar(30) DEFAULT NULL;
+
+
+alter table macho_info add prefix varchar(10) DEFAULT NULL;
+update macho_info set prefix = 'DEMO';
+update macho_info set prefix = 'HCDC';
+update macho_info set prefix = 'RMDH';

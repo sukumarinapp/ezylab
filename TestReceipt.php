@@ -167,7 +167,7 @@ foreach ($TestEntryResult as $TestEntryData) {
                 </tr>';
             }
 
-            if ($type_test == 'Normal') {
+            if ($type_test == 'Normal' ) {
 
                 $html .= '<tr>
                 <td style="text-align:left;height: 25px" colspan="1">' . str_replace("^","",$TestTypeData['sample_type']) . '</td>;
@@ -178,9 +178,9 @@ foreach ($TestEntryResult as $TestEntryData) {
                    if(($TestEntryData3['test_result'] < $TestTypeData['lower_limit'])  || ($TestEntryData3['test_result'] > $TestTypeData['upper_limit'])){
                      $html .= 'background-color:#F0FFF0;';
                   }
-                 $html .=  'text-align:left;height: 25px;" >' . $TestEntryData3['test_result'] . '</td>
-
-                <td style="text-align:left;height: 25px;" >' . $TestTypeData['units'] . '</td>
+                    $html .=  'text-align:left;height: 25px;" >' . $TestEntryData3['test_result'] . '</td>';
+                
+                $html .= '<td style="text-align:left;height: 25px;" >' . $TestTypeData['units'] . '</td>
 
                <td colspan="2" style="text-align:left;height: 25px;" >' . $TestTypeData['lower_limit'] .' - ' . $TestTypeData['upper_limit'] . '</td>
                </tr>';
@@ -201,7 +201,33 @@ foreach ($TestEntryResult as $TestEntryData) {
             }
 
 
-        } elseif ($type_test == 'Sub Heading') {
+        }elseif ($type_test == 'Paragraph') {
+
+                $html .= '<tr>
+                <td style="text-align:left;height: 25px" colspan="1">' . str_replace("^","",$TestTypeData['sample_type']) . '</td>;
+                <td style="text-align:left;height: 25px" colspan="3">' . str_replace("^","",$TestTypeData['test_name']) . '</td>';
+
+                  $html .= '<td colspan="5" style="';
+                
+                    $html .=  'text-align:left;height: 25px;" >' . $TestEntryData3['paragraph'] . '</td>';
+
+               if($TestTypeData['method']!=""){
+                $html .= '<tr>
+                <th style="font-size:12px;" colspan="2">Method</th>
+                <td style="text-align:left;height: 25px" colspan="9">' . str_replace("^","",$TestTypeData['method']) . '</td></tr>';
+               }
+
+               if($TestTypeData['show_critical_info'] == 1 && $TestTypeData['critical_info'] != ""){
+                $html .= '<tr><td colspan="4"></td><td width="20%" colspan="5" style="font-weight:bold">REFERENCE VALUE</td></tr>';
+                $html .= '<tr><td colspan="4"></td><td width="20%" colspan="5">'.nl2br(str_replace("^","",$TestTypeData['critical_info'])).'</td></tr>';
+            }
+            if($TestTypeData['show_interpretation'] == 1 && $TestTypeData['interpretation'] != ""){
+                $html .= '<tr><td colspan="9" style="font-weight:bold">INTERPRETATION</td></tr>';
+                $html .= '<tr><td colspan="9">'.str_replace("^","",$TestTypeData['interpretation']).'</td></tr>';
+            }
+
+
+        }elseif ($type_test == 'Sub Heading') {
 
 
             $html .= '<tr>
@@ -341,9 +367,9 @@ $html .= '</tbody>
 
 $content = ob_get_clean();
 $mpdf = new \Mpdf\Mpdf();
-$mpdf->watermarkAngle = 30;
-$mpdf->SetWatermarkText('DEMO REPORT');
-$mpdf->showWatermarkText = true;
+#$mpdf->watermarkAngle = 30;
+#$mpdf->SetWatermarkText('DEMO REPORT');
+#$mpdf->showWatermarkText = true;
 $mpdf->WriteHTML($html);
 $pdfname = $PatientInfo['P_code'] . '-'.$PatientInfo['P_name'].'.pdf';
 $content = $mpdf->Output($pdfname, 'I');

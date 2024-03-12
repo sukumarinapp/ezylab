@@ -39,141 +39,141 @@ $colour = $TestTypeData['colour'];
 <title><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?></title>
 </head>
 <body class="bg-theme bg-<?php echo $colour ?>">
-   <div class="wrapper">
-   <?php include ("Menu.php"); ?>
-   <?php include ("header.php"); ?>
-   <div class="page-wrapper">
+ <div class="wrapper">
+     <?php include ("Menu.php"); ?>
+     <?php include ("header.php"); ?>
+     <div class="page-wrapper">
       <div class="page-content">
-            <h6><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?>
-                <small><?= $PatientInfo['P_code']; ?></small>
-            </h6>
-        </div>
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th width="20">#</th>
-                                        <th>Test Name</th>
-                                        <th colspan="3">Result</th>
-                                        <th>Unit</th>
-                                        <th>Lower Limit</th>
-                                        <th>Upper Limit</th>
-                                    </tr>
-                                    </thead>
+        <h6><?= $PatientInfo['prefix'] . $PatientInfo['P_name']; ?>
+        <small><?= $PatientInfo['P_code']; ?></small>
+    </h6>
+</div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="20">#</th>
+                                    <th>Test Name</th>
+                                    <th colspan="3">Result</th>
+                                    <th>Unit</th>
+                                    <th>Lower Limit</th>
+                                    <th>Upper Limit</th>
+                                </tr>
+                            </thead>
 
-                                    <tbody>
+                            <tbody>
+                                <?php
+                                $no = 0;
+                                $TestCounts = count($TestResult);
+                                if ($TestCounts > 0) {
+                                    $catid = -1;
+                                    $subhead = "-1";
+                                    foreach ($TestResult as $TestData) {
+                                        $TestID = $TestData['item_id'];
+                                        $formula = $TestData['remarks'];
+                                        $test_code = $TestData['test_code'];
+                                        $patientQuery = "SELECT * FROM test_entry where entry_id ='$EntryId' and test_id=$TestID ";
+                                        $patientResult = GetAllRows($patientQuery);
+                                        $test_resu="";
+                                        $para_resu="";
+                                        foreach ($patientResult as $patientData) {
+                                            $test_resu = $patientData['test_result'];
+                                            $para_resu = $patientData['paragraph'];
+                                        } 
+                                        $TestTypeQuery = "SELECT * FROM macho_test_type WHERE id ='$TestID'";
+                                        $TestTypeResult = mysqli_query($GLOBALS['conn'], $TestTypeQuery) or die(mysqli_error($GLOBALS['conn']));
+                                        $TestTypeData = mysqli_fetch_assoc($TestTypeResult);
+                                        $type_test = $TestTypeData['type_test'];
+                                        if($catid != $TestData['test_category']){
+                                            echo "<tr><td style='font-weight:bold' colspan='9' align='center'>".TestCategoryName($TestData['test_category'])."</td></tr>";
+                                        }
+                                        if($subhead != $TestTypeData['sub_head'] && trim($TestTypeData['sub_head']) != ""){
+                                            echo "<tr><td style='text-decoration: underline;font-weight:bold'' colspan='9'>".$TestTypeData['sub_head']."</td></tr>";
+                                        }
+                                        if ($type_test == 'Normal') {
+                                            ?>
+                                            <tr>
+                                                <td width="20"><?= ++$no; ?></td>
+                                                <td><input type="hidden" class="form-control"
+                                                 name="test_id[]"
+                                                 id="test_id<?= $TestID; ?>"
+                                                 value="<?= $TestID; ?>">
+
+                                                 <?= $TestTypeData['test_name']; ?> <?php if(trim($TestTypeData['remarks']) != "") echo "<span style='color:red'>*</span>" ?>
+                                             </td>
+                                             <td colspan="3">
+                                                <input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
+                                                name="test_result[]"
+                                                id="test_result<?= $TestID; ?>"
+                                                value="<?= $test_resu; ?>"
+                                                onkeypress="return isNumberDecimalKey(event)">
+                                            </td>
+                                            <td><?= $TestTypeData['units']; ?></td>
+                                            <td><?= $TestTypeData['lower_limit']; ?></td>
+                                            <td><?= $TestTypeData['upper_limit']; ?></td>
+
+                                        </tr>
+
+                                    <?php } elseif ($type_test == 'Sub Heading') { ?>
+                                        <tr>
+                                            <td width="20"><?= ++$no; ?></td>
+                                            <td><input type="hidden" class="form-control"
+                                             name="test_id[]"
+                                             id="test_id<?= $TestID; ?>"
+                                             value="<?= $TestID; ?>">
+                                             <?= $TestTypeData['test_name']; ?>
+                                         </td>
+                                         <td colspan="6"><input data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control test_class"
+                                             name="sub_head[]"
+                                             id="sub_head<?= $TestID; ?>"></td>
+                                         </tr>
+
+                                     <?php } elseif ($type_test == 'Paragraph') { ?>
+                                        <tr>
+                                            <td width="20"><?= ++$no; ?></td>
+                                            <td><input type="hidden" class="form-control"
+                                             name="test_id[]"
+                                             id="test_id<?= $TestID; ?>"
+                                             value="<?= $TestID; ?>">
+                                             <?= $TestTypeData['test_name']; ?>
+                                         </td>
+                                         <td colspan="6"><textarea type="text" class="form-control" rows="3" name="paragraph[]" id="paragraph<?= $TestID; ?>" ><?= $para_resu; ?></textarea>
+                                      </td>
+                                  </tr>
+
+                              <?php } elseif ($type_test == 'Table') { 
+
+                                ?>
+                                <tr>
+                                    <td width="20"><?= ++$no; ?></td>
+                                    <td><input type="hidden" class="form-control"
+                                     name="test_id[]"
+                                     id="test_id<?= $TestID; ?>"
+                                     value="<?= $TestID; ?>">
+                                     <?= $TestTypeData['test_name']; ?>
+                                 </td>
+                                 <td colspan="3"><input type="text" class="form-control"
+                                     name="test_result[]"
+                                     id="test_result<?= $TestID; ?>"
+                                     value="<?= $test_resu; ?>" >
+                                 </td>
+                                 <td><?= $TestTypeData['units']; ?></td>
+                                 <td colspan="2"><select class="form-control" name="table_input" id="table_input<?= $TestID; ?>" onchange="feed_data(<?= $TestID; ?>);">
+                                    <option value=""> Result Value </option>
                                     <?php
-                                    $no = 0;
-                                    $TestCounts = count($TestResult);
-                                    if ($TestCounts > 0) {
-                                        $catid = -1;
-                                        $subhead = "-1";
-                                        foreach ($TestResult as $TestData) {
-                                            $TestID = $TestData['item_id'];
-                                            $formula = $TestData['remarks'];
-                                            $test_code = $TestData['test_code'];
-                                            $patientQuery = "SELECT * FROM test_entry where entry_id ='$EntryId' and test_id=$TestID ";
-                                            $patientResult = GetAllRows($patientQuery);
-                                            $test_resu="";
-                                            foreach ($patientResult as $patientData) {
-                                                $test_resu = $patientData['test_result'];
-                                            } 
-                                            $TestTypeQuery = "SELECT * FROM macho_test_type WHERE id ='$TestID'";
-                                            $TestTypeResult = mysqli_query($GLOBALS['conn'], $TestTypeQuery) or die(mysqli_error($GLOBALS['conn']));
-                                            $TestTypeData = mysqli_fetch_assoc($TestTypeResult);
-                                            $type_test = $TestTypeData['type_test'];
-                                            if($catid != $TestData['test_category']){
-                                                echo "<tr><td style='font-weight:bold' colspan='9' align='center'>".TestCategoryName($TestData['test_category'])."</td></tr>";
-                                            }
-                                            if($subhead != $TestTypeData['sub_head'] && trim($TestTypeData['sub_head']) != ""){
-                                                echo "<tr><td style='text-decoration: underline;font-weight:bold'' colspan='9'>".$TestTypeData['sub_head']."</td></tr>";
-                                            }
-                                            if ($type_test == 'Normal') {
-                                                ?>
-                                                <tr>
-                                                    <td width="20"><?= ++$no; ?></td>
-                                                    <td><input type="hidden" class="form-control"
-                                                               name="test_id[]"
-                                                               id="test_id<?= $TestID; ?>"
-                                                               value="<?= $TestID; ?>">
-                                                              
-                                                        <?= $TestTypeData['test_name']; ?> <?php if(trim($TestTypeData['remarks']) != "") echo "<span style='color:red'>*</span>" ?>
-                                                    </td>
-                                                    <td colspan="3">
-                                                        <input class="test_class" data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control"
-                                                                           name="test_result[]"
-                                                                           id="test_result<?= $TestID; ?>"
-                                                                           value="<?= $test_resu; ?>"
-                                                                           onkeypress="return isNumberDecimalKey(event)">
-                                                    </td>
-                                                    <td><?= $TestTypeData['units']; ?></td>
-                                                    <td><?= $TestTypeData['lower_limit']; ?></td>
-                                                    <td><?= $TestTypeData['upper_limit']; ?></td>
-                                                    
-                                                </tr>
-                                              
-                                            <?php } elseif ($type_test == 'Sub Heading') { ?>
-                                                <tr>
-                                                    <td width="20"><?= ++$no; ?></td>
-                                                    <td><input type="hidden" class="form-control"
-                                                               name="test_id[]"
-                                                               id="test_id<?= $TestID; ?>"
-                                                               value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
-                                                    </td>
-                                                    <td colspan="6"><input data-id="<?= $test_code; ?>" data-formula="<?= $formula; ?>" type="text" class="form-control test_class"
-                                                                           name="sub_head[]"
-                                                                           id="sub_head<?= $TestID; ?>"></td>
-                                                </tr>
-                                           
-                                            <?php } elseif ($type_test == 'Paragraph') { ?>
-                                                <tr>
-                                                    <td width="20"><?= ++$no; ?></td>
-                                                    <td><input type="hidden" class="form-control"
-                                                               name="test_id[]"
-                                                               id="test_id<?= $TestID; ?>"
-                                                               value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
-                                                    </td>
-                                                    <td colspan="6"><textarea type="text" class="form-control" rows="3"
-                                                                              name="paragraph[]"
-                                                                              id="paragraph<?= $TestID; ?>"></textarea>
-                                                    </td>
-                                                </tr>
-                                              
-                                            <?php } elseif ($type_test == 'Table') { 
-                                                
-                                                ?>
-                                                <tr>
-                                                    <td width="20"><?= ++$no; ?></td>
-                                                    <td><input type="hidden" class="form-control"
-                                                                           name="test_id[]"
-                                                                           id="test_id<?= $TestID; ?>"
-                                                                           value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
-                                                    </td>
-                                                    <td colspan="3"><input type="text" class="form-control"
-                                                                           name="test_result[]"
-                                                                           id="test_result<?= $TestID; ?>"
-                                                                           value="<?= $test_resu; ?>" >
-                                                    </td>
-                                                    <td><?= $TestTypeData['units']; ?></td>
-                                                    <td colspan="2"><select class="form-control" name="table_input" id="table_input<?= $TestID; ?>" onchange="feed_data(<?= $TestID; ?>);">
-                                                    <option value=""> Result Value </option>
-                                                    <?php
-                                                    $value = $TestTypeData['table_input'];
-                                                
-                                                    $data_count = WordCount($value);
-                                                    for ($i = 0; $i < $data_count; $i++) {
-                                                        $parts = explode(",", $value);
-                                                        echo "<option value='" . $parts[$i] . "'>" . $parts[$i] . "</option>";
-                                                    } ?>
-                                                </select></td>
+                                    $value = $TestTypeData['table_input'];
+
+                                    $data_count = WordCount($value);
+                                    for ($i = 0; $i < $data_count; $i++) {
+                                        $parts = explode(",", $value);
+                                        echo "<option value='" . $parts[$i] . "'>" . $parts[$i] . "</option>";
+                                    } ?>
+                                </select></td>
                                                     <!-- <td><input type="text" class="form-control"
                                                                name="head_1[]"
                                                                id="head_1<//?= $TestID; ?>"
@@ -203,8 +203,8 @@ $colour = $TestTypeData['colour'];
                                                                name="head_6[]"
                                                                id="head_6<//?= $TestID; ?>"
                                                                value="">
-                                                    </td> -->
-                                                </tr>
+                                                           </td> -->
+                                                       </tr>
                                                 <!-- <tr>
                                                     <td><input type="text" class="form-control"
                                                                name="result_1[]"
@@ -237,114 +237,114 @@ $colour = $TestTypeData['colour'];
                                                                value="" onkeypress="return isNumberDecimalKey(event)">
                                                     </td>
                                                 </tr> -->
-                                               
+
                                             <?php } elseif ($type_test == 'Date') { ?>
                                                 <tr>
                                                     <td width="20"><?= ++$no; ?></td>
                                                     <td><input type="hidden" class="form-control"
-                                                               name="test_id[]"
-                                                               id="test_id<?= $TestID; ?>"
-                                                               value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
-                                                    </td>
-                                                    <td colspan="6"><input type="date" class="form-control"
-                                                                           data-date-format="dd-mm-yyyy" name="date[]"
-                                                                           id="date<?= $TestID; ?>"></td>
-                                                </tr>
-                                               
-                                            <?php } elseif ($type_test == 'Time') { ?>
+                                                     name="test_id[]"
+                                                     id="test_id<?= $TestID; ?>"
+                                                     value="<?= $TestID; ?>">
+                                                     <?= $TestTypeData['test_name']; ?>
+                                                 </td>
+                                                 <td colspan="6"><input type="date" class="form-control"
+                                                     data-date-format="dd-mm-yyyy" name="date[]"
+                                                     id="date<?= $TestID; ?>"></td>
+                                                 </tr>
+
+                                             <?php } elseif ($type_test == 'Time') { ?>
                                                 <tr>
                                                     <td width="20"><?= ++$no; ?></td>
                                                     <td><input type="hidden" class="form-control"
-                                                               name="test_id[]"
-                                                               id="test_id<?= $TestID; ?>"
-                                                               value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
-                                                    </td>
-                                                    <td colspan="6"><input type="time" class="form-control"
-                                                                           name="time[]"
-                                                                           id="time<?= $TestID; ?>"></td>
-                                                </tr>
-                                               
-                                            <?php } else { ?>
+                                                     name="test_id[]"
+                                                     id="test_id<?= $TestID; ?>"
+                                                     value="<?= $TestID; ?>">
+                                                     <?= $TestTypeData['test_name']; ?>
+                                                 </td>
+                                                 <td colspan="6"><input type="time" class="form-control"
+                                                     name="time[]"
+                                                     id="time<?= $TestID; ?>"></td>
+                                                 </tr>
+
+                                             <?php } else { ?>
                                                 <tr>
                                                     <td width="20"><?= ++$no; ?></td>
                                                     <td><input type="hidden" class="form-control"
-                                                               name="test_id[]"
-                                                               id="test_id<?= $TestID; ?>"
-                                                               value="<?= $TestID; ?>">
-                                                        <?= $TestTypeData['test_name']; ?>
-                                                    </td>
-                                                    <td colspan="6">
-                                                        <button type="button" class="btn btn-info" title="Document Upload Now"
-                                                                onclick="Upload_Doc(<?php echo $EntryId; ?>,<?php echo $TestID; ?>);"><i class="fa fa-upload"></i> File Upload
-                                                        </button>
-                                                    </td>
-                                                </tr>
+                                                     name="test_id[]"
+                                                     id="test_id<?= $TestID; ?>"
+                                                     value="<?= $TestID; ?>">
+                                                     <?= $TestTypeData['test_name']; ?>
+                                                 </td>
+                                                 <td colspan="6">
+                                                    <button type="button" class="btn btn-info" title="Document Upload Now"
+                                                    onclick="Upload_Doc(<?php echo $EntryId; ?>,<?php echo $TestID; ?>);"><i class="fa fa-upload"></i> File Upload
+                                                </button>
+                                            </td>
+                                        </tr>
 
-                                            <?php }
-                                            $catid = $TestData['test_category'];
-                                            $subhead = $TestTypeData['sub_head'];
-                                        }
-                                    } ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="float-right">
-                        <input type="hidden" name="entry_id" id="entry_id"
-                               value="<?php echo $EntryId; ?>">
-                        <button onclick="calculate()" class="btn btn-danger" type="button" >Calculate</button>       
-                        <button class="btn btn-labeled btn-secondary" type="button"
-                                onclick="location.href='TestEntry';">
-                           <span class="btn-label"><i class="fa fa-arrow-left"></i>
-                           </span>Back to List
-                        </button>
-                        
-                        <button class="btn btn-labeled btn-primary" type="button" name="submit"
-                                id="save_button"
-                                onclick="submit_data();" tabindex="9">
-                           <span class="btn-label"><i class="fa fa-check"></i>
-                           </span>Save Data
-                        </button>
-                        <?php if($test_status == 2){ ?>
-                        <a target="_blank" href="TestReceipt?bID=<?= $_GET['eID'] ?>&header=0" class="btn btn-info"  >Preview</a>
-                        </button>
-
-                        <button class="btn btn-info" type="button" name="submit"
-                                id="complete_test" onclick="complete_test();" tabindex="9">
-                          <span class="btn-label">Complete Test</span>
-                        </button>
-                        <?php } ?>
-                    </div>
-                    <br>
+                                    <?php }
+                                    $catid = $TestData['test_category'];
+                                    $subhead = $TestTypeData['sub_head'];
+                                }
+                            } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
         </div>
-    </div>
+        <br>
+        <div class="float-right">
+            <input type="hidden" name="entry_id" id="entry_id"
+            value="<?php echo $EntryId; ?>">
+            <button onclick="calculate()" class="btn btn-danger" type="button" >Calculate</button>       
+            <button class="btn btn-labeled btn-secondary" type="button"
+            onclick="location.href='TestEntry';">
+            <span class="btn-label"><i class="fa fa-arrow-left"></i>
+            </span>Back to List
+        </button>
+
+        <button class="btn btn-labeled btn-primary" type="button" name="submit"
+        id="save_button"
+        onclick="submit_data();" tabindex="9">
+        <span class="btn-label"><i class="fa fa-check"></i>
+        </span>Save Data
+    </button>
+    <?php if($test_status == 2){ ?>
+        <a target="_blank" href="TestReceipt?bID=<?= $_GET['eID'] ?>&header=0" class="btn btn-info"  >Preview</a>
+    </button>
+
+    <button class="btn btn-info" type="button" name="submit"
+    id="complete_test" onclick="complete_test();" tabindex="9">
+    <span class="btn-label">Complete Test</span>
+</button>
+<?php } ?>
+</div>
+<br>
+</div>
+</div>
+
+</div>
+</div>
 </section>
 </div>
 
 <div class="modal fade" id="add_doc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Upload Documents</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="doc_body">
-            </div>
+aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Upload Documents</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="doc_body">
         </div>
     </div>
 </div>
+</div>
 
-   <?php include ("js.php"); ?>
+<?php include ("js.php"); ?>
 </body>
 </html>
 <script>
@@ -371,7 +371,7 @@ $colour = $TestTypeData['colour'];
             $formulael[i].val(res);
         }
     }
-   
+
     $(function () {
         //Date picker
         $('#date').datepicker({
