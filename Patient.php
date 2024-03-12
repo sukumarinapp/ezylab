@@ -36,6 +36,7 @@ while($row = mysqli_fetch_assoc($result)){
     $validation = true;
 }
 
+
 $theme = "SELECT * FROM macho_users WHERE id ='$user_id'";
 $TestTypeResult = mysqli_query($GLOBALS['conn'], $theme) or die(mysqli_error($GLOBALS['conn']));
 $TestTypeData = mysqli_fetch_assoc($TestTypeResult);

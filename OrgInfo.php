@@ -63,14 +63,18 @@ if (isset($_POST['update'])) {
     if ($header_logo != '') {
 
         $header_logopic = basename($OrgInfo['header_logo']);
+            //echo "logo/" . $header_logopic;die;
         if (file_exists("logo/" . $header_logopic)) {
             unlink("logo/" . $header_logopic);
+        }
+
             $ext1 = pathinfo($header_logo, PATHINFO_EXTENSION);
+
             $header_logo1 = 'header' . $macho_id . "." . $ext1;
             $move_path1 = "logo/";
             $move_path1 = $move_path1 . $header_logo1;
-            $target_path1 = SITEURL . "logo/";
-            $target_path1 = $target_path1 . $header_logo1;
+            //$target_path1 = SITEURL . "logo/";
+            $target_path1 =  $header_logo1;
             if (move_uploaded_file($_FILES['header_logo']['tmp_name'], $move_path1)) {
                 $update_logo = Update(
                     'macho_info',
@@ -81,7 +85,6 @@ if (isset($_POST['update'])) {
                     )
                 );
             }
-        }
     }
 
     if ($footer_logo != '') {
@@ -119,7 +122,8 @@ if (isset($_POST['update'])) {
             'site_url' => Filter($_POST['site_url']),
             'reg_no' => Filter($_POST['reg_no']),
             'gstin' => Filter($_POST['gstin']),
-            'bank_info' => Filter($_POST['bank_info'])
+            'bank_info' => Filter($_POST['bank_info']),
+            'prefix' => Filter($_POST['prefix'])
         )
     );
     if ($update) {
@@ -286,6 +290,15 @@ if (isset($_POST['update'])) {
                                                 tabindex="10"><?php echo $OrgInfo['bank_info']; ?></textarea>
                                         </div>
                                     </div>
+                                     <div class="form-group row">
+                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                            for="inputContact6">Patient Code Prefix</label>
+
+                                        <div class="col-xl-10 col-md-9 col-8">
+                                             <input class="form-control" id="prefix" name="prefix" type="text"
+                                                value="<?php echo $OrgInfo['prefix']; ?>" maxlength="5" tabindex="9">
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
                                             for="inputContact6">Logo</label>
@@ -322,7 +335,7 @@ if (isset($_POST['update'])) {
                                             <label for="header_pic">
                                                 <div id="header-image-holder"></div>
                                                 <div class="form-group " id="header_alternative">
-                                                    <img src="<?php if ($OrgInfo['header_logo'] != '') {
+                                                    <img src="logo/<?php if ($OrgInfo['header_logo'] != '') {
                                                         echo $OrgInfo['header_logo'];
                                                     } else {
                                                         echo 'logo/logo_icon.png';

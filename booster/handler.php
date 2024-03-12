@@ -1130,9 +1130,13 @@ function GetpatientCode()
     } elseif ($patient_code < 1000) {
         $patient_code = "0" . $patient_code;
     }
+    
+    $sql5 = "SELECT * FROM macho_info";
+    $result5 = mysqli_query($GLOBALS['conn'], $sql5) or die(mysqli_error($GLOBALS['conn']));
+    $data5 = mysqli_fetch_assoc($result5);
+    $prefix = $data5['prefix']."-";
 
-    $prefix = 'HCDC-';
-
+    //$prefix = "HC-";
     $patient_code = $prefix . $patient_code;
 
     $Count2 = GetEntryCounts("SELECT id FROM macho_patient WHERE P_code='$patient_code'");
