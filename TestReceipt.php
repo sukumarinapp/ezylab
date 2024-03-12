@@ -48,7 +48,7 @@ $html = '
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"><s/script>
 </head>
 <body>
-<table border="0" width="100%" align="center" class="table">
+<table  style="background-image: url("watermark.png");background-repeat: repeat;" border="0" width="100%" align="center" class="table">
 <tr align="center">
 <td colspan="2" style="text-align:center">';
 ?>
@@ -341,6 +341,9 @@ $html .= '</tbody>
 
 $content = ob_get_clean();
 $mpdf = new \Mpdf\Mpdf();
+$mpdf->watermarkAngle = 30;
+$mpdf->SetWatermarkText('DEMO REPORT');
+$mpdf->showWatermarkText = true;
 $mpdf->WriteHTML($html);
 $pdfname = $PatientInfo['P_code'] . '-'.$PatientInfo['P_name'].'.pdf';
 $content = $mpdf->Output($pdfname, 'I');

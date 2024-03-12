@@ -5,10 +5,10 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-md-10 col-12">
-              <h1 class="mb-4 text-black">Research & Verify <span class="text-theme">Laboratory</span> for Testing</h1>
+              <h1 class="mb-4 text-black">LaB <span class="text-theme">Software</span> </h1>
               <p class="lead font-w-5 text-black">Labortech is modern laboratory services Delivering newer flows by their place website is the first impression.</p>
               <div class="btn-box mt-5">
-                <a class="btn btn-theme" href="about-us.html"> <span>More About</span>
+                <a class="btn btn-theme" href="lab_software"> <span>More Software</span>
                 </a>
                 <a class="btn btn-dark" href="#"> <span>Book Appointment</span>
                 </a>

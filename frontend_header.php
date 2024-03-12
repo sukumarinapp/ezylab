@@ -8,7 +8,7 @@
             <div class="d-none d-sm-flex align-items-center me-3">
               <div> <i class="las la-phone"></i>
               </div>
-              <div>Phone: <a class="text-black" href="contact:+919500936096"> +919500936096</a>
+              <div>Phone: <a class="text-black" href="tel:+919500936096"> +919500936096</a>
               </div>
             </div>
             <div class="d-none d-md-flex align-items-center me-3">
@@ -58,20 +58,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ms-auto me-auto position-relative">
-                <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Home</a></li>
-                 
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">About Us</a></li>
+                <li class="nav-item"> <a class="nav-link active" href="home">Home</a></li>
+                <li class="nav-item"> <a class="nav-link" href="about_us">About Us</a></li>
 				 
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Products</a></li>
-				 
+                 <li class="nav-item dropdown"> <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown">Products</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="lab_software">Software</a>
+                    </li>
+                    <li><a href="products">Products</a>
+                    </li>
+                  </ul>
+                </li>
+				
 				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Services</a></li>
 				 
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Support</a></li>
-				 
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Contact Us</a></li>
-				 
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Enquiry</a></li>
-				 
+                <li class="nav-item"> <a class="nav-link" href="contact_us">Contact Us</a></li>
+
               </ul>
             </div>
             <div class="right-nav align-items-center d-flex justify-content-end">
