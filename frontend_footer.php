@@ -83,16 +83,9 @@
               </div>
             </div>
           </div>
-          
-			
-              <section id="copyright">
+
 	<span>Copyright 2014-2021 Party<a href="https://galaxytechnologypark.com">Galaxy Technology Park</a> </span>
-           
-</section>
 
-
-			  
-			  
           </div>
         </div>
       </div>
