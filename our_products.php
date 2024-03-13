@@ -124,8 +124,8 @@
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/ichroma.jpg" data-src="frontend/images/product/ichroma.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/ichroma.jpg" alt="" />
+          <li data-thumb="frontend/images/product/1.jpeg" data-src="frontend/images/product/1.jpeg">
+            <img class="img-fluid w-100" src="frontend/images/product/1.jpeg" alt="" />
           </li>
          
         </ul>
@@ -172,8 +172,8 @@
       </div>
 	  <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/ichroma.jpg" data-src="frontend/images/product/ichroma.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/ichroma.jpg" alt="" />
+          <li data-thumb="frontend/images/product/2.jpeg" data-src="frontend/images/product/2.jpeg">
+            <img class="img-fluid w-100" src="frontend/images/product/2.jpeg" alt="" />
           </li>
          
         </ul>
@@ -182,8 +182,8 @@
 	<div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/ichroma.jpg" data-src="frontend/images/product/ichroma.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/ichroma.jpg" alt="" />
+          <li data-thumb="frontend/images/product/3.jpeg" data-src="frontend/images/product/3.jpeg">
+            <img class="img-fluid w-100" src="frontend/images/product/3.jpeg" alt="" />
           </li>
          
         </ul>
@@ -230,8 +230,8 @@
       </div>
 	  <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/ichroma.jpg" data-src="frontend/images/product/ichroma.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/ichroma.jpg" alt="" />
+          <li data-thumb="frontend/images/product/4.jpeg" data-src="frontend/images/product/4.jpeg">
+            <img class="img-fluid w-100" src="frontend/images/product/4.jpeg" alt="" />
           </li>
          
         </ul>
