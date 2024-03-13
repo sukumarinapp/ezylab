@@ -5,13 +5,13 @@
 
 <!-- meta tags -->
 <meta charset="utf-8">
-<meta name="keywords" content="bootstrap 5, premium, multipurpose, sass, scss, saas, rtl, Laboratory, medical" />
-<meta name="description" content="Laboratory & Science Research HTML5 Template" />
+<meta name="keywords" content="Software" />
+<meta name="description" content="Software" />
 <meta name="author" content="www.themeht.com" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Title -->
-<title>Biochemistry Solution</title>
+<title>Software</title>
 
 <!-- favicon icon -->
 <link rel="shortcut icon" href="/new/frontend/images/favicon.ico" />
@@ -101,14 +101,14 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="white-bg p-md-5 p-3 d-inline-block">
-        <h1 class="text-theme">Biochemistry <span class="text-black">Solution</span></h1>
+        <h1 class="text-theme"><span> Software </span></h1>
         <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="las la-home me-1"></i>Home</a>
             </li>
             <li class="breadcrumb-item">Pages
             </li>
-            <li class="breadcrumb-item active" aria-current="page">About Us</li>
+            <li class="breadcrumb-item active" aria-current="page">Software</li>
           </ol>
         </nav>
         </div>
@@ -124,26 +124,18 @@
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/01.jpg" data-src="frontend/images/product/01.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/01.jpg" alt="" />
+          <li data-thumb="frontend/images/product/Software.jpg" data-src="frontend/images/product/Software.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Software.jpg" alt="" />
           </li>
-          <li data-thumb="frontend/images/product/02.jpg" data-src="frontend/images/product/02.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/02.jpg" alt="" />
-          </li>
-          <li data-thumb="frontend/images/product/03.jpg" data-src="frontend/images/product/03.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/03.jpg" alt="" />
-          </li>
-          <li data-thumb="frontend/images/product/04.jpg" data-src="frontend/images/product/04.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/04.jpg" alt="" />
-          </li>
+         
         </ul>
       </div>
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-        Dealistic Microscope
+       Software
         </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">$55.00</del> $42.00</span>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
@@ -151,13 +143,10 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-          
-          <ul class="list-unstyled mt-5">
-            <li class="mb-2"><span class="text-black font-w-5">Availibility: </span> In Stock</li>
-            <li class="mb-2"><span class="text-black font-w-5">Categories :</span> Microscope, Equipment</li>
-            <li><span class="text-black font-w-5">SKU :</span> REF. LA-83</li>
-          </ul>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
         </div>
       </div>
     </div>

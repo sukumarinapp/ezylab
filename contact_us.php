@@ -125,8 +125,8 @@
     <div class="row justify-content-center text-center">
       <div class="col-lg-8 col-12">
         <div class="section-title">
-          <h2 class="title">Drop A Line!</h2> 
-          <p class="mb-0">Any Question or Remarks ? Just Write Us a Message!</p>
+          <h2 class="title">Get In Touch</h2> 
+          <p class="mb-0">Contact Details</p>
         </div>
       </div>
     </div>
@@ -166,20 +166,22 @@
         <div class="px-3 py-5 p-md-5 text-white">
           <div class="contact-media mb-4">
             <h5 class="text-white">Find Office:</h5>
-            <span>423B, Road Wordwide Country, USA</span>
+            <span>Motta Vilai, Karan Kadu PO ,
+K.K. Dist, 629809,
+Tamilnadu, India,</span>
           </div>
           <div class="contact-media mb-4">
             <h5 class="text-white">Contact Us:</h5>
             <ul class="list-unstyled">
-              <li class="mb-2">Phone: <a href="tel:+912345678900">+91-234-567-8900</a>
+              <li class="mb-2">Phone: <a href="tel:+919500936096">+919500936096</a>
               </li>
-              <li>Email: <a href="mailto:themeht23@gmail.com"> themeht23@gmail.com</a>
+              <li>Email: <a href="mailto: pranesh.jes@gmail.com"> pranesh.jes@gmail.com</a>
               </li>
             </ul>
           </div>
           <div class="contact-media mb-4">
             <h5 class="text-white">Working Hours:</h5>
-            <span>Monday - Saturday: 9.30am To 7.00pm</span>
+            <span>Sunday-Saturday: 24*7</span>
           </div>
           <div class="social-icons">
             <ul class="list-inline">

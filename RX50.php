@@ -143,7 +143,8 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">As of my last knowledge update in January 2022, I don't have specific information about a product called "micro lab RX 50." It's possible that this could be a product or device developed or released after that date, or it might be a specific product from a company not widely known at that time.
+          <p class="my-4">
+As of my last knowledge update in January 2022, I don't have specific information about a product called "micro lab RX 50." It's possible that this could be a product or device developed or released after that date, or it might be a specific product from a company not widely known at that time.
 <br></br>
 If "micro lab RX 50" is related to a medical device, laboratory equipment, or any other specific field, I recommend checking the official website of the manufacturer, contacting the manufacturer directly, or referring to product documentation for the most accurate and up-to-date information.
 <br></br>

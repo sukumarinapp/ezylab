@@ -189,18 +189,18 @@
   <div class="container z-index-1">
     <div class="row justify-content-center text-center">
       <div class="col-lg-7 col-12">
-        <div class="section-title mb-3">
+        <div class="section-title mb-5">
           <h2 class="title mb-0">We Provide All Aspects Of Medical Practice For Your Whole Family!</h2> 
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <div class="owl-carousel" data-items="3" data-md-items="2" data-sm-items="1" data-xs-items="1" data-margin="30">
+        <div class="owl-carousel" data-items="5" data-md-items="1" data-sm-items="1" data-xs-items="1" data-margin="30">
           <div class="item">
             <div class="service-item style-1">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/01.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/ichroma.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-biology-1"></i>
                 </div>
               </div>
@@ -208,17 +208,37 @@
                 <div class="service-title">
                   <h4>ichroma™ II</h4>
                 </div>
-                <p>A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</p> <a class="link-btn" href="ichroma.php"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>A compact and easy-to-use, fluorescence based POCT immunoassay analyzer.</p> <a class="link-btn" href="ichroma.php"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
+
           <div class="item">
             <div class="service-item style-1 active">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/02.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/Software.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-research"></i>
                 </div>
               </div>
+              
+              <div class="service-desc white-bg mt-n5 pt-7">
+                <div class="service-title">
+                  <h4>Software</h4>
+                </div>
+                <p>If "micro lab RX 50" is related to a medical device, laboratory equipment, or any other specific field.</p> <a class="link-btn" href="Software.php"><i class="las la-long-arrow-alt-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="service-item style-1 active">
+              <div class="service-img mx-4 z-index-1 overflow-hidden">
+                <img class="img-fluid" src="frontend/images/product/RX50.jpg" alt="">
+                <div class="service-icon"> <i class="flaticon-research"></i>
+                </div>
+              </div>
+              <br>
+              <br></br>
               <div class="service-desc white-bg mt-n5 pt-7">
                 <div class="service-title">
                   <h4>RX 50</h4>
@@ -227,13 +247,16 @@
               </div>
             </div>
           </div>
+          
           <div class="item">
             <div class="service-item style-1">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/03.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/BC-20s.jpg"  alt="">
                 <div class="service-icon"> <i class="flaticon-test"></i>
                 </div>
               </div>
+              <br>
+              <br></br>
               <div class="service-desc white-bg mt-n5 pt-7">
                 <div class="service-title">
                   <h4>Auto Hematology Analyzer</h4>
@@ -242,10 +265,11 @@
               </div>
             </div>
           </div>
+
           <div class="item">
             <div class="service-item style-1">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/04.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/ST-200 CL ELECTROLYTE ANALYZER.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-research"></i>
                 </div>
               </div>
