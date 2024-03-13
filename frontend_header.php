@@ -69,9 +69,6 @@
                     </li>
                   </ul>
                 </li>
-				
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Services</a></li>
-				 
                 <li class="nav-item"> <a class="nav-link" href="contact_us">Contact Us</a></li>
 
               </ul>
