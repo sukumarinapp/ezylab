@@ -50,7 +50,7 @@
         <div class="col">
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand logo" href="index.html">
-              <img id="logo-img" class="img-fluid" src="frontend/images/logo.png" alt="">
+              <img id="logo-img" class="img-fluid" src="frontend/images/ezylab.png" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
               <span></span>
@@ -69,9 +69,6 @@
                     </li>
                   </ul>
                 </li>
-				
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Services</a></li>
-				 
                 <li class="nav-item"> <a class="nav-link" href="contact_us">Contact Us</a></li>
 
               </ul>
