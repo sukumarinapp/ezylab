@@ -5,13 +5,13 @@
 
 <!-- meta tags -->
 <meta charset="utf-8">
-<meta name="keywords" content="RX 50/>
-<meta name="description" content="RX 50" />
+<meta name="keywords" content="bootstrap 5, premium, multipurpose, sass, scss, saas, rtl, Laboratory, medical" />
+<meta name="description" content="Laboratory & Science Research HTML5 Template" />
 <meta name="author" content="www.themeht.com" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Title -->
-<title>RX 50</title>
+<title>Biochemistry Solution</title>
 
 <!-- favicon icon -->
 <link rel="shortcut icon" href="/new/frontend/images/favicon.ico" />
@@ -101,14 +101,14 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="white-bg p-md-5 p-3 d-inline-block">
-        <h1 class="text-theme">RX <span class="text-black"> 50 </span></h1>
+        <h1 class="text-theme">Biochemistry <span class="text-black">Solution</span></h1>
         <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="las la-home me-1"></i>Home</a>
             </li>
             <li class="breadcrumb-item">Pages
             </li>
-            <li class="breadcrumb-item active" aria-current="page">RX 50</li>
+            <li class="breadcrumb-item active" aria-current="page">About Us</li>
           </ol>
         </nav>
         </div>
@@ -124,18 +124,26 @@
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/RX50.jpg" data-src="frontend/images/product/RX50.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/RX50.jpg" alt="" />
+          <li data-thumb="frontend/images/product/01.jpg" data-src="frontend/images/product/01.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/01.jpg" alt="" />
           </li>
-         
+          <li data-thumb="frontend/images/product/02.jpg" data-src="frontend/images/product/02.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/02.jpg" alt="" />
+          </li>
+          <li data-thumb="frontend/images/product/03.jpg" data-src="frontend/images/product/03.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/03.jpg" alt="" />
+          </li>
+          <li data-thumb="frontend/images/product/04.jpg" data-src="frontend/images/product/04.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/04.jpg" alt="" />
+          </li>
         </ul>
       </div>
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       RX 50
+        Dealistic Microscope
         </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">If "micro lab RX 50" is related to a medical device, laboratory equipment, or any other specific field.</span>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">$55.00</del> $42.00</span>
           </div> <span class="text-warning">
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
@@ -143,15 +151,13 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">
-As of my last knowledge update in January 2022, I don't have specific information about a product called "micro lab RX 50." It's possible that this could be a product or device developed or released after that date, or it might be a specific product from a company not widely known at that time.
-<br></br>
-If "micro lab RX 50" is related to a medical device, laboratory equipment, or any other specific field, I recommend checking the official website of the manufacturer, contacting the manufacturer directly, or referring to product documentation for the most accurate and up-to-date information.
-<br></br>
-If "micro lab RX 50" is a term related to a different context or industry, please provide additional details, and I'll do my best to assist you with the information available up to my last update.
-
-</p>
-        
+          <p class="my-4">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+          
+          <ul class="list-unstyled mt-5">
+            <li class="mb-2"><span class="text-black font-w-5">Availibility: </span> In Stock</li>
+            <li class="mb-2"><span class="text-black font-w-5">Categories :</span> Microscope, Equipment</li>
+            <li><span class="text-black font-w-5">SKU :</span> REF. LA-83</li>
+          </ul>
         </div>
       </div>
     </div>
