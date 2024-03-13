@@ -87,42 +87,14 @@ if (isset($_POST['update'])) {
             }
     }
 
-    if ($footer_logo != '') {
-
-        $footer_logopic = basename($OrgInfo['footer_logo']);
-        if (file_exists("logo/" . $footer_logopic)) {
-            unlink("logo/" . $footer_logopic);
-            $ext1 = pathinfo($footer_logo, PATHINFO_EXTENSION);
-            $footer_logopic1 = 'footer' . $macho_id . "." . $ext1;
-            $move_path1 = "logo/";
-            $move_path1 = $move_path1 . $footer_logopic1;
-            $target_path1 = SITEURL . "logo/";
-            $target_path1 = $target_path1 . $footer_logopic1;
-            if (move_uploaded_file($_FILES['footer_logo']['tmp_name'], $move_path1)) {
-                $update_logo = Update(
-                    'macho_info',
-                    'id',
-                    $macho_id,
-                    array(
-                        'footer_logo' => $target_path1
-                    )
-                );
-            }
-        }
-    }
 
     $update = Update('macho_info','id',$macho_id,
         array(
-            'name' => Filter($_POST['name']),
-            'address' => Filter($_POST['address']),
-            'state' => Filter($_POST['state']),
-            'email' => Filter($_POST['email']),
-            'mobile' => Filter($_POST['mobile']),
-            'land_line' => Filter($_POST['land_line']),
-            'site_url' => Filter($_POST['site_url']),
-            'reg_no' => Filter($_POST['reg_no']),
-            'gstin' => Filter($_POST['gstin']),
-            'bank_info' => Filter($_POST['bank_info']),
+            'receipt_header' => Filter($_POST['receipt_header']),
+            'report_header' => Filter($_POST['report_header']),
+            'report_footer' => Filter($_POST['report_footer']),
+            'show_report_header' => Filter($_POST['show_report_header']),
+            'show_receipt_header' => Filter($_POST['show_receipt_header']),
             'prefix' => Filter($_POST['prefix'])
         )
     );
@@ -151,41 +123,8 @@ if (isset($_POST['update'])) {
    <div class="page-wrapper">
       <div class="page-content">
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card card-default d-none d-lg-block">
-                    <div class="card-header">
-                        <div class="card-title text-center">Recent contacts</div>
-                    </div>
-                    <div class="card-body">
-                        <?php
-                        $machoUserQuery = 'SELECT concat(a.prefix," ",a.name) as name,a.role_id,a.avatar,b.role FROM macho_users a,macho_role b WHERE a.status="1" AND b.id=a.role_id ORDER BY a.id DESC ';
-                        $machoUserResult = GetAllRows($machoUserQuery);
-                        $machoUserCounts = count($machoUserResult);
-                        if ($machoUserCounts > 0) {
-                            foreach ($machoUserResult as $machoUserData) {
-                                ?>
-                                <div class="media">
-                                    <img class="align-self-center mr-2 rounded-circle img-thumbnail thumb48" src="<?php if ($machoUserData['avatar'] != '') {
-                                        echo $machoUserData['avatar'];
-                                    } else {
-                                        echo 'profile_pic/default.png';
-                                    } ?>" alt="Contact">
 
-                                    <div class="media-body py-2">
-                                        <div class="text-bold">
-                                            <?php echo $machoUserData['name'] ?>
-                                            <div class="text-sm text-muted">
-                                                <?php echo $machoUserData['role'] ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php }
-                        } ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card card-default">
                     <div class="card-header d-flex align-items-center">
                         <div class="d-flex justify-content-center col">
@@ -196,98 +135,36 @@ if (isset($_POST['update'])) {
                         <div class="row py-4 justify-content-center">
                             <div class="col-12 col-sm-10">
                                 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact1">Name</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="name" name="name" type="text"
-                                                value="<?php echo $OrgInfo['name']; ?>" maxlength="100" tabindex="1">
-                                        </div>
+                                       <div class="form-group form-check">
+                                      <input <?php if($OrgInfo['show_report_header'] == 1) echo "checked";  ?> name="show_report_header" class="form-check-input" type="checkbox" value="1" id="show_report_header" >
+                                      <label class="form-check-label" for="show_report_header">
+                                        Enable Report Header
+                                      </label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact2">Email</label>
+                                            for="inputContact6">Report Header</label>
 
                                         <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="email" name="email" type="email"
-                                                value="<?php echo $OrgInfo['email']; ?>" maxlength="100" tabindex="2">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact3">Phone</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="land_line" name="land_line" type="text"
-                                                value="<?php echo $OrgInfo['land_line']; ?>" maxlength="100"
-                                                tabindex="3">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact4">Mobile</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="mobile" name="mobile" type="text"
-                                                value="<?php echo $OrgInfo['mobile']; ?>" maxlength="100" tabindex="4">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact5">Website</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="site_url" name="site_url" type="text"
-                                                value="<?php echo $OrgInfo['site_url']; ?>" maxlength="100"
-                                                tabindex="5">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact6">Address</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <textarea class="form-control" id="address" name="address" rows="4"
+                                            <textarea class="form-control" id="report_header" name="report_header" rows="4"
                                                 maxlength="250"
-                                                tabindex="6"><?php echo $OrgInfo['address']; ?></textarea>
+                                                tabindex="6"><?php echo $OrgInfo['report_header']; ?></textarea>
                                         </div>
+                                    </div>
+                                      <div class="form-group form-check">
+                                      <input <?php if($OrgInfo['show_receipt_header'] == 1) echo "checked";  ?> name="show_receipt_header" class="form-check-input" type="checkbox" value="1" id="show_receipt_header" >
+                                      <label class="form-check-label" for="show_receipt_header">
+                                        Enable Receipt Header
+                                      </label>
                                     </div>
                                     <div class="form-group row">
                                         <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact7">State</label>
+                                            for="inputContact6">Receipt Header</label>
 
                                         <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="state" name="state" type="text"
-                                                value="<?php echo $OrgInfo['state']; ?>" maxlength="100" tabindex="7">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact8">Reg. No.</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="reg_no" name="reg_no" type="text"
-                                                value="<?php echo $OrgInfo['reg_no']; ?>" maxlength="30" tabindex="8">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact8">GSTIN</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <input class="form-control" id="gstin" name="gstin" type="text"
-                                                value="<?php echo $OrgInfo['gstin']; ?>" maxlength="30" tabindex="9">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
-                                            for="inputContact6">Bank Info</label>
-
-                                        <div class="col-xl-10 col-md-9 col-8">
-                                            <textarea class="form-control" id="bank_info" name="bank_info" rows="4"
+                                            <textarea class="form-control" id="receipt_header" name="receipt_header" rows="4"
                                                 maxlength="500"
-                                                tabindex="10"><?php echo $OrgInfo['bank_info']; ?></textarea>
+                                                tabindex="10"><?php echo $OrgInfo['receipt_header']; ?></textarea>
                                         </div>
                                     </div>
                                      <div class="form-group row">
@@ -356,6 +233,16 @@ if (isset($_POST['update'])) {
                                     </div>
                                     <div class="form-group row">
                                         <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
+                                            for="inputContact6">Report Footer</label>
+
+                                        <div class="col-xl-10 col-md-9 col-8">
+                                            <textarea class="form-control" id="report_footer" name="report_footer" rows="4"
+                                                maxlength="500"
+                                                tabindex="10"><?php echo $OrgInfo['report_footer']; ?></textarea>
+                                        </div>
+                                    </div>
+                                   <!--  <div class="form-group row">
+                                        <label class="text-bold col-xl-2 col-md-3 col-4 col-form-label text-right"
                                             for="inputContact6">Footer Logo</label>
 
                                         <div class="col-xl-10 col-md-9 col-8">
@@ -380,9 +267,9 @@ if (isset($_POST['update'])) {
 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <?php if ($PageAccessible['is_modify'] == 1) { ?>
-                                        <div class="text-right">
+                                        <div class="text-center">
                                             <button class="btn btn-info" type="submit" name="update" tabindex="12">
                                                 Update
                                             </button>
