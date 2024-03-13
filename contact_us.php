@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Title -->
-<title>Our Products</title>
+<title>Contact Us</title>
 
 <!-- favicon icon -->
 <link rel="shortcut icon" href="/new/frontend/images/favicon.ico" />
@@ -101,14 +101,14 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="white-bg p-md-5 p-3 d-inline-block">
-        <h1 class="text-theme">Our  <span class="text-black"> Products </span></h1>
+        <h1 class="text-theme">Contact  <span class="text-black"> Us </span></h1>
         <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="las la-home me-1"></i>Home</a>
             </li>
             <li class="breadcrumb-item">Pages
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Our  Products</li>
+            <li class="breadcrumb-item active" aria-current="page">Contact  Us</li>
           </ol>
         </nav>
         </div>
@@ -119,128 +119,89 @@
 
 <div class="page-content">
 
+
 <section>
   <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/1.jpeg" data-src="frontend/images/product/1.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/1.jpeg" alt="" />
-          </li>
-         
-        </ul>
-      </div>
-      <div class="col-lg-6 mt-5 mt-lg-0">
-        <div class="product-details">
-          <h3>
-       Login
-        </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
-          </div> <span class="text-warning">
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                    </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
-        
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8 col-12">
+        <div class="section-title">
+          <h2 class="title">Get In Touch</h2> 
+          <p class="mb-0">Contact Details</p>
         </div>
       </div>
     </div>
-	<div class="row">
-      <div class="col-lg-6 mt-5 mt-lg-0">
-        <div class="product-details">
-          <h3>
-       Dashboard
-        </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
-          </div> <span class="text-warning">
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                    </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
-        
+    <div class="row g-0">
+      <div class="col-lg-8">
+        <div class="contact-main white-bg shadow-sm p-5">
+          <form id="contact-form" class="row" method="post" action="php/contact.php">
+            <div id="formmessage"></div>
+            <div class="form-group col-md-6">
+              <input id="form_name" type="text" name="name" class="form-control" placeholder="Name" required="required">
+            </div>
+            <div class="form-group col-md-6">
+              <input id="form_email" type="email" name="email" class="form-control" placeholder="Email" required="required">
+            </div>
+            <div class="form-group col-md-6">
+              <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Phone" required="required">
+            </div>
+            <div class="form-group col-md-6">
+              <select name="select" class="form-select form-control">
+                <option>- Choose Service</option>
+                <option>Pathology</option>
+                <option>Diabetes</option>
+                <option>Chemical</option>
+              </select>
+            </div>
+            <div class="form-group col-md-12">
+              <textarea id="form_message" name="message" class="form-control" placeholder="Message" rows="3" required="required"></textarea>
+            </div>
+            <div class="col-md-12 text-center mt-4">
+              <button class="btn btn-theme"><span>Send Messages</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-	  <div class="col-lg-6">
-        <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/2.jpeg" data-src="frontend/images/product/2.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/2.jpeg" alt="" />
-          </li>
-         
-        </ul>
-      </div>
-    </div>
-	<div class="row">
-      <div class="col-lg-6">
-        <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/3.jpeg" data-src="frontend/images/product/3.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/3.jpeg" alt="" />
-          </li>
-         
-        </ul>
-      </div>
-      <div class="col-lg-6 mt-5 mt-lg-0">
-        <div class="product-details">
-          <h3>
-       Login
-        </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
-          </div> <span class="text-warning">
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                    </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
-        
+      <div class="col-lg-4 dark-bg">
+        <div class="px-3 py-5 p-md-5 text-white">
+          <div class="contact-media mb-4">
+            <h5 class="text-white">Find Office:</h5>
+            <span>Motta Vilai, Karan Kadu PO ,
+K.K. Dist, 629809,
+Tamilnadu, India,</span>
+          </div>
+          <div class="contact-media mb-4">
+            <h5 class="text-white">Contact Us:</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">Phone: <a href="tel:+919500936096">+919500936096</a>
+              </li>
+              <li>Email: <a href="mailto: pranesh.jes@gmail.com"> pranesh.jes@gmail.com</a>
+              </li>
+            </ul>
+          </div>
+          <div class="contact-media mb-4">
+            <h5 class="text-white">Working Hours:</h5>
+            <span>Sunday-Saturday: 24*7</span>
+          </div>
+          <div class="social-icons">
+            <ul class="list-inline">
+              <li><a href="#"><i class="lab la-facebook-f"></i></a>
+              </li>
+              <li><a href="#"><i class="lab la-twitter"></i></a>
+              </li>
+              <li><a href="#"><i class="lab la-instagram"></i></a>
+              </li>
+              <li><a href="#"><i class="lab la-dribbble"></i></a>
+              </li>
+              <li><a href="#"><i class="lab la-linkedin-in"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </div>
-	<div class="row">
-      <div class="col-lg-6 mt-5 mt-lg-0">
-        <div class="product-details">
-          <h3>
-       Dashboard
-        </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
-          </div> <span class="text-warning">
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                      <i class="las la-star"></i>
-                    </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
-        
-        </div>
-      </div>
-	  <div class="col-lg-6">
-        <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/4.jpeg" data-src="frontend/images/product/4.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/4.jpeg" alt="" />
-          </li>
-         
-        </ul>
       </div>
     </div>
   </div>
 </section>
-
- 
 
 
 </div>

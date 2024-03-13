@@ -49,8 +49,8 @@
       <div class="row">
         <div class="col">
           <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand logo" href="index.html">
-              <img id="logo-img" class="img-fluid" src="frontend/images/logo.png" alt="">
+            <a class="navbar-brand logo" href="home">
+              <img id="logo-img" class="img-fluid" src="frontend/images/ezylab.png" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
               <span></span>
@@ -65,13 +65,10 @@
                   <ul class="dropdown-menu">
                     <li><a href="lab_software">Software</a>
                     </li>
-                    <li><a href="products">Products</a>
+                    <li><a href="our_products">Products</a>
                     </li>
                   </ul>
                 </li>
-				
-				 <li class="nav-item dropdown"> <a class="nav-link active dropdown" href="#" data-bs-toggle="dropdown">Services</a></li>
-				 
                 <li class="nav-item"> <a class="nav-link" href="contact_us">Contact Us</a></li>
 
               </ul>

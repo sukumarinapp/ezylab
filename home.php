@@ -185,6 +185,8 @@
   </div>
 </section>
 
+<!--service start-->
+
 <section class="position-relative light-bg">
   <div class="container z-index-1">
     <div class="row justify-content-center text-center">
@@ -200,60 +202,76 @@
           <div class="item">
             <div class="service-item style-1">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/01.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/ichroma.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-biology-1"></i>
                 </div>
               </div>
               <div class="service-desc white-bg mt-n5 pt-7">
                 <div class="service-title">
-                  <h4>ichroma™ II</h4>
+                  <h4>Biochemistry Solution</h4>
                 </div>
-                <p>A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</p> <a class="link-btn" href="ichroma.php"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="biochemistry-solution.html"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
           <div class="item">
             <div class="service-item style-1 active">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/02.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/Software.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-research"></i>
                 </div>
               </div>
               <div class="service-desc white-bg mt-n5 pt-7">
                 <div class="service-title">
-                  <h4>RX 50</h4>
+                  <h4>Pharmaceutical Research</h4>
                 </div>
-                <p>If "micro lab RX 50" is related to a medical device, laboratory equipment, or any other specific field.</p> <a class="link-btn" href="RX50.php"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="pharmaceutical-research.html"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
           <div class="item">
             <div class="service-item style-1">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/03.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/RX50.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-test"></i>
                 </div>
               </div>
               <div class="service-desc white-bg mt-n5 pt-7">
                 <div class="service-title">
-                  <h4>Auto Hematology Analyzer</h4>
+                  <h4>Pathologycam Testing</h4>
                 </div>
-                <p>At Mindray we pride ourselves on our dedication and experience in developing better solutions for small labs.</p> <a class="link-btn" href="BC-20s.php"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="pathologycam-testing.html"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
           <div class="item">
             <div class="service-item style-1">
               <div class="service-img mx-4 z-index-1 overflow-hidden">
-                <img class="img-fluid" src="frontend/images/services/04.jpg" alt="">
+                <img class="img-fluid" src="frontend/images/product/BC-20s.jpg" alt="">
                 <div class="service-icon"> <i class="flaticon-research"></i>
                 </div>
               </div>
               <div class="service-desc white-bg mt-n5 pt-7">
                 <div class="service-title">
-                  <h4>ST-200 PLUS ELECTROLYTE</h4>
+                  <h4>Chemical Research</h4>
                 </div>
-                <p>It is likely related to electrolyte analysis, a process used to measure the concentration of electrolytes in bodily fluids like blood.</p> <a class="link-btn" href="PlusElectrolyte.php"><i class="las la-long-arrow-alt-right"></i></a>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="chemical-research.html"><i class="las la-long-arrow-alt-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="service-item style-1">
+              <div class="service-img mx-4 z-index-1 overflow-hidden">
+                <img class="img-fluid" src="frontend/images/product/ST-200-CL ELECTROLYTE-ANALYZER.jpg" alt="">
+                <div class="service-icon"> <i class="flaticon-research"></i>
+                </div>
+              </div>
+              <div class="service-desc white-bg mt-n5 pt-7">
+                <div class="service-title">
+                  <h4>Chemical Research</h4>
+                </div>
+                <p>We have put protocols to protect our patients and staff care.</p> <a class="link-btn" href="chemical-research.html"><i class="las la-long-arrow-alt-right"></i></a>
               </div>
             </div>
           </div>
@@ -267,6 +285,7 @@
     </svg>
   </div>
 </section>
+
 
 <section class="p-0">
   <div class="container">
