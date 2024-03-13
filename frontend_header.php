@@ -65,7 +65,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="lab_software">Software</a>
                     </li>
-                    <li><a href="products">Products</a>
+                    <li><a href="our_products">Products</a>
                     </li>
                   </ul>
                 </li>
