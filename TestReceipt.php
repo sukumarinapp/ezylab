@@ -61,11 +61,8 @@ if($header == 1){
 ?>
 <?php
 if($header == 0 && $OrgInfo['show_report_header'] == 1){
-    $html = $html . '<h2 style="color:black;font-weight: bold;text-align:left">' . $OrgInfo['report_header'] . '</h2>
-    ' . WordReplace($OrgInfo['address']) . '<br>';
-    if(trim($OrgInfo['email'])!="") $html = $html . 'Email:' . $OrgInfo['email'] . '<br>';
-    if(trim($OrgInfo['mobile'])!="") $html = $html . 'Contact:' . $OrgInfo['mobile'] . '<br>';
-    $html = $html . '<br><br><br><br><br>';
+    $html = $html . '<h6 style="color:black;font-weight: bold;text-align:left">' . $OrgInfo['report_header'] . '</h6>
+    ';
 }
 ?>
 <?php

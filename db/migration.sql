@@ -33,7 +33,9 @@ update macho_info set prefix = 'DEMO';
 update macho_info set prefix = 'HCDC';
 update macho_info set prefix = 'RMDH';
 
+alter table macho_info add show_report_header int DEFAULT 0;
+alter table macho_info add show_receipt_header int DEFAULT 0;
 
-alter table macho_info add receipt_header varchar(100) DEFAULT NULL;
-alter table macho_info add report_header varchar(100) DEFAULT NULL;
-alter table macho_info add report_footer varchar(100) DEFAULT NULL;
+alter table macho_info add receipt_header varchar(1000) DEFAULT NULL;
+alter table macho_info add report_header varchar(1000) DEFAULT NULL;
+alter table macho_info add report_footer varchar(500) DEFAULT NULL;

@@ -147,7 +147,7 @@ if (isset($_POST['update'])) {
 
                                         <div class="col-xl-10 col-md-9 col-8">
                                             <textarea class="form-control" id="report_header" name="report_header" rows="4"
-                                                maxlength="250"
+                                                maxlength="1000"
                                                 tabindex="6"><?php echo $OrgInfo['report_header']; ?></textarea>
                                         </div>
                                     </div>
@@ -163,7 +163,7 @@ if (isset($_POST['update'])) {
 
                                         <div class="col-xl-10 col-md-9 col-8">
                                             <textarea class="form-control" id="receipt_header" name="receipt_header" rows="4"
-                                                maxlength="500"
+                                                maxlength="1000"
                                                 tabindex="10"><?php echo $OrgInfo['receipt_header']; ?></textarea>
                                         </div>
                                     </div>
@@ -237,7 +237,7 @@ if (isset($_POST['update'])) {
 
                                         <div class="col-xl-10 col-md-9 col-8">
                                             <textarea class="form-control" id="report_footer" name="report_footer" rows="4"
-                                                maxlength="500"
+                                                maxlength="1000"
                                                 tabindex="10"><?php echo $OrgInfo['report_footer']; ?></textarea>
                                         </div>
                                     </div>

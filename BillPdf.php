@@ -38,22 +38,26 @@ $mpdf->AliasNbPages();
 $mpdf->SetAutoPageBreak( true, 15 );
 $mpdf->AddPage();
 $mpdf->SetFillColor( 239, 239, 239 );
+;
+//$mpdf->SetFont( 'Arial', 'B', 8 );
+//$mpdf->Cell( 180, 4, $OrgInfo[ 'name' ], 'LRT', 0, 'C', false );
+//$mpdf->SetFont( 'Arial', '', 8 );
+//$mpdf->Cell( 180, 4, WordReplace( $OrgInfo[ 'address' ] ), 'LR', 0, 'C', false );
+
+//$mpdf->Cell( 60, 4, '', 'LRB', 1, 'L', false );
+//$mpdf->WriteHTML( 180, 4, WordReplace($OrgInfo[ 'receipt_header' ]), 'LR', 0, 'C', false );
+
+if($OrgInfo['show_receipt_header'] == 1){
+    $mpdf->WriteHTML($OrgInfo[ 'receipt_header']);
+}
 
 $mpdf->SetFont( 'Arial', 'B', 8 );
-$mpdf->Cell( 120, 4, $OrgInfo[ 'name' ], 'LRT', 0, 'C', false );
-$mpdf->SetFont( 'Arial', '', 8 );
-$mpdf->Cell( 60, 4, 'Bill No.', 'LRT', 1, 'L', false );
-$mpdf->Cell( 120, 4, WordReplace( $OrgInfo[ 'address' ] ), 'LR', 0, 'C', false );
-$mpdf->SetFont( 'Arial', 'B', 8 );
-$mpdf->Cell( 60, 4, $BillData[ 'bill_no' ], 'LR', 1, 'L', false );
-$mpdf->SetFont( 'Arial', '', 8 );
-$mpdf->Cell( 120, 4, $OrgInfo[ 'state' ], 'LR', 0, 'C', false );
-$mpdf->Cell( 60, 4, '', 'LRB', 1, 'L', false );
-$mpdf->Cell( 120, 4, 'Email: ' . $OrgInfo[ 'email' ], 'LR', 0, 'C', false );
-$mpdf->Cell( 60, 4, 'Dated', 'LR', 1, 'L', false );
-$mpdf->Cell( 120, 4, 'Contact: ' . $OrgInfo[ 'land_line' ] . ',' . $OrgInfo[ 'mobile' ], 'LRB', 0, 'C', false );
-$mpdf->SetFont( 'Arial', 'B', 8 );
-$mpdf->Cell( 60, 4, from_sql_date( $BillData[ 'entry_date' ] ), 'LRB', 1, 'L', false );
+$mpdf->Cell( 60, 4, '', '', 1, 'L', false );
+
+
+
+$mpdf->Cell( 120, 8, 'Bill No: ' . $BillData[ 'bill_no' ], 1, 0, 'L', false );
+$mpdf->Cell( 60, 8, 'Dated: ' . from_sql_date( $BillData[ 'entry_date' ] ), 1, 1, 'L', false );
 
 $mpdf->SetFont( 'Arial', 'B', 6 );
 $mpdf->Cell( 120, 4, 'Name & Address Of Buyer/Recipient ( Billed to)', 'LRT', 0, 'L', false );
