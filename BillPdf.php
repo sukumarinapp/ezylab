@@ -60,7 +60,7 @@ $mpdf->Cell( 120, 8, 'Bill No: ' . $BillData[ 'bill_no' ], 1, 0, 'L', false );
 $mpdf->Cell( 60, 8, 'Dated: ' . from_sql_date( $BillData[ 'entry_date' ] ), 1, 1, 'L', false );
 
 $mpdf->SetFont( 'Arial', 'B', 6 );
-$mpdf->Cell( 120, 4, 'Name & Address Of Buyer/Recipient ( Billed to)', 'LRT', 0, 'L', false );
+$mpdf->Cell( 120, 4, 'Name & Address of Patient', 'LRT', 0, 'L', false );
 $mpdf->SetFont( 'Arial', '', 8 );
 $mpdf->Cell( 60, 4, 'Payment Method', 'LRT', 1, 'L', false );
 $mpdf->Cell( 120, 4, $PatientInfo[ 'prefix' ] . $PatientInfo[ 'P_name' ], 'LR', 0, 'L', false );
