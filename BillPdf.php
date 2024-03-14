@@ -48,7 +48,7 @@ $mpdf->SetFillColor( 239, 239, 239 );
 //$mpdf->WriteHTML( 180, 4, WordReplace($OrgInfo[ 'receipt_header' ]), 'LR', 0, 'C', false );
 
 if($OrgInfo['show_receipt_header'] == 1){
-    $mpdf->WriteHTML($OrgInfo[ 'receipt_header']);
+    $mpdf->WriteHTML("<table width='100%'><tr><td align='center' >".$OrgInfo[ 'receipt_header']."</td></tr></table>");
 }
 
 $mpdf->SetFont( 'Arial', 'B', 8 );
