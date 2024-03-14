@@ -143,7 +143,8 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+          <p class="my-4">
+            ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
 
 </p>
         

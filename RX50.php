@@ -124,8 +124,8 @@
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/RX50.jpg" data-src="frontend/images/product/RX50.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/RX50.jpg" alt="" />
+          <li data-thumb="frontend/images/product/RX-50.jpg" data-src="frontend/images/product/RX-50.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/RX-50.jpg" alt="" />
           </li>
          
         </ul>

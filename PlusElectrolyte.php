@@ -5,8 +5,8 @@
 
 <!-- meta tags -->
 <meta charset="utf-8">
-<meta name="keywords" content="ST-200 CL ELECTROLYTE ANALYZER/>
-<meta name="description" content="ST-200 CL ELECTROLYTE ANALYZER" />
+<meta name="keywords" content="ST-200 CL-ELECTROLYTE ANALYZER/>
+<meta name="description" content="ST-200 CL-ELECTROLYTE ANALYZER" />
 <meta name="author" content="www.themeht.com" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -101,14 +101,14 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="white-bg p-md-5 p-3 d-inline-block">
-        <h1 class="text-theme">ST-200 <span class="text-black">  CL ELECTROLYTE ANALYZER</span></h1>
+        <h1 class="text-theme">ST-200 <span class="text-black">  CL-ELECTROLYTE-ANALYZER</span></h1>
         <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="las la-home me-1"></i>Home</a>
             </li>
             <li class="breadcrumb-item">Pages
             </li>
-            <li class="breadcrumb-item active" aria-current="page">ST-200 CL ELECTROLYTE ANALYZER</li>
+            <li class="breadcrumb-item active" aria-current="page">ST-200 CL-ELECTROLYTE-ANALYZER</li>
           </ol>
         </nav>
         </div>
@@ -124,8 +124,8 @@
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/ST-200 CL ELECTROLYTE ANALYZER.jpg" data-src="frontend/images/product/ST-200 CL ELECTROLYTE ANALYZER.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/ST-200 CL ELECTROLYTE ANALYZER.jpg" alt="" />
+          <li data-thumb="frontend/images/product/ST-200-CL-ELECTROLYTE-ANALYZER.jpg" data-src="frontend/images/product/ST-200-CL-ELECTROLYTE-ANALYZER.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/ST-200-CL-ELECTROLYTE-ANALYZER.jpg" alt="" />
           </li>
          
         </ul>
