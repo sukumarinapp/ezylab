@@ -5,13 +5,13 @@
 
 <!-- meta tags -->
 <meta charset="utf-8">
-<meta name="keywords" content="BC-20s/>
+<meta name="keywords" content="BC-20s" />
 <meta name="description" content="BC-20s" />
 <meta name="author" content="www.themeht.com" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Title -->
-<title>Auto Hematology Analyzer</title>
+<title>BC-20s</title>
 
 <!-- favicon icon -->
 <link rel="shortcut icon" href="/new/frontend/images/favicon.ico" />
@@ -132,7 +132,7 @@
       </div>
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
-		<h6>Auto Hematology Analyzer</h6>
+		<h6> Auto Hematology Analyzer</h6>
           <h3>
        BC-20s
         </h3>
