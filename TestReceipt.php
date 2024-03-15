@@ -57,12 +57,13 @@ if($header == 1){
     $html = $html . '<img src="logo/';
     $html = $html .$header_logo;
     $html = $html .'" />';
-}
-?>
-<?php
-if($header == 0 && $OrgInfo['show_report_header'] == 1){
-    $html = $html . '<h6 style="color:black;font-weight: bold;text-align:left">' . $OrgInfo['report_header'] . '</h6>
-    ';
+}else{
+    if($header == 0 && $OrgInfo['show_report_header'] == 1){
+        $html = $html . '<h6 style="color:black;font-weight: bold;text-align:left">' . $OrgInfo['report_header'] . '</h6>
+        ';
+    }else{
+        $html = $html . '<br/><br/><br/><br/><br/>';
+    }
 }
 ?>
 <?php
@@ -359,9 +360,9 @@ $html=$html.'</td>
 
 $content = ob_get_clean();
 $mpdf = new \Mpdf\Mpdf();
-$mpdf->watermarkAngle = 30;
-$mpdf->SetWatermarkText('DEMO REPORT');
-$mpdf->showWatermarkText = true;
+// $mpdf->watermarkAngle = 30;
+// $mpdf->SetWatermarkText('DEMO REPORT');
+// $mpdf->showWatermarkText = true;
 $mpdf->WriteHTML($html);
 $pdfname = $PatientInfo['P_code'] . '-'.$PatientInfo['P_name'].'.pdf';
 $content = $mpdf->Output($pdfname, 'I');

@@ -87,14 +87,17 @@ if (isset($_POST['update'])) {
             }
     }
 
-
+    $show_report_header=0;
+    $show_receipt_header=0;
+    if(isset($_POST['show_report_header'])) $show_report_header=1;
+    if(isset($_POST['show_receipt_header'])) $show_receipt_header=1;
     $update = Update('macho_info','id',$macho_id,
         array(
             'receipt_header' => Filter($_POST['receipt_header']),
             'report_header' => Filter($_POST['report_header']),
             'report_footer' => Filter($_POST['report_footer']),
-            'show_report_header' => Filter($_POST['show_report_header']),
-            'show_receipt_header' => Filter($_POST['show_receipt_header']),
+            'show_report_header' => $show_report_header,
+            'show_receipt_header' => $show_receipt_header,
             'prefix' => Filter($_POST['prefix'])
         )
     );
