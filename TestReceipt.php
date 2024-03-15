@@ -62,7 +62,7 @@ if($header == 1){
         $html = $html . '<h6 style="color:black;font-weight: bold;text-align:left">' . $OrgInfo['report_header'] . '</h6>
         ';
     }else{
-        $html = $html . '<br/><br/><br/><br/><br/>';
+        $html = $html . '<br/><br/><br/><br/><br/><br/>';
     }
 }
 ?>
