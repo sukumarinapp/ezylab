@@ -1,18 +1,18 @@
 <?php
 date_default_timezone_set("Asia/Kolkata");
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 if ($_SERVER['HTTP_HOST'] == "localhost") {
     define('DBHOST', 'localhost');
     define('DBNAME', 'eazy_lab');
-    define('DBUSER', 'root');
-    define('DBPASS', '');
+    define('DBUSER', 'grainbow');
+    define('DBPASS', 'Grainbow123$');
 } else {
     define('DBHOST', 'localhost');
-    define('DBNAME', 'eazy_lab');
-    define('DBUSER', 'root');
-    define('DBPASS', '');
+    define('DBNAME', 'dream_lims');
+    define('DBUSER', 'grainbow');
+    define('DBPASS', 'Grainbow123$');
 }
 
 $conn = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);

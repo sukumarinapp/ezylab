@@ -360,9 +360,9 @@ $html=$html.'</td>
 
 $content = ob_get_clean();
 $mpdf = new \Mpdf\Mpdf();
-// $mpdf->watermarkAngle = 30;
-// $mpdf->SetWatermarkText('DEMO REPORT');
-// $mpdf->showWatermarkText = true;
+$mpdf->watermarkAngle = 30;
+$mpdf->SetWatermarkText('DEMO REPORT');
+$mpdf->showWatermarkText = true;
 $mpdf->WriteHTML($html);
 $pdfname = $PatientInfo['P_code'] . '-'.$PatientInfo['P_name'].'.pdf';
 $content = $mpdf->Output($pdfname, 'I');
