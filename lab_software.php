@@ -101,14 +101,14 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="white-bg p-md-5 p-3 d-inline-block">
-        <h1 class="text-theme">Our  <span class="text-black"> Products </span></h1>
+        <h1 class="text-theme">Lab  <span class="text-black"> Software </span></h1>
         <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="las la-home me-1"></i>Home</a>
             </li>
             <li class="breadcrumb-item">Pages
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Our  Products</li>
+            <li class="breadcrumb-item active" aria-current="page">Lab Software</li>
           </ol>
         </nav>
         </div>
@@ -339,9 +339,7 @@
                       <i class="las la-star"></i>
                     </span>
           <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
 </p>
-        
         </div>
       </div>
 	  <div class="col-lg-6">
@@ -499,21 +497,12 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         
         </div>
       </div>
     </div>
-	
-
-</section>
-
- 
-
-
-</div>
+	</section>
 </div>
 
 <!-- Cart Modal -->
