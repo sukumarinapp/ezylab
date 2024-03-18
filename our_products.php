@@ -101,14 +101,14 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="white-bg p-md-5 p-3 d-inline-block">
-        <h1 class="text-theme">LaB <span class="text-black">Software </span></h1>
+        <h1 class="text-theme">Our <span class="text-black"> Products </span></h1>
         <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="las la-home me-1"></i>Home</a>
             </li>
             <li class="breadcrumb-item">Pages
             </li>
-            <li class="breadcrumb-item active" aria-current="page">LaB Software</li>
+            <li class="breadcrumb-item active" aria-current="page">Our Products</li>
           </ol>
         </nav>
         </div>
@@ -124,8 +124,8 @@
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/Log in 1.PNG" data-src="frontend/images/product/Log in 1.PNG">
-            <img class="img-fluid w-100" src="frontend/images/product/Log in 1.PNG" alt="" />
+          <li data-thumb="frontend/images/product/ichroma.jpg" data-src="frontend/images/product/ichroma.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/ichroma.jpg" alt="" />
           </li>
          
         </ul>
@@ -133,7 +133,7 @@
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Login
+          ichroma™ II
         </h3>
           <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
@@ -143,9 +143,7 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         
         </div>
       </div>
@@ -154,7 +152,7 @@
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Dashboard
+       Software
         </h3>
           <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
@@ -164,16 +162,13 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
-        
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         </div>
       </div>
 	  <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/Dhasbord 1 owner login.PNG" data-src="frontend/images/product/Dhasbord 1 owner login.PNG">
-            <img class="img-fluid w-100" src="frontend/images/product/Dhasbord 1 owner login.PNG" alt="" />
+          <li data-thumb="frontend/images/product/Software_products.jpg" data-src="frontend/images/product/Software_products.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Software_products.jpg" alt="" />
           </li>
          
         </ul>
@@ -182,8 +177,8 @@
 	<div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/Patient  dedtails owner login.PNG" data-src="frontend/images/product/Patient  dedtails owner login.PNG">
-            <img class="img-fluid w-100" src="frontend/images/product/Patient  dedtails owner login.PNG" alt="" />
+          <li data-thumb="frontend/images/product/RX-50.jpg" data-src="frontend/images/product/RX-50.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/RX-50.jpg" alt="" />
           </li>
          
         </ul>
@@ -191,9 +186,9 @@
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Patient Details
+          RX 50
         </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">If "micro lab RX 50" is related to a medical device, laboratory equipment, or any other specific field.</span>
           </div> <span class="text-warning">
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
@@ -201,7 +196,7 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+          <p class="my-4">As of my last knowledge update in January 2022, I don't have specific information about a product called "micro lab RX 50." It's possible that this could be a product or device developed or released after that date, or it might be a specific product from a company not widely known at that time.
 
 </p>
         
@@ -211,10 +206,12 @@
 	<div class="row">
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
+          <h6> Auto Hematology Analyzer</h6>
           <h3>
-       Dashboard
+          BC-20s
         </h3>
-          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">At Mindray we pride ourselves on our dedication and experience in developing better solutions for small labs.
+</span>
           </div> <span class="text-warning">
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
@@ -222,28 +219,51 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         
         </div>
       </div>
 	  <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/ichroma.jpg" data-src="frontend/images/product/ichroma.jpg">
-            <img class="img-fluid w-100" src="frontend/images/product/ichroma.jpg" alt="" />
+          <li data-thumb="frontend/images/product/BC-20s.jpg" data-src="frontend/images/product/BC-20s.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/BC-20s.jpg" alt="" />
           </li>
          
         </ul>
       </div>
     </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/ST-200-CL-ELECTROLYTE-ANALYZER.jpg" data-src="frontend/images/product/ST-200-CL-ELECTROLYTE-ANALYZER.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/ST-200-CL-ELECTROLYTE-ANALYZER.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          ST-200 CL ELECTROLYTE ANALYZER
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">The "ST-200 PLUS" suggests that it's an advanced or upgraded version of a product line, possibly an electrolyte analyzer with additional features or improved capabilities.</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">As of my last knowledge update in January 2022, I don't have specific details about the "ST-200 CL ELECTROLYTE ANALYZER." It seems to be a product released or updated after that date. However, based on the name, it is likely related to electrolyte analysis, a process used to measure the concentration of electrolytes in bodily fluids like blood.
+
+
+</p>
+        
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
- 
-
-
-</div>
 </div>
 
 <!-- Cart Modal -->
