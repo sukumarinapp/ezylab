@@ -155,6 +155,14 @@ $colour = $TestTypeData['colour'];
                                                         <?php
                                                     } ?>
                                                     <?php } ?> 
+                                                    <?php
+                                                    if ($PageAccessible['is_write'] == 1) { ?>
+                                                    <?php if ($validation) { ?>
+                                                        <button class="btn btn-danger" title="<?= $BillData['id']; ?>Delete Test" onclick="Delete('<?= $BillData['id']; ?>');">
+                                                            <em class="fa fa-trash"></em></button>
+                                                        <?php
+                                                    } ?>
+                                                    <?php } ?> 
                                                 </div>
                                             </td>
                                         </tr>
@@ -481,6 +489,42 @@ $(document).ready(function() {
 			table.buttons().container()
 				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
 		} );
+
+        function Delete(id, doctorname) {
+        swal({
+          title: 'Are you sure?',
+          text: "You will not be able to recover this Entry!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+      }).then(function(result) {
+        if(result.value){
+          $.ajax({
+            type: "POST",
+            url: "DeleteTest.php",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                if (response == '1') {
+                    swal("Deleted!", "Selected Test Entry has been deleted!", "success");
+                    location.href = "TestEntry";
+                } else {
+                    swal({
+                        title: "Oops!",
+                        text: "Something Wrong...",
+                        imageUrl: 'vendor/bootstrap-sweetalert/assets/error_icon.png'
+                    });
+                }
+            }
+        });
+      }else{
+        swal("Cancelled", "Your Entry Data is safe :)", "error");
+    }
+})
+  }
 </script>
 </body>
 
