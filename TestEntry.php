@@ -158,7 +158,7 @@ $colour = $TestTypeData['colour'];
                                                     <?php
                                                     if ($PageAccessible['is_write'] == 1) { ?>
                                                     <?php if ($validation) { ?>
-                                                        <button class="btn btn-danger" title="<?= $BillData['id']; ?>Delete Test" onclick="Delete('<?= $BillData['id']; ?>');">
+                                                        <button class="btn btn-danger" title="Delete Test" onclick="Delete('<?= $BillData['id']; ?>');">
                                                             <em class="fa fa-trash"></em></button>
                                                         <?php
                                                     } ?>
