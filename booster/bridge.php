@@ -6,8 +6,8 @@ date_default_timezone_set("Asia/Kolkata");
 if ($_SERVER['HTTP_HOST'] == "localhost") {
     define('DBHOST', 'localhost');
     define('DBNAME', 'eazy_lab');
-    define('DBUSER', 'grainbow');
-    define('DBPASS', 'Grainbow123$');
+    define('DBUSER', 'root');
+    define('DBPASS', '');
 } else {
     define('DBHOST', 'localhost');
     define('DBNAME', 'dream_lims');
