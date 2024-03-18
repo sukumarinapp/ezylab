@@ -120,12 +120,12 @@
 <div class="page-content">
 
 <section>
-  <div class="container">
+<div class="container">
     <div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/1.jpeg" data-src="frontend/images/product/1.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/1.jpeg" alt="" />
+          <li data-thumb="frontend/images/product/Login_in_1.jpg" data-src="frontend/images/product/Login_in_1.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Login_in_1.jpg" alt="" />
           </li>
          
         </ul>
@@ -133,7 +133,7 @@
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Login
+       Login in 1
         </h3>
           <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
@@ -143,18 +143,17 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         
         </div>
       </div>
     </div>
+    <br></br>
 	<div class="row">
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Dashboard
+       Dashboard 1 Owner Login
         </h3>
           <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
@@ -164,26 +163,25 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         
         </div>
       </div>
 	  <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/2.jpeg" data-src="frontend/images/product/2.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/2.jpeg" alt="" />
+          <li data-thumb="frontend/images/product/Dhasbord_1_owner_login.jpg" data-src="frontend/images/product/Dhasbord_1_owner_login.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Dhasbord_1_owner_login.jpg" alt="" />
           </li>
          
         </ul>
       </div>
     </div>
+    <br></br>
 	<div class="row">
       <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/3.jpeg" data-src="frontend/images/product/3.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/3.jpeg" alt="" />
+          <li data-thumb="frontend/images/product/lab_tech_login_1.jpg" data-src="frontend/images/product/lab_tech_login_1.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/lab_tech_login_1.jpg" alt="" />
           </li>
          
         </ul>
@@ -191,7 +189,7 @@
       <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Login
+       Lab Tech Login 1
         </h3>
           <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
@@ -201,18 +199,16 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
-        
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         </div>
       </div>
     </div>
+  <br></br>
 	<div class="row">
-      <div class="col-lg-6 mt-5 mt-lg-0">
+     <div class="col-lg-6 mt-5 mt-lg-0">
         <div class="product-details">
           <h3>
-       Dashboard
+       Lab Tech Login 2
         </h3>
           <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
           </div> <span class="text-warning">
@@ -222,22 +218,296 @@
                       <i class="las la-star"></i>
                       <i class="las la-star"></i>
                     </span>
-          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
-
-</p>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.</p>
         
         </div>
       </div>
 	  <div class="col-lg-6">
         <ul id="imageGallery">
-          <li data-thumb="frontend/images/product/4.jpeg" data-src="frontend/images/product/4.jpeg">
-            <img class="img-fluid w-100" src="frontend/images/product/4.jpeg" alt="" />
+          <li data-thumb="frontend/images/product/Lab_tech_login_2.jpg" data-src="frontend/images/product/Lab_tech_login_2.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Lab_tech_login_2.jpg" alt="" />
           </li>
          
         </ul>
       </div>
     </div>
   </div>
+  <br></br>
+  <div class="row">
+      <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/Patient_dedtails_owner_login.jpg" data-src="frontend/images/product/Patient_dedtails_owner_login.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Patient_dedtails_owner_login.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Patient Details Owner Login
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+    </div>
+    <br></br>
+	<div class="row">
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Monthly Statement by Dr Or sel Refer
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+	  <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/monthly_statement_by_Dr_Or_sel_Refer.jpg" data-src="frontend/images/product/monthly_statement_by_Dr_Or_sel_Refer.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/monthly_statement_by_Dr_Or_sel_Refer.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/bill_details_owner_login.jpg" data-src="frontend/images/product/bill_details_owner_login.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/bill_details_owner_login.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Bill Details Owner Login
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+    </div>
+    
+	<div class="row">
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Payment Detail Owner Login
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+	  <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/payment_Detail_owner_login.jpg" data-src="frontend/images/product/payment_Detail_owner_login.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/payment_Detail_owner_login.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br></br>
+  <div class="row">
+      <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/report_detail_owner_login.jpg" data-src="frontend/images/product/report_detail_owner_login.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/report_detail_owner_login.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Report Detail Owner Login
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+    </div>
+    <br></br>
+	<div class="row">
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Report Preview
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+	  <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/Repor_ preview.jpg" data-src="frontend/images/product/Repor_ preview.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Repor_ preview.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/Report_page_2.jpg" data-src="frontend/images/product/Report_page_2.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Report_page_2.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Report Page 2
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+    </div>
+    <br></br>
+	<div class="row">
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Report Enter Page Owner and Lab Tech
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+	  <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/Report_enter_page_owner_and_lab_tech.jpg" data-src="frontend/images/product/Report_enter_page_owner_and_lab_tech.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/Report_enter_page_owner_and_lab_tech.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br></br>
+  <div class="row">
+      <div class="col-lg-6">
+        <ul id="imageGallery">
+          <li data-thumb="frontend/images/product/complete_ report.jpg" data-src="frontend/images/product/complete_ report.jpg">
+            <img class="img-fluid w-100" src="frontend/images/product/complete_ report.jpg" alt="" />
+          </li>
+         
+        </ul>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <div class="product-details">
+          <h3>
+          Completed Report
+        </h3>
+          <div class="mt-3 mb-1"> <span class="product-price"><del class="text-muted">A compact and easy-to-use, fluorescence based POCT immunoassay analyzer</span>
+          </div> <span class="text-warning">
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                      <i class="las la-star"></i>
+                    </span>
+          <p class="my-4">ichroma™ II is a compact, easy-to-use diagnostic immuno-analyzer to measure the presence of various biomarkers for cardiac, cancer, hormones, infectious diseases, autoimmune diseases, and metabolic diseases.
+
+</p>
+        
+        </div>
+      </div>
+    </div>
+	
+
 </section>
 
  
