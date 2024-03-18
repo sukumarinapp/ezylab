@@ -165,11 +165,10 @@
          </div>
       </div>
    </div>
-   <input type="hidden" value="<?php echo $user_id ?>" id="user_id">
    <?php include ("js.php"); ?>
    <script>
       		$(".switcher li").on("click", function() {
-         var userid = $("#user_id").val();
+         var userid = "<?php echo $user_id ?>";
          var theme = this.id;
          $.ajax({
             url: "savetheme.php",

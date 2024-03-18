@@ -525,6 +525,21 @@ $(document).ready(function() {
     }
 })
   }
+
+  $(".switcher li").on("click", function() {
+         var userid = "<?php echo $user_id ?>";
+         var theme = this.id;
+         $.ajax({
+            url: "savetheme.php",
+            type: "post",
+            data: {
+                userid: userid,
+                theme: theme,
+            },
+            success: function(data) {
+            }
+        });
+        })
 </script>
 </body>
 

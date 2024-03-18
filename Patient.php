@@ -45,7 +45,6 @@ $colour = $TestTypeData['colour'];
 ?>
 
 <body class="bg-theme bg-<?php echo $colour ?>">
-<!-- <body class="bg-theme bg-theme2"> -->
     <?php
     if (isset($_POST['add_patient'])) {
 
@@ -696,6 +695,21 @@ $(document).ready(function() {
 			table.buttons().container()
 				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
 		} );
+
+        $(".switcher li").on("click", function() {
+         var userid = "<?php echo $user_id ?>";
+         var theme = this.id;
+         $.ajax({
+            url: "savetheme.php",
+            type: "post",
+            data: {
+                userid: userid,
+                theme: theme,
+            },
+            success: function(data) {
+            }
+        });
+        })
 </script>
 </body>
 </html>
